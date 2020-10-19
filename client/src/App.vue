@@ -1,11 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>
-    <router-view/>
+    <v-app>
+      <Navbar />
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-app>
   </div>
 </template>
+
+<script>
+import Navbar from "./components/Navbar.vue";
+
+export default {
+  name: "App",
+  components: { Navbar },
+};
+</script>
 
 <style lang="scss">
 @use './assets/styles/variables.scss' as v;
@@ -15,19 +26,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: v.$test;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  // background-color: v.$main-bkgrnd;
+  // color: v.$main-white;
 }
 </style>
