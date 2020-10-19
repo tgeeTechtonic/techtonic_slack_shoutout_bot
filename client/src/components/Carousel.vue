@@ -6,7 +6,7 @@
     height="300"
     :show-arrows="false"
   >
-    <v-carousel-item v-for="(shout, i) in shouts" :key="i">
+    <v-carousel-item v-for="(shout, i) in mockData" :key="i">
       <v-sheet height="100%" tile>
         <v-row align="center" justify="center">
           <div class="display-4">Shoutout: {{ shout.shoutout }}</div>
@@ -25,18 +25,7 @@ export default {
   name: "Carousel",
   data: () => ({
     model: 0,
-    shouts: [
-      {
-        shouter: "Brian",
-        shoutee: "Elliot",
-        shoutout: "Things and stuff",
-      },
-      {
-        shouter: "Steve",
-        shoutee: "Bruce",
-        shoutout: "whu whu",
-      },
-    ],
+    shouts: null,
   }),
 };
 </script>
