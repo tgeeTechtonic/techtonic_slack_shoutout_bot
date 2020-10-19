@@ -1,15 +1,12 @@
 <template>
-  <h1>Hello World</h1>
+  <Carousel />
 </template>
 
 <script>
-// @ is an alias to /src
-
+import Carousel from "../components/Carousel.vue";
 
 export default {
-  name: 'Home',
-  components: {
-
-  }
-}
+  name: "Home",
+  components: { Carousel },
+};
 </script>
