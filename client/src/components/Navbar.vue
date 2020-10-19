@@ -10,9 +10,6 @@
 <script>
 export default {
   name: "Navbar",
-  created() {
-    console.log(this.color);
-  },
   methods: {},
 };
 </script>
