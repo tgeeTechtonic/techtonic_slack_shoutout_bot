@@ -26,7 +26,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  // background-color: v.$main-bkgrnd;
-  // color: v.$main-white;
+  background-color: v.$main-bkgrnd;
+  color: v.$main-white;
 }
 </style>
