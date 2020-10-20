@@ -9,8 +9,9 @@ export const getData = async (url) => {
   }
 };
 
-export const mockGetData = () => {
-  return new Promise((resolve) => {
+export const mockGetData = async () => {
+  return await new Promise((resolve) => {
     setTimeout(() => resolve(mockShoutData), 1500);
   });
+  // return await mockShoutData;
 };

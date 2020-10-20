@@ -1,23 +1,21 @@
 <template>
-  <Carousel />
+  <Carousel v-if="recentShouts.length" :recentShouts="recentShouts"/>
 </template>
 
 <script>
 import { mockGetData } from "../apiCall";
 import Carousel from "../components/Carousel.vue";
-import { mockShoutData } from "../shared/mockData";
 
 export default {
   name: "Home",
   components: { Carousel },
-  data: () => {
+  data () {
     return {
-      recentShouts: null,
+      recentShouts: [],
     };
   },
-  created: async () => {
+  async created() {
     this.recentShouts = await mockGetData();
-    console.log("shit-tastic");
   },
 };
 </script>
