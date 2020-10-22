@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/shoutout-app',
+    connection: 'postgres://localhost/shoutoutapp',
     useNullAsDefault: true,
     migrations: {
       directory: './db/migrations',
