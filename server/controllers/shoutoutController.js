@@ -6,7 +6,10 @@ const shoutoutController = {
   getRecentShoutouts: async () => {
     return await db('shoutouts')
       .select()
-      .then((shoutouts) => shoutouts);
+      .then((shoutouts) => {
+        const sorted = shoutouts.sort((a, b) => b.date - a.date);
+        return sorted.slice(0, 4);
+      });
   },
 };
 
