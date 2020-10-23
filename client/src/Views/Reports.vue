@@ -1,38 +1,31 @@
 <template>
-<div class='reports-container'>
-  <h2>Reports</h2>
-  <v-data-table
-    :headers="tableHeaders"
-    :items="recentShouts"
-    item-key="shoutId"
-    class="elevation-1"
-    >
-  </v-data-table>
-
-</div>
+  <div class="reports-container">
+    <h2 @click="createHeaders(recentShouts[0])">Reports</h2>
+    <Table :data="recentShouts" />
+  </div>
 </template>
 
 <script>
 import { mockGetData } from "../apiCall";
+import Table from "../components/Table";
 
 export default {
   name: "Reports",
+  components: { Table },
   data() {
     return {
-      tableHeaders: [
-        {
-          text: 'Shoutee',
-          align: 'start',
-          value: 'shoutee.first_name' },
-        { text: 'Shouter', value: 'shouter.first_name' },
-        { text: 'Company Value', value: 'values' },
-        { text: 'Date', value: 'date' },
-        { text: 'Slack ID', value: 'shouter.slack_handle' },
-      ],
       recentShouts: [],
-    }
+    };
   },
-  async created () {
+  computed: {
+    headers() {
+      return this.createHeaders(this.recentShouts);
+    },
+    formattedShoutouts() {
+      return 1;
+    },
+  },
+  async created() {
     this.recentShouts = await mockGetData();
   },
 };

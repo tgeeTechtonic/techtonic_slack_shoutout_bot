@@ -13,5 +13,4 @@ export const mockGetData = async () => {
   return await new Promise((resolve) => {
     setTimeout(() => resolve(mockShoutData), 1500);
   });
-  // return await mockShoutData;
 };
