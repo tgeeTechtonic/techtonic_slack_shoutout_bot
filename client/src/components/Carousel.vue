@@ -8,6 +8,9 @@
   >
     <v-carousel-item v-for="(shout, i) in shouts" :key="i">
       <v-sheet height="100%" :style="bgImgStyle(i)" tile>
+        <v-row align="center" class="carousel__company-value" justify="center">
+          {{ shout.values }}
+        </v-row>
         <v-row
           align="center"
           class="carousel__shoutout-message"
@@ -41,7 +44,6 @@ export default {
   props: ['recentShouts'],
   data() {
     return {
-      messageFontSize: 3,
       model: 0,
       shouts: null,
     };
@@ -57,12 +59,11 @@ export default {
       return name.split('')[0].toUpperCase() + name.slice(1);
     },
     getFontSizeBy(length) {
-      if (length < 115) return 4;
-      else if (length >= 115 && length < 225) return 3;
-      else if (length >= 225 && length < 505) return 2;
-      else if (length >= 505 && length < 895) return 1.5;
-      else if (length >= 895 && length < 1310) return 1.25;
-      else if (length >= 1310 && length < 2275) return 1;
+      if (length < 165) return 3;
+      else if (length >= 165 && length < 410) return 2;
+      else if (length >= 410 && length < 775) return 1.5;
+      else if (length >= 775 && length < 1070) return 1.25;
+      else if (length >= 1070 && length < 1825) return 1;
       else return 0.75;
     },
     bgImgStyle(index) {
@@ -91,6 +92,13 @@ export default {
 .carousel {
   &__shoutout-identifier {
     color: v.$accent-blue;
+  }
+  &__company-value {
+    background-color: v.$main-black-overlay;
+    border-radius: 15px;
+    font-size: 3rem;
+    margin: 10px 50px 0;
+    padding: 0 10px;
   }
   &__shoutout-message {
     background-color: v.$main-black-overlay;
