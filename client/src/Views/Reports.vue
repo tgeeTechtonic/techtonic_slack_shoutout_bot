@@ -7,6 +7,7 @@
 
 <script>
 import { mockGetData } from "../apiCall";
+import { shoutsFormatter } from "../shared/formatters";
 import Table from "../components/Table";
 
 export default {
@@ -26,7 +27,7 @@ export default {
     },
   },
   async created() {
-    this.recentShouts = await mockGetData();
+    this.recentShouts = shoutsFormatter(await mockGetData());
   },
 };
 </script>
