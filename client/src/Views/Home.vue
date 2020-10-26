@@ -1,15 +1,17 @@
 <template>
-  <Carousel v-if="recentShouts.length" :recentShouts="recentShouts"/>
+  <article class="carousel-display">
+    <Carousel v-if="recentShouts.length" :recentShouts="recentShouts" />
+  </article>
 </template>
 
 <script>
-import { mockGetData } from "../apiCall";
-import Carousel from "../components/Carousel.vue";
+import { mockGetData } from '../apiCall';
+import Carousel from '../components/Carousel.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: { Carousel },
-  data () {
+  data() {
     return {
       recentShouts: [],
     };
@@ -19,3 +21,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.carousel-display {
+  padding: 50px;
+}
+</style>
