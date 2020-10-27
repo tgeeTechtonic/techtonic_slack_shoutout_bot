@@ -9,7 +9,7 @@
     <v-carousel-item v-for="(shout, i) in shouts" :key="i">
       <v-sheet height="100%" :style="bgImgStyle(i)" tile>
         <v-row align="center" class="carousel__company-value" justify="center">
-          {{ shout.values }}
+          {{ shout.company_value }}
         </v-row>
         <v-row
           align="center"
@@ -17,20 +17,20 @@
           justify="center"
           :style="{ fontSize: shout.fontSize + 'rem' }"
         >
-          {{ shout.shoutout }}
+          {{ shout.message }}
         </v-row>
         <v-row align="end" justify="center">
           <div class="display-1 carousel__shoutout-user">
             <span class="carousel__shoutout-identifier">
               Shoutee:
             </span>
-            {{ capitalizeName(shout.shoutee.first_name) }}
+            {{ capitalizeName(shout.shoutee) }}
           </div>
           <div class="display-1 carousel__shoutout-user">
             <span class="carousel__shoutout-identifier">
               Shouter:
             </span>
-            {{ capitalizeName(shout.shouter.first_name) }}
+            {{ capitalizeName(shout.shouter) }}
           </div>
         </v-row>
       </v-sheet>
@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     this.shouts = this.$props.recentShouts.map((shout) => {
-      shout.fontSize = this.getFontSizeBy(shout.shoutout.length);
+      shout.fontSize = this.getFontSizeBy(shout.message.length);
       return shout;
     });
   },
