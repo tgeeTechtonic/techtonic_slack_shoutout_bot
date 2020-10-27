@@ -17,6 +17,22 @@ const shoutoutController = {
         return filteredShoutouts;
       });
   },
+  getAllShoutOuts: async () => {
+    return await db("shoutouts")
+    .select()
+    .then((shoutouts) => {
+      return shoutouts.sort((a, b) => b.date - a.date);
+    })
+    .then((shoutouts) => {
+      let shoutoutPromises = shoutouts.map((shout) => {
+        return createShoutoutRes(db, shout);
+      })
+      return Promise.all(shoutoutPromises);
+    })
+    .then((formatedShoutouts) => {
+      return formatedShoutouts;
+    })
+  }
 };
 
 const createShoutoutRes = async (db, shout) => {

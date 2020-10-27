@@ -1,11 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getRecentShouts = async () => {
-  const url = 'http://localhost:8081/api/recents';
+  const url = "http://localhost:8081/api/recents";
   try {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const getAllShouts = async () => {
+  const url = "http://localhost:8081/api/shoutouts";
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
