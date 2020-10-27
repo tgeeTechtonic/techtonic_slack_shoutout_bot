@@ -19,7 +19,6 @@ export default {
   async created() {
     let recents = await getRecentShouts();
     this.recentShouts = recents;
-    console.log('created Shouts', this.recentShouts)
   },
 };
 </script>
