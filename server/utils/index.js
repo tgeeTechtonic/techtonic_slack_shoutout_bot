@@ -1,13 +1,23 @@
 exports.parseReqData = ({ channel_name, text }) => {
+  /*
+   *SLACK DATA:
+   *SPLIT WORKFLOW ANSWER AND FIND BEGINNING CHARS OF SLACK ID --> <@
+   *GRAB JUST ALPHANUMERIC CHARS AND DROP THE BEGINNING 2 CHARS AND LAST CHAR
+   */
   const slack_users = text
-    .replace(',', '')
-    .replace('!', ' ')
     .split(' ')
-    .filter((word) => word.includes('@'))
+    .filter((word) => word.includes('<@'))
     .map((word) => word.slice(2, word.length - 1));
-  // TODO: HARDCODED UNTIL COMPANY VALUES CAN BE PARSED FROM SLACK RESPONSE
-  const company_value = 'N/A';
-  const shoutout_message = text.split('\n')[3].slice(5).trim();
+  /*
+   *SLACK DATA:
+   *SPLIT ON WORKFLOW ANSWER BY USING UNIQUE TEXT OF -- &GT;
+   *SHOUTOUT MESSAGE: GRAB THE TEXT FOLLOWING THE 1ST OCCURRENCE **INDEX 1
+   *COMPANY VALUE: GRAB THE TEXT FOLLOWING THE 2ND OCCURRENCE **INDEX 2
+   *
+   *SPLIT AGAIN ON EACH TO GRAB WHAT IS NEEDED AND TRIM EXTRA WHITESPACE OFF
+   */
+  const shoutout_message = text.split('&gt;')[1].split('\n')[0].trim();
+  const company_value = text.split('&gt;')[2].split('\n')[0].trim();
 
   return {
     channel_name,
