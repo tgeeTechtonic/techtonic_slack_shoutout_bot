@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mockGetData } from '../apiCall';
+import { getRecentShouts } from '../apiCall';
 import Carousel from '../components/Carousel.vue';
 
 export default {
@@ -17,7 +17,8 @@ export default {
     };
   },
   async created() {
-    this.recentShouts = await mockGetData();
+    let recents = await getRecentShouts();
+    this.recentShouts = recents;
   },
 };
 </script>

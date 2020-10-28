@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mockGetData } from "../apiCall";
+import { getAllShouts } from "../apiCall";
 import { shoutsFormatter } from "../shared/formatters";
 import Table from "../components/Table";
 
@@ -27,7 +27,7 @@ export default {
     },
   },
   async created() {
-    this.recentShouts = shoutsFormatter(await mockGetData());
+    this.recentShouts = shoutsFormatter(await getAllShouts());
   },
 };
 </script>
