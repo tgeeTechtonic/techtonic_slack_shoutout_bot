@@ -1,5 +1,4 @@
 const express = require('express');
-// const { environment } = require('./dbConfig');
 
 const app = express();
 
