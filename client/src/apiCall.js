@@ -1,16 +1,21 @@
-import axios from 'axios';
-import { mockShoutData } from './shared/mockData';
+import axios from "axios";
 
-export const getData = async (url) => {
+export const getRecentShouts = async () => {
+  const url = "http://localhost:8081/api/recents";
   try {
-    return await (await axios.get(url)).data;
-  } catch (e) {
-    console.log(e);
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const mockGetData = async () => {
-  return await new Promise((resolve) => {
-    setTimeout(() => resolve(mockShoutData), 1500);
-  });
+export const getAllShouts = async () => {
+  const url = "http://localhost:8081/api/shoutouts";
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };

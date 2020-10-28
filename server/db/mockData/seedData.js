@@ -97,7 +97,7 @@ let seedData = {
       date: "Mon Oct 19 2020",
       message: "For sending everyone pumpkins.",
       channel_name: "general",
-      shouter: 4,
+      shouter: 5,
       shoutee: 3,
       company_value: 5,
     },

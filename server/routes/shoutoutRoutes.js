@@ -8,7 +8,16 @@ router.get('/recents', async (req, res) => {
     res.status(200).json(shoutouts);
   } catch (err) {
     res.status(500).json({ err });
-  }
+  };
 });
+
+router.get('/shoutouts', async (req, res) => {
+  try {
+    const shoutouts = await shoutoutController.getAllShoutOuts();
+    res.status(200).json(shoutouts);
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+})
 
 module.exports = router;
