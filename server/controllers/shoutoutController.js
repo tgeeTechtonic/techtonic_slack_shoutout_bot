@@ -1,45 +1,36 @@
-const { db } = require("../dbConfig");
+const { db } = require('../dbConfig');
 
 const shoutoutController = {
   getRecentShoutouts: async () => {
-    return await db("shoutouts")
+    return await db('shoutouts')
       .select()
-      .then((shoutouts) => {
-        return shoutouts.sort((a, b) => b.date - a.date).slice(0, 5);
-      })
       .then((shouts) => {
-        let shoutoutPromises = shouts.map((shout) => {
-          return createShoutoutRes(db, shout);
-        });
+        const shoutoutPromises = shouts
+          .sort((a, b) => b.date - a.date)
+          .slice(0, 5)
+          .map((shout) => createShoutoutRes(db, shout));
         return Promise.all(shoutoutPromises);
       })
-      .then((filteredShoutouts) => {
-        return filteredShoutouts;
-      });
+      .then((filteredShoutouts) => filteredShoutouts);
   },
   getAllShoutOuts: async () => {
-    return await db("shoutouts")
-    .select()
-    .then((shoutouts) => {
-      return shoutouts.sort((a, b) => b.date - a.date);
-    })
-    .then((shoutouts) => {
-      let shoutoutPromises = shoutouts.map((shout) => {
-        return createShoutoutRes(db, shout);
+    return await db('shoutouts')
+      .select()
+      .then((shoutouts) => {
+        const shoutoutPromises = shoutouts
+          .sort((a, b) => b.date - a.date)
+          .map((shout) => createShoutoutRes(db, shout));
+        return Promise.all(shoutoutPromises);
       })
-      return Promise.all(shoutoutPromises);
-    })
-    .then((formatedShoutouts) => {
-      return formatedShoutouts;
-    })
-  }
+      .then((formatedShoutouts) => formatedShoutouts);
+  },
 };
 
 const createShoutoutRes = async (db, shout) => {
-  let shouter = await db("users").where("id", shout.shouter).first();
-  let shoutee = await db("users").where("id", shout.shoutee).first();
-  let companyValue = await db("company_values")
-    .where("id", shout.company_value)
+  const shouter = await db('users').where('id', shout.shouter).first();
+  const shoutee = await db('users').where('id', shout.shoutee).first();
+  const companyValue = await db('company_values')
+    .where('id', shout.company_value)
     .first();
 
   return {
