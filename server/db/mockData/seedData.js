@@ -125,6 +125,30 @@ let seedData = {
       shoutee: 2,
       company_value: 1,
     },
+    {
+      date: "Tues Nov 13 2020",
+      message: "Bringing their dog into work.",
+      channel_name: "general",
+      shouter: 4,
+      shoutee: 2,
+      company_value: 1,
+    },
+    {
+      date: "Tues Dec 13 2020",
+      message: "Bringing their dog into work.",
+      channel_name: "general",
+      shouter: 4,
+      shoutee: 2,
+      company_value: 1,
+    },
+    {
+      date: "Tues Dec 13 2019",
+      message: "Bringing their dog into work.",
+      channel_name: "general",
+      shouter: 4,
+      shoutee: 2,
+      company_value: 1,
+    },
   ],
 };
 
