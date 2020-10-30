@@ -29,20 +29,20 @@ export const rankedShouters = (shoutouts) => {
       foundShouter.shoutouts.push(shoutout.shoutout)
       }
     }
-    return acc.sort((a, b) => {b.shoutouts.length - a.shoutouts.length});
+    return acc.sort((a, b) => b.shoutouts.length - a.shoutouts.length);
   }, []);
 
   return createRankedObj(reducedObj)
 }
 
 const createRankedObj = (users) => {
-  
-  return users.map((user, index) => {
+  const sorted = users.map((user, index) => {
     return {
       monthly_rank: index + 1,
       shouter: user.shouter,
       number_of_shoutouts: user.shoutouts.length
     }
   })
+  return sorted;
 }
 
