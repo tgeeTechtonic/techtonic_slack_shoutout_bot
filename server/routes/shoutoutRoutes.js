@@ -11,6 +11,17 @@ router.get('/recents', async (req, res) => {
   }
 });
 
+router.get('/reports', async (req, res) => {
+  const { month, year } = req.query;
+  try {
+    const shoutouts = await shoutoutController.getMonthlyShoutouts(month, year);
+    res.status(200).json(shoutouts);
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ err });
+  }
+});
+
 router.get('/shoutouts', async (req, res) => {
   try {
     const shoutouts = await shoutoutController.getAllShoutOuts();
