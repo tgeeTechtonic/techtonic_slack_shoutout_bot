@@ -39,8 +39,6 @@ export default {
       shoutsToDisplay: [],
       currentView: 'monthly',
       picker: new Date().toISOString().substr(0, 7),
-      selectedMonth: new Date().toISOString().substr(0, 7).split('-')[1],
-      selectedYear: new Date().toISOString().substr(0, 7).split('-')[0],
       shouterType: 'shouter',
     };
   },
@@ -53,20 +51,25 @@ export default {
     },
   },
   async created() {
-    const formattedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
+    const { selectedMonth, selectedYear } = this.createDateObj();
+    const formattedShouts = await getRankedByMonth(this.shouterType, selectedMonth, selectedYear);
     this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
   },
   methods: {
     changeReport: function (view) {
       this.currentView = view;
     },
+    createDateObj: function () {
+      return {
+        selectedMonth: this.picker.split('-')[1],
+        selectedYear: this.picker.split('-')[0]
+      }
+    }
   },
   watch: {
    async picker() {
-    this.selectedMonth = this.picker.split('-')[1];
-    this.selectedYear = this.picker.split('-')[0];
-     
-    const formatedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
+    const { selectedMonth, selectedYear } = this.createDateObj();
+    const formatedShouts = await getRankedByMonth(this.shouterType, selectedMonth, selectedYear);
     this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
     }
   }
