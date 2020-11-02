@@ -37,7 +37,7 @@ const shoutoutController = {
           .map((shout) => createShoutoutRes(db, shout));
         return Promise.all(shoutoutPromises);
       })
-      .then((formatedShoutouts) => formatedShoutouts);
+      .then((formattedShoutouts) => formattedShoutouts);
   },
 };
 
