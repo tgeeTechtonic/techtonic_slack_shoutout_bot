@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import { getAllShouts } from "../apiCall";
-import { shoutoutFormatter, rankedShouters } from "../shared/formatters";
+import { getRankedByMonth } from "../apiCall";
+import { rankedShoutersFormater} from "../shared/formatters";
 import Table from "../components/Table";
 
 export default {
@@ -39,6 +39,9 @@ export default {
       shoutsToDisplay: [],
       currentView: 'monthly',
       picker: new Date().toISOString().substr(0, 7),
+      selectedMonth: new Date().toISOString().substr(0, 7).split('-')[1],
+      selectedYear: new Date().toISOString().substr(0, 7).split('-')[0],
+      shouterType: 'shouter',
     };
   },
   computed: {
@@ -50,9 +53,8 @@ export default {
     },
   },
   async created() {
-    const formatedShouts = shoutoutFormatter(await getAllShouts());
-    this.shouts = formatedShouts;
-    this.shoutsToDisplay = rankedShouters(formatedShouts.filter(shout => shout.date.substr(0, 7) === this.picker));
+    const formatedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
+    this.shoutsToDisplay = rankedShoutersFormater(formatedShouts);
   },
   methods: {
     changeReport: function (view) {
@@ -60,8 +62,12 @@ export default {
     },
   },
   watch: {
-    picker() {
-      this.shoutsToDisplay = rankedShouters(this.shouts.filter(shout => shout.date.substr(0, 7) === this.picker));
+   async picker() {
+    this.selectedMonth = this.picker.split('-')[1];
+    this.selectedYear = this.picker.split('-')[0];
+     
+    const formatedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
+    this.shoutsToDisplay = rankedShoutersFormater(formatedShouts);
     }
   }
 

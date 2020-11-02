@@ -11,38 +11,14 @@ export const shoutoutFormatter = (response) => {
     };
   });
   return formatedShoutouts;
-}
+};
 
-export const rankedShouters = (shoutouts) => {
-  let result = {};
-  const reducedObj = shoutouts.reduce((acc, shoutout) => {
-    if (!result[shoutout.shouter_id]) {
-        result[shoutout.shouter_id] = {
-        shoutouts: [shoutout.shoutout],
-      };
-      acc.push({ id: shoutout.shouter_id,
-                 shouter: shoutout.shouter,
-                 shoutouts:  [shoutout.shoutout] })
-      
-    } else if(result[shoutout.shouter_id]) {
-      let foundShouter = acc.find(shouter => shouter.id === shoutout.shouter_id); {
-      foundShouter.shoutouts.push(shoutout.shoutout)
-      }
-    }
-    return acc.sort((a, b) => b.shoutouts.length - a.shoutouts.length);
-  }, []);
-
-  return createRankedObj(reducedObj)
-}
-
-const createRankedObj = (users) => {
-  const sorted = users.map((user, index) => {
+export const rankedShoutersFormater = (shouts) => {
+  return shouts.map(shout => {
     return {
-      monthly_rank: index + 1,
-      shouter: user.shouter,
-      number_of_shoutouts: user.shoutouts.length
-    }
-  })
-  return sorted;
-}
-
+      rank: shout.rank,
+      name: shout.name,
+      number_of_shoutouts_given: shout.num_shoutouts,
+    };
+  });
+};
