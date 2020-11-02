@@ -110,49 +110,58 @@ export default {
   },
   methods: {
     formatSeries(data) {
-      // order chronologically
-      // loop over incoming shoutout array and fill an object with values for keys and set to array of 30 zeros
+      // order chronologically and truncate data
+      const chronological = this.sortByTimeAndTruncate(data, this.dateRange);
+
+      // loop over chronological shoutouts,
+      // fill object with company values for keys set to array of zeros length of date range
+      const series = this.createInitialSeries(chronological, this.dateRange);
+
       // loop over with the dateRange, go through each day and check to see if any shoutouts match that day
-      // if they do, go into formattedSeries object and incrememnt the correspondin element in the correct value array
-      // loop over formattedSeries object and push all arrays into an array of arrays in order for the graph to use
+      // if yes, go into series object and incremement the corresponding element in correct value array
+      this.updateSeries(series, chronological, this.dateRange);
 
-      let formattedSeries = {};
-
-      const chronological = data
-        .sort((b, a) => a.date - b.date)
-        .slice(0, this.dateRange);
-
-      chronological.forEach((s) => {
-        formattedSeries[s.value]
-          ? null
-          : (formattedSeries[s.value] = new Array(this.dateRange).fill(0));
-      });
-
-      for (let i = this.dateRange; i >= 0; i--) {
+      // loop over series object and create correctly formatted data series for graph
+      return this.createFinalSeries(series, this.dateRange);
+    },
+    createFinalSeries(seriesObj, seriesLimit) {
+      let finalSeries = [];
+      for (const value in seriesObj) {
+        finalSeries.push({
+          name: value,
+          data: this.generateDayWiseTimeSeries(seriesObj[value], seriesLimit),
+        });
+      }
+      return finalSeries;
+    },
+    updateSeries(seriesToUpdate, updateData, seriesLimit) {
+      for (let i = seriesLimit; i >= 0; i--) {
         const date = new Date();
         const pastDate = date.getDate() - i;
         date.setDate(pastDate);
         const dateToCheck = date.toDateString();
-        chronological.forEach((s) => {
-          if (s.date === dateToCheck) {
-            formattedSeries[s.value][this.dateRange - i]++;
+
+        updateData.forEach((shoutout) => {
+          if (shoutout.date === dateToCheck) {
+            seriesToUpdate[shoutout.value][seriesLimit - i]++;
           }
         });
       }
+      return seriesToUpdate;
+    },
+    createInitialSeries(orderedData, seriesLimit) {
+      let series = {};
 
-      let seriesValues = [];
+      orderedData.forEach((s) => {
+        series[s.value]
+          ? null
+          : (series[s.value] = new Array(seriesLimit).fill(0));
+      });
 
-      for (const value in formattedSeries) {
-        seriesValues.push({
-          name: value,
-          data: this.generateDayWiseTimeSeries(
-            formattedSeries[value],
-            this.dateRange
-          ),
-        });
-      }
-
-      return seriesValues;
+      return series;
+    },
+    sortByTimeAndTruncate(data, truncateValue) {
+      return data.sort((b, a) => a.date - b.date).slice(0, truncateValue);
     },
     generateDayWiseTimeSeries(value, count) {
       var i = 0;
