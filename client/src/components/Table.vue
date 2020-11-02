@@ -5,6 +5,7 @@
       :items="data"
       item-key="shoutId"
       class="elevation-1"
+      loading="data.tableData"
     >
     </v-data-table>
   </div>
