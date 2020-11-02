@@ -1,4 +1,5 @@
 const { db } = require('../dbConfig');
+const { formatMonthlyShoutouts } = require('../utils');
 
 const shoutoutController = {
   getRecentShoutouts: async () => {
@@ -12,6 +13,20 @@ const shoutoutController = {
         return Promise.all(shoutoutPromises);
       })
       .then((filteredShoutouts) => filteredShoutouts);
+  },
+  getRankedReportByMonth: async (month, userType, year) => {
+    const numDaysInMonth = new Date(year, month, 0).getDate();
+    const firstDay = new Date(year, parseInt(month) - 1, 1);
+    const lastDay = new Date(year, parseInt(month) - 1, numDaysInMonth);
+
+    return await db('shoutouts')
+      .select()
+      .whereBetween('date', [firstDay, lastDay])
+      .orderBy('date', 'desc')
+      .then((shoutouts) =>
+        Promise.all(shoutouts.map((shout) => createShoutoutRes(db, shout)))
+      )
+      .then((shoutouts) => formatMonthlyShoutouts(shoutouts, userType));
   },
   getAllShoutOuts: async () => {
     return await db('shoutouts')
