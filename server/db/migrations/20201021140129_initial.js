@@ -12,6 +12,8 @@ exports.up = (knex) => {
     .createTable('company_values', (table) => {
       table.increments('id').primary();
       table.string('value');
+      table.string('description').defaultTo('Please add description');
+      table.boolean('active_status').defaultTo(true);
       table.timestamps(true, true);
     })
     .createTable('shoutouts', (table) => {
