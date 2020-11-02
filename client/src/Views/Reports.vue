@@ -20,7 +20,7 @@
         color="green darken-1"
         >
       </v-date-picker>
-      <Table class="reports-container__table" :data="shoutsToDisplay" />
+      <Table class="reports-container__table" :data="shoutsToDisplay" @rankView="toggleView" :type="rankView" :dateObj="this.createDateObj()"/>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
       shoutsToDisplay: [],
       currentView: 'monthly',
       picker: new Date().toISOString().substr(0, 7),
-      shouterType: 'shouter',
+      rankView: true,
     };
   },
   computed: {
@@ -52,7 +52,7 @@ export default {
   },
   async created() {
     const { selectedMonth, selectedYear } = this.createDateObj();
-    const formattedShouts = await getRankedByMonth(this.shouterType, selectedMonth, selectedYear);
+    const formattedShouts = await getRankedByMonth('shouter', selectedMonth, selectedYear);
     this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
   },
   methods: {
@@ -64,13 +64,22 @@ export default {
         selectedMonth: this.picker.split('-')[1],
         selectedYear: this.picker.split('-')[0]
       }
+    },
+    toggleView: function () {
+      this.rankView = !this.rankView;
+    }, 
+    getRankedList: async function () {
+      const { selectedMonth, selectedYear } = this.createDateObj();
+      const formatedShouts = await getRankedByMonth(this.rankView ? 'shouter' : 'shoutee', selectedMonth, selectedYear);
+      this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
     }
   },
   watch: {
-   async picker() {
-    const { selectedMonth, selectedYear } = this.createDateObj();
-    const formatedShouts = await getRankedByMonth(this.shouterType, selectedMonth, selectedYear);
-    this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
+    async picker() {
+     await this.getRankedList();
+    }, 
+   async rankView() {
+     await this.getRankedList();
     }
   }
 

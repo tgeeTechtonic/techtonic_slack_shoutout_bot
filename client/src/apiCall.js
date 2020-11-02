@@ -22,6 +22,7 @@ export const getAllShouts = async () => {
 
 export const getRankedByMonth = async (type, month, year) => {
   const url = `http://localhost:8081/api/reports/monthly?type=${type}&year=${year}&month=${month}`;
+  console.log('url', url)
   try {
     const response = await axios.get(url);
     return response.data;

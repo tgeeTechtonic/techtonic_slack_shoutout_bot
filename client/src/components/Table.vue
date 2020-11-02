@@ -8,8 +8,14 @@
     >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Table Title</v-toolbar-title>
+        <v-toolbar-title v-if="type">Most Shoutouts Given In {{selectedMonth}}</v-toolbar-title>
+        <v-toolbar-title v-else>Most Shoutouts Received In {{selectedMonth}}</v-toolbar-title>
       </v-toolbar>
+      <v-switch
+          v-model="handleToggle"
+          :label="type ? 'Toggle To Received' : 'Toggle To Given'"
+          class="mt-2"
+      ></v-switch>
     </template>
     </v-data-table>
   </div>
@@ -18,7 +24,7 @@
 <script>
 export default {
   name: "Table",
-  props: ["data"],
+  props: ["data", "type", "dateObj"],
   data() {
     return {
       tableData: [],
@@ -28,6 +34,19 @@ export default {
     headers() {
       return this.createHeaders(this.tableData[0]);
     },
+    handleToggle: {
+      get() {
+        return this.type;
+      },
+      set(type) {
+        this.$emit('rankView', type)
+      }
+    },
+    selectedMonth() {
+      const month = new Date(this.dateObj.selectedYear, this.dateObj.selectedMonth - 1, 1 )
+      const monthName = month.toLocaleString("default", { month: "long" })
+      return monthName;
+    }
   },
   methods: {
     createHeaders(obj) {
