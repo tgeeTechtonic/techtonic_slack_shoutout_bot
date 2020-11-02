@@ -5,8 +5,12 @@
       :items="data"
       item-key="shoutId"
       class="elevation-1"
-      loading="data.tableData"
     >
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title>Table Title</v-toolbar-title>
+      </v-toolbar>
+    </template>
     </v-data-table>
   </div>
 </template>

@@ -1,5 +1,5 @@
 export const shoutoutFormatter = (response) => {
-  const formatedShoutouts = response.map((shoutout) => {
+  const formattedShoutouts = response.map((shoutout) => {
     return {
       date: shoutout.date,
       shoutee: shoutout.shoutee,
@@ -10,15 +10,15 @@ export const shoutoutFormatter = (response) => {
       shouter_id: shoutout.shouter_id
     };
   });
-  return formatedShoutouts;
+  return formattedShoutouts;
 };
 
-export const rankedShoutersFormater = (shouts) => {
+export const rankedShoutersFormatter = (shouts) => {
   return shouts.map(shout => {
     return {
       rank: shout.rank,
       name: shout.name,
-      number_of_shoutouts_given: shout.num_shoutouts,
+      quantity: shout.num_shoutouts,
     };
   });
 };

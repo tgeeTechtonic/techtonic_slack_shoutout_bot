@@ -27,7 +27,7 @@
 
 <script>
 import { getRankedByMonth } from "../apiCall";
-import { rankedShoutersFormater} from "../shared/formatters";
+import { rankedShoutersFormatter} from "../shared/formatters";
 import Table from "../components/Table";
 
 export default {
@@ -53,8 +53,8 @@ export default {
     },
   },
   async created() {
-    const formatedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
-    this.shoutsToDisplay = rankedShoutersFormater(formatedShouts);
+    const formattedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
+    this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
   },
   methods: {
     changeReport: function (view) {
@@ -67,7 +67,7 @@ export default {
     this.selectedYear = this.picker.split('-')[0];
      
     const formatedShouts = await getRankedByMonth(this.shouterType, this.selectedMonth, this.selectedYear);
-    this.shoutsToDisplay = rankedShoutersFormater(formatedShouts);
+    this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
     }
   }
 
