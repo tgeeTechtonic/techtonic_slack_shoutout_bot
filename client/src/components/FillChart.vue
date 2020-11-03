@@ -112,7 +112,6 @@ export default {
     formatSeries(data) {
       // order chronologically and truncate data
       const chronological = this.sortByTimeAndTruncate(data, this.dateRange);
-
       // loop over chronological shoutouts,
       // fill object with company values for keys set to array of zeros length of date range
       const series = this.createInitialSeries(chronological, this.dateRange);
@@ -136,10 +135,10 @@ export default {
     },
     updateSeries(seriesToUpdate, updateData, seriesLimit) {
       for (let i = seriesLimit; i >= 0; i--) {
-        const date = new Date();
-        const pastDate = date.getDate() - i;
-        date.setDate(pastDate);
-        const dateToCheck = date.toDateString();
+        let dateToCheck = new Date();
+        const pastDate = dateToCheck.getDate() - i;
+        dateToCheck.setDate(pastDate);
+        dateToCheck = dateToCheck.toISOString().split("T")[0];
 
         updateData.forEach((shoutout) => {
           if (shoutout.date === dateToCheck) {
