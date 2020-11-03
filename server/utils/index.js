@@ -1,3 +1,48 @@
+exports.addUserRanking = (arr) => {
+  /*
+   *SORTED ARRAY SORTS SHOUTOUTS BY NUMBER IN DESCENDING ORDER
+   *RANKED ARRAY USES SET TO REMOVE DUPLICATE NUMBERS OF SHOUTOUTS FROM THE ARRAY
+   *THE RETURN VALUE IS AN ARRAY WHERE THE USER OBJECT HAS A RANK ADDED,
+   *USING THE INDEX OF THE NUMBER OF SHOUTS FROM THE RANKED ARRAY TO SET THE USER RANK VALUE
+   *
+   */
+  const sortedArr = arr.sort((a, b) => b.num_shoutouts - a.num_shoutouts);
+  let rankedArr = Array.from(
+    new Set(sortedArr.map((user) => user.num_shoutouts))
+  );
+  return arr.map((user) => ({
+    ...user,
+    rank: rankedArr.indexOf(user.num_shoutouts) + 1,
+  }));
+};
+
+exports.formatMonthlyShoutouts = (shoutouts, type) => {
+  const user = this.getNumShoutouts(shoutouts, type);
+  return this.addUserRanking(user);
+};
+
+exports.getNumShoutouts = (shoutouts, type) => {
+  /**
+   * CREATES CUSTOM OBJECT TO MAP RESULTS TO
+   * FOR EACH SHOUTOUT, TALLY USER SHOUTOUT IF TYPE MATCHES (IE SHOUTEE OR SHOUTER)
+   *
+   * IF OBJECT DOES NOT HAVE A KEY FOR THE USER WITH THE CORRECT TYPE,
+   * ADD IT AND SET NUMBER OF SHOUTOUTS TO 1
+   * ELSE IF USER HAS BEEN ADDED ALREADY, INCREMENT SHOUTOUT COUNT
+   * RETURNS AN ARRAY FROM THE OBJECT KEYS
+   *
+   */
+  let user = {};
+
+  shoutouts.forEach((shoutout) => {
+    if (!user[shoutout[type]]) {
+      user[shoutout[type]] = { name: shoutout[type], num_shoutouts: 1 };
+    } else user[shoutout[type]].num_shoutouts++;
+  });
+
+  return Object.values(user);
+};
+
 exports.parseReqData = ({ channel_name, text }) => {
   /*
    *SLACK DATA:
