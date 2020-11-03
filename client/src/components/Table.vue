@@ -8,12 +8,12 @@
     >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title v-if="type">Most Shoutouts Given In {{selectedMonth}}</v-toolbar-title>
+        <v-toolbar-title v-if="view">Most Shoutouts Given In {{selectedMonth}}</v-toolbar-title>
         <v-toolbar-title v-else>Most Shoutouts Received In {{selectedMonth}}</v-toolbar-title>
       </v-toolbar>
       <v-switch
           v-model="handleToggle"
-          :label="type ? 'Toggle To Received' : 'Toggle To Given'"
+          :label="view ? 'Toggle To Received' : 'Toggle To Given'"
           class="mt-2"
       ></v-switch>
     </template>
@@ -36,9 +36,9 @@ export default {
     },
     handleToggle: {
       get() {
-        return this.type;
+        return this.view;
       },
-      set(type) {
+      set(view) {
         this.$emit('toggleView', view)
       }
     },
