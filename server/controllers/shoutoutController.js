@@ -33,7 +33,7 @@ const shoutoutController = {
       .then((shouts) =>
         Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
       )
-      .then((formatedShoutouts) => formatedShoutouts);
+      .then((formattedShoutouts) => formattedShoutouts);
   },
   getShoutoutsByuserId: async (type, userId, days) => {
     const lastDay = new Date();
