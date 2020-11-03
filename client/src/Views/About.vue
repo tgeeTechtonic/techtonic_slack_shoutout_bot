@@ -38,6 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 @use '../assets/styles/variables.scss' as v;
+
 .about {
   margin: 0 0 100px 0;
 
@@ -51,7 +52,6 @@ export default {
     margin: 0px -50px;
     padding: 100px 50px;
     text-align: left;
-    white-space: pre-line;
   }
   &__intro {
     margin: 50px 50px 0px;
