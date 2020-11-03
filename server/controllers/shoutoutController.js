@@ -49,13 +49,15 @@ const createShoutoutRes = async (db, shout) => {
     .first();
 
   return {
-    date: shout.date.toDateString(),
+    date: shout.date.toISOString().substr(0, 10),
     message: shout.message,
     channel_name: shout.channel_name,
     shouter: shouter.first_name,
     shoutee: shoutee.first_name,
     company_value: companyValue.value,
     shoutout_id: shout.id,
+    shouter_id: shouter.id,
+    shoutee_id: shoutee.id,
   };
 };
 
