@@ -29,3 +29,13 @@ export const getRankedByMonth = async (type, month, year) => {
     console.log(error);
   }
 };
+
+export const getAllUsers = async () => {
+  const url = 'http://localhost:8081/api/all-users';
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

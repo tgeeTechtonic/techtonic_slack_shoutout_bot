@@ -1,10 +1,19 @@
 <template>
-  <div>
+  <div class="table-container">
+    <v-text-field
+      v-if="searchable"
+      v-model="search"
+      append-icon="mdi-magnify"
+      label="Search"
+      single-line
+      hide-details
+    />
     <v-data-table
       :headers="headers"
       :items="data"
       item-key="shoutId"
       class="elevation-1"
+      :search="search"
     >
       <template v-if="dateObj" v-slot:top>
         <v-toolbar flat>
@@ -28,9 +37,10 @@
 <script>
 export default {
   name: "Table",
-  props: ["data", "view", "dateObj"],
+  props: ["data", "view", "dateObj", "searchable"],
   data() {
     return {
+      search: "",
       tableData: [],
     };
   },
@@ -88,5 +98,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.table-container {
+  .v-input__control {
+    align-items: flex-end !important;
+    margin-right: 2% !important;
+  }
+
+  .v-input__slot {
+    width: 35% !important;
+  }
+}
 </style>
