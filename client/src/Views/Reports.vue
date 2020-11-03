@@ -20,7 +20,7 @@
         color="green darken-1"
         >
       </v-date-picker>
-      <Table class="reports-container__table" :data="shoutsToDisplay" @rankView="toggleView" :type="rankView" :dateObj="this.createDateObj()"/>
+      <Table class="reports-container__table" :data="shoutsToDisplay" @toggleView="toggleView" :view="rankView" :dateObj="this.createDateObj()"/>
     </div>
   </div>
 </template>
