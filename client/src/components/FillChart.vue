@@ -113,7 +113,7 @@ export default {
     formatSeries(data) {
       // order chronologically and truncate data
       const chronological = this.sortByTimeAndTruncate(data, this.dateRange);
-      console.log("chronological", chronological);
+
       // loop over chronological shoutouts,
       // fill object with company values for keys set to array of zeros length of date range
       const series = this.createInitialSeries(chronological, this.dateRange);
