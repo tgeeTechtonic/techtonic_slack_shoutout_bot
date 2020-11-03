@@ -5,13 +5,11 @@ const shoutoutController = {
   getRecentShoutouts: async () => {
     return await db('shoutouts')
       .select()
-      .then((shouts) => {
-        const shoutoutPromises = shouts
-          .sort((a, b) => b.date - a.date)
-          .slice(0, 5)
-          .map((shout) => createShoutoutRes(db, shout));
-        return Promise.all(shoutoutPromises);
-      })
+      .orderBy('date', 'desc')
+      .limit(5)
+      .then((shouts) =>
+        Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
+      )
       .then((filteredShoutouts) => filteredShoutouts);
   },
   getRankedReportByMonth: async (month, userType, year) => {
@@ -31,13 +29,11 @@ const shoutoutController = {
   getAllShoutOuts: async () => {
     return await db('shoutouts')
       .select()
-      .then((shoutouts) => {
-        const shoutoutPromises = shoutouts
-          .sort((a, b) => b.date - a.date)
-          .map((shout) => createShoutoutRes(db, shout));
-        return Promise.all(shoutoutPromises);
-      })
-      .then((formattedShoutouts) => formattedShoutouts);
+      .orderBy('date', 'desc')
+      .then((shouts) =>
+        Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
+      )
+      .then((formatedShoutouts) => formatedShoutouts);
   },
 };
 
