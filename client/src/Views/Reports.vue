@@ -37,7 +37,6 @@ export default {
     return {
       shouts: [],
       shoutsToDisplay: [],
-      currentView: 'monthly',
       picker: new Date().toISOString().substr(0, 7),
       rankView: true,
     };
@@ -56,9 +55,6 @@ export default {
     this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
   },
   methods: {
-    changeReport: function (view) {
-      this.currentView = view;
-    },
     createDateObj: function () {
       return {
         selectedMonth: this.picker.split('-')[1],
