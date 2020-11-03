@@ -20,7 +20,7 @@
         color="green darken-1"
         >
       </v-date-picker>
-      <Table class="reports-container__table" :data="shoutsToDisplay" @toggleView="toggleView" :view="rankView" :dateObj="this.createDateObj()"/>
+      <Table class="reports-container__table" :data="shoutsToDisplay" @toggleView="toggleView" :view="tableView" :dateObj="this.createDateObj()"/>
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
       shouts: [],
       shoutsToDisplay: [],
       picker: new Date().toISOString().substr(0, 7),
-      rankView: true,
+      tableView: true,
     };
   },
   computed: {
@@ -62,11 +62,11 @@ export default {
       }
     },
     toggleView: function () {
-      this.rankView = !this.rankView;
+      this.tableView = !this.tableView;
     }, 
     getRankedList: async function () {
       const { selectedMonth, selectedYear } = this.createDateObj();
-      const formatedShouts = await getRankedByMonth(this.rankView ? 'shouter' : 'shoutee', selectedMonth, selectedYear);
+      const formatedShouts = await getRankedByMonth(this.tableView ? 'shouter' : 'shoutee', selectedMonth, selectedYear);
       this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
     }
   },
@@ -74,7 +74,7 @@ export default {
     async picker() {
      await this.getRankedList();
     }, 
-   async rankView() {
+   async tableView() {
      await this.getRankedList();
     }
   }
