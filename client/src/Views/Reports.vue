@@ -10,7 +10,7 @@
       >
         <v-tab>Monthly Reports</v-tab>
         <v-tab @click="handleUserViewData">Users</v-tab>
-        <v-tab>All Shouts</v-tab>
+        <v-tab @click="handleAllShoutsViewData">All Shouts</v-tab>
       </v-tabs>
     </template>
     <div class="reports-container__main">
@@ -74,11 +74,13 @@ export default {
       selectedYear
     );
     this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
-    this.shouts = shoutoutFormatter(await getAllShouts());
   },
   methods: {
     handleUserViewData: async function () {
       this.shouts = await getAllUsers();
+    },
+    handleAllShoutsViewData: async function () {
+      this.shouts = shoutoutFormatter(await getAllShouts());
     },
     createDateObj: function () {
       return {
