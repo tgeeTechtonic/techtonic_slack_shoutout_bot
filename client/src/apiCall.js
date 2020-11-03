@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const getRecentShouts = async () => {
-  const url = "http://localhost:8081/api/recents";
+  const url = 'http://localhost:8081/api/recents';
   try {
     const response = await axios.get(url);
     return response.data;
@@ -11,7 +11,7 @@ export const getRecentShouts = async () => {
 };
 
 export const getAllShouts = async () => {
-  const url = "http://localhost:8081/api/shoutouts";
+  const url = 'http://localhost:8081/api/shoutouts';
   try {
     const response = await axios.get(url);
     return response.data;
@@ -28,4 +28,4 @@ export const getRankedByMonth = async (type, month, year) => {
   } catch (error) {
     console.log(error);
   }
-}
+};

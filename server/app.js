@@ -16,11 +16,7 @@ app.use('/api', require('./routes/shoutoutRoutes'));
 app.use('/api', require('./routes/valuesRoutes'));
 app.use('/api', require('./routes/slackRoutes'));
 
-app.use(
-  history({
-    verbose: true,
-  }),
-);
+app.use(history());
 
 app.use('/', express.static(path));
 

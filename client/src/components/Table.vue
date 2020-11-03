@@ -6,17 +6,21 @@
       item-key="shoutId"
       class="elevation-1"
     >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title v-if="view">Most Shoutouts Given In {{selectedMonth}}</v-toolbar-title>
-        <v-toolbar-title v-else>Most Shoutouts Received In {{selectedMonth}}</v-toolbar-title>
-      </v-toolbar>
-      <v-switch
+      <template v-if="dateObj" v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title v-if="view"
+            >Most Shoutouts Given In {{ selectedMonth }}</v-toolbar-title
+          >
+          <v-toolbar-title v-else
+            >Most Shoutouts Received In {{ selectedMonth }}</v-toolbar-title
+          >
+        </v-toolbar>
+        <v-switch
           v-model="handleToggle"
           :label="view ? 'Toggle To Received' : 'Toggle To Given'"
           class="mt-2"
-      ></v-switch>
-    </template>
+        ></v-switch>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -39,14 +43,18 @@ export default {
         return this.view;
       },
       set(view) {
-        this.$emit('toggleView', view)
-      }
+        this.$emit("toggleView", view);
+      },
     },
     selectedMonth() {
-      const month = new Date(this.dateObj.selectedYear, this.dateObj.selectedMonth - 1, 1 )
-      const monthName = month.toLocaleString("default", { month: "long" })
+      const month = new Date(
+        this.dateObj.selectedYear,
+        this.dateObj.selectedMonth - 1,
+        1
+      );
+      const monthName = month.toLocaleString("default", { month: "long" });
       return monthName;
-    }
+    },
   },
   methods: {
     createHeaders(obj) {
