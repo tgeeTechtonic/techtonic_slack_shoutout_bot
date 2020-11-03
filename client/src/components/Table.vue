@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "Table",
-  props: ["data", "type", "dateObj"],
+  props: ["data", "view", "dateObj"],
   data() {
     return {
       tableData: [],
@@ -39,7 +39,7 @@ export default {
         return this.type;
       },
       set(type) {
-        this.$emit('rankView', type)
+        this.$emit('toggleView', view)
       }
     },
     selectedMonth() {
