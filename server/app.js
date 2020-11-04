@@ -13,6 +13,11 @@ app.use('/api', require('./routes/shoutoutRoutes'));
 app.use('/api', require('./routes/slackRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/valuesRoutes'));
+app.all('/api*', function (req, res) {
+  res
+    .status(300)
+    .json('The endpoint you are trying to use has not been implemented');
+});
 
 app.use(history());
 
