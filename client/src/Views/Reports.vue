@@ -13,10 +13,10 @@
         <v-tab>All Shouts</v-tab>
       </v-tabs>
     </template>
-    <div class="reports-container__main">
+    <div>
       <v-tabs-items v-model="tabs">
-        <v-tab-item>
-          <v-date-picker v-model="picker" type="month" color="green darken-1">
+        <v-tab-item class="reports-container__main">
+          <v-date-picker v-model="picker" type="month" color="green darken-1" class="reports-container__picker">
           </v-date-picker>
           <Table
             class="reports-container__table"
@@ -26,7 +26,7 @@
             :dateObj="this.createDateObj()"
         /></v-tab-item>
         <v-tab-item> </v-tab-item>
-        <v-tab-item>
+        <v-tab-item class="reports-container__all">
           <Table class="reports-container__table" :data="shouts" />
           <FillChart :data="shouts" />
         </v-tab-item>
@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+@use '../assets/styles/variables.scss' as v;
+
 .active {
   color: red;
 }
@@ -111,15 +113,25 @@ export default {
     color: red;
   }
   &__table {
+    margin: 1rem;
+    width: 70%;
   }
   &__filter-btns {
     color: red;
     margin-top: 1rem;
   }
   &__main {
+    background-color: v.$main-bkgrnd;
     display: flex;
     justify-content: space-evenly;
     margin-top: 2rem;
+  }
+  &__picker {
+    width: 300px;
+    margin: 1rem;
+  }
+  &__all {
+    background-color: v.$main-bkgrnd;
   }
 }
 </style>

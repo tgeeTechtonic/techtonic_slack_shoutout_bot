@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table">
     <v-data-table
       :headers="headers"
       :items="data"
@@ -7,19 +7,20 @@
       class="elevation-1"
     >
       <template v-if="dateObj" v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title v-if="view"
-            >Most Shoutouts Given In {{ selectedMonth }}</v-toolbar-title
-          >
-          <v-toolbar-title v-else
-            >Most Shoutouts Received In {{ selectedMonth }}</v-toolbar-title
-          >
+        <v-toolbar>
+          <v-toolbar-title v-if="view" class="table__title">
+            Most Shoutouts Given In {{ selectedDate.month }}, {{ selectedDate.year }}
+          </v-toolbar-title>
+          <v-toolbar-title v-else>
+            Most Shoutouts Received In {{ selectedDate.month }}, {{ selectedDate.year }}
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-switch
+            v-model="handleToggle"
+            :label="view ? 'Toggle To Received' : 'Toggle To Given'"
+            class="mt-5"
+          ></v-switch>
         </v-toolbar>
-        <v-switch
-          v-model="handleToggle"
-          :label="view ? 'Toggle To Received' : 'Toggle To Given'"
-          class="mt-2"
-        ></v-switch>
       </template>
     </v-data-table>
   </div>
@@ -46,14 +47,16 @@ export default {
         this.$emit("toggleView", view);
       },
     },
-    selectedMonth() {
+    selectedDate() {
       const month = new Date(
         this.dateObj.selectedYear,
         this.dateObj.selectedMonth - 1,
         1
       );
-      const monthName = month.toLocaleString("default", { month: "long" });
-      return monthName;
+      return {
+        month: month.toLocaleString("default", { month: "long" }),
+        year: this.dateObj.selectedYear
+      }
     },
   },
   methods: {
@@ -89,4 +92,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table {
+  &__title {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+}
 </style>
