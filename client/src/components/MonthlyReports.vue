@@ -14,7 +14,7 @@
 
 <script>
 import { rankedShoutersFormatter, } from "../shared/formatters";
-import { getRankedByMonth } from "../apiCall";
+import { getRankedByMonth } from "../apiCalls";
 import Table from "../components/Table";
     export default {
       name: "MontlyReports",

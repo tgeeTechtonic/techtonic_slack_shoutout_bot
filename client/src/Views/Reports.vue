@@ -1,6 +1,5 @@
 <template>
   <div class="reports-container">
-    <h2 @click="createHeaders(shoutsToDisplay[0])">Reports</h2>
     <template>
       <v-tabs
         fixed-tabs
@@ -9,71 +8,33 @@
         v-model="tabs"
       >
         <v-tab>Monthly Reports</v-tab>
-        <v-tab @click="handleUserViewData">Users</v-tab>
-        <v-tab @click="handleAllShoutsViewData">All Shouts</v-tab>
+        <v-tab>Users</v-tab>
+        <v-tab>All Shouts</v-tab>
       </v-tabs>
     </template>
     <div class="reports-container__main">
       <v-tabs-items v-model="tabs">
         <MonthlyReports />
-
-        <v-tab-item
-          ><Table
-            class="reports-container__table"
-            :data="shouts"
-            searchable="searchable"
-        /></v-tab-item>
-        <v-tab-item>
-          <Table class="reports-container__table" :data="shouts" />
-          <FillChart :data="shouts" />
-        </v-tab-item>
+        <UserReports />
+        <AllShouts />
       </v-tabs-items>
     </div>
   </div>
 </template>
 
 <script>
-import { getAllShouts, getAllUsers } from "../apiCall";
-import {
-  shoutoutFormatter,
-  
-} from "../shared/formatters";
-import Table from "../components/Table";
-import FillChart from "../components/FillChart";
+
 import MonthlyReports from "../components/MonthlyReports";
+import UserReports from "../components/UserReports";
+import AllShouts from "../components/AllShouts";
 
 export default {
   name: "Reports",
-  components: { Table, FillChart, MonthlyReports },
+  components: {  MonthlyReports, UserReports, AllShouts },
   data() {
     return {
       tabs: null,
-      shouts: [],
-      shoutsToDisplay: [],
-      picker: new Date().toISOString().substr(0, 7),
-      tableView: true,
-    };
-  },
-  computed: {
-    headers() {
-      return this.createHeaders(this.shoutsToDisplay);
-    },
-  },
-  methods: {
-    handleUserViewData: async function () {
-      this.shouts = await getAllUsers();
-    },
-    handleAllShoutsViewData: async function () {
-      this.shouts = shoutoutFormatter(await getAllShouts());
-    },
-  },
-  watch: {
-    async picker() {
-      await this.getRankedList();
-    },
-    async tableView() {
-      await this.getRankedList();
-    },
+    }
   },
 };
 </script>

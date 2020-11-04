@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { getRecentShouts } from '../apiCall';
+import { getRecentShouts } from '../apiCalls';
 import Carousel from '../components/Carousel.vue';
 
 export default {
