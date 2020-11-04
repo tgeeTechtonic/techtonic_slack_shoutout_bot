@@ -15,16 +15,8 @@
     </template>
     <div class="reports-container__main">
       <v-tabs-items v-model="tabs">
-        <v-tab-item>
-          <v-date-picker v-model="picker" type="month" color="green darken-1">
-          </v-date-picker>
-          <Table
-            class="reports-container__table"
-            :data="shoutsToDisplay"
-            @toggleView="toggleView"
-            :view="tableView"
-            :dateObj="this.createDateObj()"
-        /></v-tab-item>
+        <MonthlyReports />
+
         <v-tab-item
           ><Table
             class="reports-container__table"
@@ -41,17 +33,18 @@
 </template>
 
 <script>
-import { getAllShouts, getRankedByMonth, getAllUsers } from "../apiCall";
+import { getAllShouts, getAllUsers } from "../apiCall";
 import {
   shoutoutFormatter,
-  rankedShoutersFormatter,
+  
 } from "../shared/formatters";
 import Table from "../components/Table";
 import FillChart from "../components/FillChart";
+import MonthlyReports from "../components/MonthlyReports";
 
 export default {
   name: "Reports",
-  components: { Table, FillChart },
+  components: { Table, FillChart, MonthlyReports },
   data() {
     return {
       tabs: null,
@@ -66,39 +59,12 @@ export default {
       return this.createHeaders(this.shoutsToDisplay);
     },
   },
-  async created() {
-    const { selectedMonth, selectedYear } = this.createDateObj();
-    const formattedShouts = await getRankedByMonth(
-      "shouter",
-      selectedMonth,
-      selectedYear
-    );
-    this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
-  },
   methods: {
     handleUserViewData: async function () {
       this.shouts = await getAllUsers();
     },
     handleAllShoutsViewData: async function () {
       this.shouts = shoutoutFormatter(await getAllShouts());
-    },
-    createDateObj: function () {
-      return {
-        selectedMonth: this.picker.split("-")[1],
-        selectedYear: this.picker.split("-")[0],
-      };
-    },
-    toggleView: function () {
-      this.tableView = !this.tableView;
-    },
-    getRankedList: async function () {
-      const { selectedMonth, selectedYear } = this.createDateObj();
-      const formatedShouts = await getRankedByMonth(
-        this.tableView ? "shouter" : "shoutee",
-        selectedMonth,
-        selectedYear
-      );
-      this.shoutsToDisplay = rankedShoutersFormatter(formatedShouts);
     },
   },
   watch: {
