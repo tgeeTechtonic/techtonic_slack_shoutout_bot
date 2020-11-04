@@ -9,8 +9,8 @@
         v-model="tabs"
       >
         <v-tab>Monthly Reports</v-tab>
-        <v-tab>Users</v-tab>
-        <v-tab>All Shouts</v-tab>
+        <v-tab @click="handleUserViewData">Users</v-tab>
+        <v-tab @click="handleAllShoutsViewData">All Shouts</v-tab>
       </v-tabs>
     </template>
     <div class="reports-container__main">
@@ -25,7 +25,12 @@
             :view="tableView"
             :dateObj="this.createDateObj()"
         /></v-tab-item>
-        <v-tab-item> </v-tab-item>
+        <v-tab-item
+          ><Table
+            class="reports-container__table"
+            :data="shouts"
+            searchable="searchable"
+        /></v-tab-item>
         <v-tab-item>
           <Table class="reports-container__table" :data="shouts" />
           <FillChart :data="shouts" />
@@ -36,7 +41,7 @@
 </template>
 
 <script>
-import { getAllShouts, getRankedByMonth } from "../apiCall";
+import { getAllShouts, getRankedByMonth, getAllUsers } from "../apiCall";
 import {
   shoutoutFormatter,
   rankedShoutersFormatter,
@@ -69,9 +74,14 @@ export default {
       selectedYear
     );
     this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
-    this.shouts = shoutoutFormatter(await getAllShouts());
   },
   methods: {
+    handleUserViewData: async function () {
+      this.shouts = await getAllUsers();
+    },
+    handleAllShoutsViewData: async function () {
+      this.shouts = shoutoutFormatter(await getAllShouts());
+    },
     createDateObj: function () {
       return {
         selectedMonth: this.picker.split("-")[1],

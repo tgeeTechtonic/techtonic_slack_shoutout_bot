@@ -7,14 +7,14 @@ export const shoutoutFormatter = (response) => {
       shoutout: shoutout.message,
       value: shoutout.company_value,
       shoutee_id: shoutout.shoutee_id,
-      shouter_id: shoutout.shouter_id
+      shouter_id: shoutout.shouter_id,
     };
   });
   return formattedShoutouts;
 };
 
 export const rankedShoutersFormatter = (shouts) => {
-  return shouts.map(shout => {
+  return shouts.map((shout) => {
     return {
       rank: shout.rank,
       name: shout.name,
