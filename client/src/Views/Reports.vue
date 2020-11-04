@@ -1,6 +1,6 @@
 <template>
   <div class="reports-container">
-    <h2 @click="createHeaders(shoutsToDisplay[0])">Reports</h2>
+    <h2>Reports</h2>
     <template>
       <v-tabs
         fixed-tabs
@@ -16,15 +16,16 @@
     <div class="reports-container__main">
       <v-tabs-items v-model="tabs">
         <v-tab-item>
-          <v-date-picker v-model="picker" type="month" color="green darken-1">
-          </v-date-picker>
+          <v-date-picker v-model="picker" type="month" color="green darken-1" />
           <Table
             class="reports-container__table"
             :data="shoutsToDisplay"
             @toggleView="toggleView"
             :view="tableView"
             :dateObj="this.createDateObj()"
-        /></v-tab-item>
+          />
+          <RadarChart :data="shoutsToDisplay.slice(0, 7)" />
+        </v-tab-item>
         <v-tab-item
           ><Table
             class="reports-container__table"
@@ -48,10 +49,11 @@ import {
 } from "../shared/formatters";
 import Table from "../components/Table";
 import FillChart from "../components/FillChart";
+import RadarChart from "../components/RadarChart";
 
 export default {
   name: "Reports",
-  components: { Table, FillChart },
+  components: { Table, FillChart, RadarChart },
   data() {
     return {
       tabs: null,
@@ -60,11 +62,6 @@ export default {
       picker: new Date().toISOString().substr(0, 7),
       tableView: true,
     };
-  },
-  computed: {
-    headers() {
-      return this.createHeaders(this.shoutsToDisplay);
-    },
   },
   async created() {
     const { selectedMonth, selectedYear } = this.createDateObj();
@@ -82,6 +79,15 @@ export default {
     handleAllShoutsViewData: async function () {
       this.shouts = shoutoutFormatter(await getAllShouts());
     },
+    // handleRankedUserData: async function () {
+    //   const { selectedMonth, selectedYear } = this.createDateObj();
+    //   const formattedShouts = await getRankedByMonth(
+    //     "shouter",
+    //     selectedMonth,
+    //     selectedYear
+    //   );
+    //   this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
+    // },
     createDateObj: function () {
       return {
         selectedMonth: this.picker.split("-")[1],
