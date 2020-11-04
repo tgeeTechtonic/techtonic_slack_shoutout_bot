@@ -6,17 +6,11 @@ exports.verifyParams = (req, res, next) => {
     verifyAllUserShoutouts(req, res, next);
   else next();
 };
-
-verifyMonthlyRankedReport = (req, res, next) => {
-  const { month, type, year } = req.query;
-
-  if (!month || !type || !year) {
-    return res.status(400).json({ error: 'missing params' });
-  } else if (type !== 'shoutee' && type !== 'shouter') {
-    return res
-      .status(400)
-      .json({ error: 'type should be either shoutee or shouter' });
-  } else next();
+exports.verifyRequest = (req, res, next) => {
+  const { path } = req.route;
+  console.log(path);
+  if (path === '/update-value') verifyUpdateValuesRequest(req, res, next);
+  else next();
 };
 
 verifyAllUserShoutouts = (req, res, next) => {
@@ -31,5 +25,24 @@ verifyAllUserShoutouts = (req, res, next) => {
     return res
       .status(400)
       .json({ error: 'type should be either shoutee or shouter' });
+  } else next();
+};
+
+verifyMonthlyRankedReport = (req, res, next) => {
+  const { month, type, year } = req.query;
+
+  if (!month || !type || !year) {
+    return res.status(400).json({ error: 'missing params' });
+  } else if (type !== 'shoutee' && type !== 'shouter') {
+    return res
+      .status(400)
+      .json({ error: 'type should be either shoutee or shouter' });
+  } else next();
+};
+
+verifyUpdateValuesRequest = (req, res, next) => {
+  const { description, value } = req.body;
+  if (!value || !description) {
+    return res.status(400).json({ error: 'value key is missing' });
   } else next();
 };
