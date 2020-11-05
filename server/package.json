@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "devstart": "nodemon server.js",
-    "reseed": "knex migrate:rollback && knex migrate:latest && knex seed:run"
+    "reseed": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "rake": "knex migrate:rollback && knex migrate:latest"
   },
   "repository": {
     "type": "git",
