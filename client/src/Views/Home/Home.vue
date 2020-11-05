@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { getRecentShouts } from "../../shared/apiCalls";
-import Carousel from "./Carousel";
+import { getRecentShouts } from '../../shared/apiCalls';
+import Carousel from './Carousel';
 
 export default {
   name: 'Home',
@@ -54,10 +54,8 @@ export default {
 @use "../../assets/styles/variables.scss" as v;
 
 .home {
-  margin: 0 0 100px 0;
-
   &__section {
-    padding: 50px;
+    padding: 0px 50px 50px 50px;
   }
   &__section--blurb {
     color: white;

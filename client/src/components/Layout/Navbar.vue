@@ -26,7 +26,11 @@ export default {
 
 <style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
-
+nav {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
 .navbar {
   background-color: v.$main-bkgrnd !important;
   height: 70px !important;

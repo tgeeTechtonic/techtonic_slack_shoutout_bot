@@ -40,8 +40,6 @@ export default {
 @use '../../assets/styles/variables.scss' as v;
 
 .about {
-  margin: 0 0 100px 0;
-
   &__section {
     color: white;
     background-color: v.$main-grey-underlay;
@@ -54,7 +52,7 @@ export default {
     text-align: left;
   }
   &__intro {
-    margin: 50px 50px 0px;
+    margin: 0px 50px;
   }
   &__intro-text {
     border-bottom: 10px solid v.$accent-blue;
