@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { rankedShoutersFormatter, } from "../shared/formatters";
-import { getRankedByMonth } from "../apiCalls";
-import Table from "../components/Table";
-import RadarChart from "../components/RadarChart";
+import { rankedShoutersFormatter, } from "../../shared/formatters";
+import { getRankedByMonth } from "../../shared/apiCalls";
+import Table from "./Table";
+import RadarChart from "./RadarChart";
 
     export default {
       name: "MontlyReports",

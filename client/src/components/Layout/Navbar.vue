@@ -5,7 +5,7 @@
         <img
           alt="Techtonic Logo"
           class="navbar__logo"
-          src="../assets/images/logo-techtonic.png"
+          src="../../assets/images/logo-techtonic.png"
         />
       </router-link>
       <span>
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use '../assets/styles/variables.scss' as v;
+@use "../../assets/styles/variables.scss" as v;
 
 .navbar {
   background-color: v.$main-bkgrnd !important;

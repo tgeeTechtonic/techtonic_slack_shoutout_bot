@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import About from '../Views/About';
-import Home from '../Views/Home';
-import Reports from '../Views/Reports';
+import About from '../Views/About/About';
+import Home from '../Views/Home/Home';
+import Reports from '../Views/Reports/Reports';
 
 Vue.use(VueRouter);
 

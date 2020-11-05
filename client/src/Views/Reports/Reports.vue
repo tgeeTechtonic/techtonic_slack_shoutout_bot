@@ -24,9 +24,9 @@
 
 <script>
 
-import MonthlyReports from "../components/MonthlyReports";
-import UserReports from "../components/UserReports";
-import AllShouts from "../components/AllShouts";
+import MonthlyReports from "./MonthlyReports";
+import UserReports from "./UserReports";
+import AllShouts from "./AllShouts";
 
 export default {
   name: "Reports",
@@ -46,8 +46,6 @@ export default {
 .reports-container {
   &__active {
     color: red;
-  }
-  &__table {
   }
   &__filter-btns {
     color: red;

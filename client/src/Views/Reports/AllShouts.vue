@@ -6,10 +6,10 @@
 </template>
 
 <script>
-    import Table from "../components/Table";
-    import FillChart from "../components/FillChart";
-    import { getAllShouts } from "../apiCalls";
-    import { shoutoutFormatter } from "../shared/formatters";
+    import Table from "./Table";
+    import FillChart from "./FillChart";
+    import { getAllShouts } from "../../shared/apiCalls";
+    import { shoutoutFormatter } from "../../shared/formatters";
 
     export default {
         name: "AllShouts",
