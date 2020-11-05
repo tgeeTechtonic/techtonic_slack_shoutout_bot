@@ -9,6 +9,7 @@
             :view="tableView"
             :dateObj="this.createDateObj()"
     />
+    <RadarChart :data="shoutsToDisplay.slice(0, 7)" />
     </v-tab-item>
 </template>
 
@@ -16,9 +17,11 @@
 import { rankedShoutersFormatter, } from "../shared/formatters";
 import { getRankedByMonth } from "../apiCalls";
 import Table from "../components/Table";
+import RadarChart from "../components/RadarChart";
+
     export default {
       name: "MontlyReports",
-      components: { Table },
+      components: { Table, RadarChart },
       data () {
           return {
               tableView: true,

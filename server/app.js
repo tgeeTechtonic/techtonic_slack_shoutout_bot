@@ -4,18 +4,20 @@ const path = require('path').join(__dirname, '../client/dist/');
 const history = require('connect-history-api-fallback');
 
 const app = express();
-const corsOptions = {
-  origin: 'http://localhost:8080',
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api', require('./routes/shoutoutRoutes'));
+app.use('/api', require('./routes/slackRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/valuesRoutes'));
-app.use('/api', require('./routes/slackRoutes'));
+app.all('/api*', (req, res) => {
+  res
+    .status(400)
+    .json('The endpoint you are trying to use has not been implemented');
+});
 
 app.use(history());
 
