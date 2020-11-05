@@ -70,7 +70,7 @@ export default {
     createHeaders(obj) {
       let headers = [];
       for (const key in obj) {
-        if (key !== "shoutId") {
+        if (key !== "shoutId" && key !== "id") {
           headers.push({
             text: this.capitalize(key),
             value: key,
