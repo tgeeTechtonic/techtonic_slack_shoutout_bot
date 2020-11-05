@@ -1,5 +1,22 @@
 # Shoutout Bot Server
 
+## Pre-Installation Requirements:
+If you do not have Homebrew and/or PostgreSQL installed on your machine
+- Install Hombrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+- Install Postgres: `brew install postgresql`
+- Start Postgres: `brew services start postgresql`
+- Add database in Postgres: 
+  - `psql`
+  - `CREATE DATABASE shoutoutapp;`
+  - `q`
+- If you would like a client for PostgreSQL, download: `https://eggerapps.at/postico/`
+  - Create a new favorite
+  - At the prompts, fill in (do not change Host, User or Port):
+      - Nickname: `shoutoutapp`
+      - Database: `shoutoutapp`
+  - Click connect
+---
+
 ## Installation Steps:
 - Clone this repo: ```https://github.com/broxburyTechtonic/techtonic_slack_shoutout_bot.git```
 - Install dependencies: ```npm install```
