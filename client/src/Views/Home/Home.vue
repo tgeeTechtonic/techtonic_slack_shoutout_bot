@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { getRecentShouts } from '../apiCall';
-import Carousel from '../components/Carousel.vue';
+import { getRecentShouts } from "../../shared/apiCalls";
+import Carousel from "./Carousel";
 
 export default {
   name: 'Home',
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/variables.scss' as v;
+@use "../../assets/styles/variables.scss" as v;
 
 .home {
   margin: 0 0 100px 0;
