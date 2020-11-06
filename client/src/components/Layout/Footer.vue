@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="footer">
     <p class="footer__copyright">
       Copyright © {{ getYear() }} Techtonic. All Rights Reserved. Privacy
       Policy.
@@ -19,6 +19,8 @@ export default {
 </script>
 <style lang="scss">
 .footer {
+  margin-bottom: 15px;
+
   &__copyright {
     font-family: 'Roboto', sans-serif;
     font-size: 1.3rem;

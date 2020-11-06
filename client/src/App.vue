@@ -30,5 +30,9 @@ export default {
   text-align: center;
   background-color: v.$main-bkgrnd;
   color: v.$main-white;
+
+  .v-main {
+    margin: 120px 0 80px;
+  }
 }
 </style>
