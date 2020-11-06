@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const url = process.env.VUE_APP_URL;
+const baseUrl = process.env.VUE_APP_URL;
 
 export const getRecentShouts = async () => {
   try {
-    const response = await axios.get(url + '/api/recents');
+    const response = await axios.get(baseUrl + '/api/recents');
     return response.data;
   } catch (error) {
     console.log(error);
@@ -13,7 +13,7 @@ export const getRecentShouts = async () => {
 
 export const getAllShouts = async () => {
   try {
-    const response = await axios.get(url + '/api/shoutouts');
+    const response = await axios.get(baseUrl + '/api/shoutouts');
     return response.data;
   } catch (error) {
     console.log(error);
@@ -23,7 +23,7 @@ export const getAllShouts = async () => {
 export const getRankedByMonth = async (type, month, year) => {
   const urlQueries = `/api/reports/monthly?type=${type}&year=${year}&month=${month}`;
   try {
-    const response = await axios.get(url + urlQueries);
+    const response = await axios.get(baseUrl + urlQueries);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -32,7 +32,7 @@ export const getRankedByMonth = async (type, month, year) => {
 
 export const getAllUsers = async () => {
   try {
-    const response = await axios.get(url + '/api/all-users');
+    const response = await axios.get(baseUrl + '/api/all-users');
     return response.data;
   } catch (error) {
     console.log(error);
