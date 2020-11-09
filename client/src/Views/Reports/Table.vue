@@ -1,18 +1,19 @@
 <template>
   <div class="table-container">
     <v-text-field
-      v-if="searchable"
-      v-model="search"
       append-icon="mdi-magnify"
+      hide-details
       label="Search"
       single-line
-      hide-details
+      v-if="searchable"
+      v-model="search"
     />
     <v-data-table
+      class="elevation-1"
       :headers="headers"
       :items="data"
       item-key="shoutId"
-      class="elevation-1"
+      :loading="loading"
       :search="search"
     >
       <template v-if="dateObj" v-slot:top>
@@ -36,11 +37,11 @@
 
 <script>
 export default {
-  name: "Table",
-  props: ["data", "view", "dateObj", "searchable"],
+  name: 'Table',
+  props: ['data', 'dateObj', 'loading', 'searchable', 'view'],
   data() {
     return {
-      search: "",
+      search: '',
       tableData: [],
     };
   },
@@ -53,7 +54,7 @@ export default {
         return this.view;
       },
       set(view) {
-        this.$emit("toggleView", view);
+        this.$emit('toggleView', view);
       },
     },
     selectedMonth() {
@@ -62,7 +63,7 @@ export default {
         this.dateObj.selectedMonth - 1,
         1
       );
-      const monthName = month.toLocaleString("default", { month: "long" });
+      const monthName = month.toLocaleString('default', { month: 'long' });
       return monthName;
     },
   },
@@ -70,21 +71,21 @@ export default {
     createHeaders(obj) {
       let headers = [];
       for (const key in obj) {
-        if (key !== "shoutId" && key !== "id") {
+        if (key !== 'shoutId' && key !== 'id') {
           headers.push({
             text: this.capitalize(key),
             value: key,
           });
         }
       }
-      headers[0] = { ...headers[0], align: "start" };
+      headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
     capitalize(str) {
       return str
-        .split("_")
+        .split('_')
         .map((s) => s[0].toUpperCase() + s.substring(1))
-        .join(" ");
+        .join(' ');
     },
   },
   watch: {
