@@ -3,7 +3,7 @@
     <div class="user-container__table">
       <Table
         :data="shouts"
-        searchable="searchable"
+        :searchable="true"
       />
     </div>
   </v-tab-item>

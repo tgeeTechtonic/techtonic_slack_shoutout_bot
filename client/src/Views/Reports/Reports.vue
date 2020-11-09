@@ -1,12 +1,9 @@
 <template>
   <div class="reports-container">
-    <template>
+    <template class="reports-container__v-tabs">
       <v-tabs
         fixed-tabs
-        background-color="#1aa5ca"
-        light
         v-model="tabs"
-        color="white"
       >
         <v-tab>Monthly Reports</v-tab>
         <v-tab>Users</v-tab>
@@ -43,22 +40,16 @@ export default {
 <style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
 
-.active {
-  color: red;
-}
 .reports-container {
 
-  &__active {
-    color: red;
-  }
-  &__filter-btns {
-    color: red;
-    margin-top: 1rem;
-  }
   &__main {
     margin-top: 2rem;
     width: 100%;
     background-color: v.$main-bkgrnd
+  }
+  &__v-tabs {
+    background-color: v.$accent-blue;
+    color: v.$main-white;
   }
 }
 </style>

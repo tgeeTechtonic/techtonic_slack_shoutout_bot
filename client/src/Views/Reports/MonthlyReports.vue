@@ -1,7 +1,7 @@
 <template>
     <v-tab-item>
       <div class="item-container">
-        <v-date-picker v-model="picker" type="month" color="#1aa5ca" class="item-container__picker">
+        <v-date-picker v-model="picker" type="month" class="item-container__picker">
         </v-date-picker>
         <Table
           class="item-container__table"
@@ -81,6 +81,7 @@ import RadarChart from "./RadarChart";
   &__picker {
     height: 300px;
     margin: 1rem;
+    color: v.$accent-blue;
   }
 
   &__table {

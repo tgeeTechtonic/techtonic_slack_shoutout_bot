@@ -117,6 +117,8 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+
 .table-container {
   &__title {
     padding: 0;
@@ -125,7 +127,7 @@ export default {
     margin-left: 2rem;
   }
   &__search-bar {
-    background-color: white;
+    background-color: v.$main-white;
   }
 }
 </style>
