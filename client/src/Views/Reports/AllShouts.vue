@@ -1,7 +1,7 @@
 <template>
   <v-tab-item>
     <div class="all-reports">
-      <Table :data="shouts" :all="true" class="all-reports__table"/>
+      <Table :data="shouts" :all="true" class="all-reports__table" />
       <FillChart :data="shouts" class="all-reports__chart"/>
     </div>
   </v-tab-item>

@@ -7,6 +7,7 @@
       class="elevation-1"
       :search="search"
       :items-per-page="5"
+      :loading="loading"
     >
       <template v-slot:top>
         <v-toolbar v-if="searchable">
@@ -52,7 +53,7 @@
 <script>
 export default {
   name: "Table",
-  props: ["data", "view", "dateObj", "searchable", "all"],
+  props: ["data", "view", "dateObj", "searchable", "all", "loading"],
   data() {
     return {
       search: "",
@@ -117,8 +118,6 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
-
 .table-container {
   &__title {
     padding: 0;
@@ -127,7 +126,7 @@ export default {
     margin-left: 2rem;
   }
   &__search-bar {
-    background-color: v.$main-white;
+    background-color: white;
   }
 }
 </style>
