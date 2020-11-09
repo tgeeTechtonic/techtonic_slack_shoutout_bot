@@ -1,17 +1,19 @@
 <template>
-  <v-tab-item>
-    <v-date-picker v-model="picker" type="month" color="green darken-1">
-    </v-date-picker>
-    <Table
-      :data="shoutsToDisplay"
-      :dateObj="this.createDateObj()"
-      class="reports-container__table"
-      :loading="loading"
-      @toggleView="toggleView"
-      :view="tableView"
-    />
-    <RadarChart :data="shoutsToDisplay.slice(0, 7)" />
-  </v-tab-item>
+    <v-tab-item>
+      <div class="item-container">
+        <v-date-picker v-model="picker" type="month" class="item-container__picker">
+        </v-date-picker>
+        <Table
+          class="item-container__table"
+          :data="shoutsToDisplay"
+          @toggleView="toggleView"
+          :view="tableView"
+          :loading="loading"
+          :dateObj="this.createDateObj()"
+      />
+      </div>
+        <RadarChart :data="shoutsToDisplay.slice(0, 7)" class="item-container__chart"/>
+    </v-tab-item>
 </template>
 
 <script>
@@ -70,4 +72,26 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+.item-container {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: v.$main-bkgrnd;
+  
+  &__picker {
+    height: 300px;
+    margin: 1rem;
+    color: v.$accent-blue;
+  }
+
+  &__table {
+    width: 700px;
+    margin: 1rem;
+  }
+
+  &__chart {
+    background-color: v.$main-bkgrnd;
+  }
+}
+</style>

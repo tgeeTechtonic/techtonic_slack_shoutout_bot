@@ -3,6 +3,7 @@ import axios from 'axios';
 const baseUrl = process.env.VUE_APP_URL;
 
 export const getRecentShouts = async () => {
+  console.log('here', baseUrl)
   try {
     const response = await axios.get(baseUrl + '/api/recents');
     return response.data;

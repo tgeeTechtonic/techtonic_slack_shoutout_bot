@@ -1,10 +1,8 @@
 <template>
   <div class="reports-container">
-    <template>
+    <template class="reports-container__v-tabs">
       <v-tabs
         fixed-tabs
-        background-color="green lighten-1"
-        light
         v-model="tabs"
       >
         <v-tab>Monthly Reports</v-tab>
@@ -40,21 +38,18 @@ export default {
 </script>
 
 <style lang="scss">
-.active {
-  color: red;
-}
+@use "../../assets/styles/variables.scss" as v;
+
 .reports-container {
-  &__active {
-    color: red;
-  }
-  &__filter-btns {
-    color: red;
-    margin-top: 1rem;
-  }
+
   &__main {
-    display: flex;
-    justify-content: space-evenly;
     margin-top: 2rem;
+    width: 100%;
+    background-color: v.$main-bkgrnd
+  }
+  &__v-tabs {
+    background-color: v.$accent-blue;
+    color: v.$main-white;
   }
 }
 </style>
