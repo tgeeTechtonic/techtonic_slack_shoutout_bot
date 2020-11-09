@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+const baseUrl = process.env.VUE_APP_URL;
+
 export const getRecentShouts = async () => {
-  const url = 'http://localhost:8081/api/recents';
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(baseUrl + '/api/recents');
     return response.data;
   } catch (error) {
     console.log(error);
@@ -11,9 +12,8 @@ export const getRecentShouts = async () => {
 };
 
 export const getAllShouts = async () => {
-  const url = 'http://localhost:8081/api/shoutouts';
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(baseUrl + '/api/shoutouts');
     return response.data;
   } catch (error) {
     console.log(error);
@@ -21,9 +21,9 @@ export const getAllShouts = async () => {
 };
 
 export const getRankedByMonth = async (type, month, year) => {
-  const url = `http://localhost:8081/api/reports/monthly?type=${type}&year=${year}&month=${month}`;
+  const urlQueries = `/api/reports/monthly?type=${type}&year=${year}&month=${month}`;
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(baseUrl + urlQueries);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -31,9 +31,8 @@ export const getRankedByMonth = async (type, month, year) => {
 };
 
 export const getAllUsers = async () => {
-  const url = 'http://localhost:8081/api/all-users';
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(baseUrl + '/api/all-users');
     return response.data;
   } catch (error) {
     console.log(error);
