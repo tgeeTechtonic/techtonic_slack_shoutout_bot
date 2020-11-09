@@ -3,9 +3,10 @@
     <template>
       <v-tabs
         fixed-tabs
-        background-color="green lighten-1"
+        background-color="#1aa5ca"
         light
         v-model="tabs"
+        color="white"
       >
         <v-tab>Monthly Reports</v-tab>
         <v-tab>Users</v-tab>
@@ -40,10 +41,13 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+
 .active {
   color: red;
 }
 .reports-container {
+
   &__active {
     color: red;
   }
@@ -52,9 +56,9 @@ export default {
     margin-top: 1rem;
   }
   &__main {
-    display: flex;
-    justify-content: space-evenly;
     margin-top: 2rem;
+    width: 100%;
+    background-color: v.$main-bkgrnd
   }
 }
 </style>

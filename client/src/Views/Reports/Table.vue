@@ -1,34 +1,49 @@
 <template>
   <div class="table-container">
-    <v-text-field
-      v-if="searchable"
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-    />
     <v-data-table
       :headers="headers"
       :items="data"
       item-key="shoutId"
       class="elevation-1"
       :search="search"
+      :items-per-page="5"
     >
-      <template v-if="dateObj" v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title v-if="view"
-            >Most Shoutouts Given In {{ selectedMonth }}</v-toolbar-title
-          >
-          <v-toolbar-title v-else
-            >Most Shoutouts Received In {{ selectedMonth }}</v-toolbar-title
-          >
+      <template v-slot:top>
+        <v-toolbar v-if="searchable">
+          <v-toolbar-title class="table-container__title" >
+            User Data
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          />
         </v-toolbar>
-        <v-switch
-          v-model="handleToggle"
-          :label="view ? 'Toggle To Received' : 'Toggle To Given'"
-          class="mt-2"
-        ></v-switch>
+
+        <v-toolbar v-if="dateObj" class="table-container__title">
+          <v-toolbar-title v-if="view">
+            Most Shoutouts Given In {{ selectedDate.month }}, {{ selectedDate.year }}
+          </v-toolbar-title>
+          <v-toolbar-title v-else>
+            Most Shoutouts Received In {{ selectedDate.month }}, {{ selectedDate.year }}
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-switch
+            v-model="handleToggle"
+            class="mt-5"
+            :label="view ? 'Toggle To Recieved' : 'Toggle To Given'"
+          ></v-switch>
+        </v-toolbar>
+
+        <v-toolbar v-if="all" class="table-container__title">
+          <v-toolbar-title>
+            All Shoutouts
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
       </template>
     </v-data-table>
   </div>
@@ -37,7 +52,7 @@
 <script>
 export default {
   name: "Table",
-  props: ["data", "view", "dateObj", "searchable"],
+  props: ["data", "view", "dateObj", "searchable", "all"],
   data() {
     return {
       search: "",
@@ -56,14 +71,17 @@ export default {
         this.$emit("toggleView", view);
       },
     },
-    selectedMonth() {
+    selectedDate() {
       const month = new Date(
         this.dateObj.selectedYear,
         this.dateObj.selectedMonth - 1,
         1
       );
       const monthName = month.toLocaleString("default", { month: "long" });
-      return monthName;
+      return {
+        month: monthName,
+        year: this.dateObj.selectedYear
+      }
     },
   },
   methods: {
@@ -100,13 +118,14 @@ export default {
 
 <style lang="scss">
 .table-container {
-  .v-input__control {
-    align-items: flex-end !important;
-    margin-right: 2% !important;
+  &__title {
+    padding: 0;
   }
-
-  .v-input__slot {
-    width: 35% !important;
+  &__toggle-text {
+    margin-left: 2rem;
+  }
+  &__search-bar {
+    background-color: white;
   }
 }
 </style>

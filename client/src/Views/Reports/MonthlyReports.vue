@@ -1,15 +1,17 @@
 <template>
     <v-tab-item>
-          <v-date-picker v-model="picker" type="month" color="green darken-1">
-          </v-date-picker>
-          <Table
-            class="reports-container__table"
-            :data="shoutsToDisplay"
-            @toggleView="toggleView"
-            :view="tableView"
-            :dateObj="this.createDateObj()"
-    />
-    <RadarChart :data="shoutsToDisplay.slice(0, 7)" />
+      <div class="item-container">
+        <v-date-picker v-model="picker" type="month" color="#1aa5ca" class="item-container__picker">
+        </v-date-picker>
+        <Table
+          class="item-container__table"
+          :data="shoutsToDisplay"
+          @toggleView="toggleView"
+          :view="tableView"
+          :dateObj="this.createDateObj()"
+      />
+      </div>
+        <RadarChart :data="shoutsToDisplay.slice(0, 7)" class="item-container__chart"/>
     </v-tab-item>
 </template>
 
@@ -70,4 +72,24 @@ import RadarChart from "./RadarChart";
 </script>
 
 <style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+.item-container {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: v.$main-bkgrnd;
+  
+  &__picker {
+    height: 300px;
+    margin: 1rem;
+  }
+
+  &__table {
+    width: 700px;
+    margin: 1rem;
+  }
+
+  &__chart {
+    background-color: v.$main-bkgrnd;
+  }
+}
 </style>

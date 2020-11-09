@@ -1,10 +1,11 @@
 <template>
-  <v-tab-item>
-    <Table
-      class="reports-container__table"
-      :data="shouts"
-      searchable="searchable"
-    />
+  <v-tab-item class="user-container">
+    <div class="user-container__table">
+      <Table
+        :data="shouts"
+        searchable="searchable"
+      />
+    </div>
   </v-tab-item>
 </template>
 
@@ -25,3 +26,19 @@
     },
   }
 </script>
+
+<style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+
+.user-container {
+  background-color: v.$main-bkgrnd;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  &__table {
+    align-self: center;
+    width: 700px;
+  }
+}
+</style>
