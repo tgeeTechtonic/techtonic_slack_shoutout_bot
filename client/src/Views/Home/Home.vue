@@ -32,20 +32,18 @@
 </template>
 
 <script>
-import { getRecentShouts } from '../../shared/apiCalls';
-import Carousel from './Carousel';
+import Carousel from "./Carousel";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: { Carousel },
-  data() {
-    return {
-      recentShouts: [],
-    };
+  created() {
+    this.$store.dispatch("getRecentShoutouts");
   },
-  async created() {
-    let recents = await getRecentShouts();
-    this.recentShouts = recents;
+  computed: {
+    recentShouts() {
+      return this.$store.state.recentShoutouts;
+    },
   },
 };
 </script>
