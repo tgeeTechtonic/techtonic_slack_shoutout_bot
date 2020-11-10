@@ -1,29 +1,35 @@
 <template>
-    <v-tab-item>
-      <div class="item-container">
-        <v-date-picker v-model="picker" type="month" class="item-container__picker">
-        </v-date-picker>
-        <Table
-          class="item-container__table"
-          :data="shoutsToDisplay"
-          @toggleView="toggleView"
-          :view="tableView"
-          :loading="loading"
-          :dateObj="this.createDateObj()"
+  <v-tab-item>
+    <div class="item-container">
+      <v-date-picker
+        v-model="picker"
+        type="month"
+        class="item-container__picker"
+      >
+      </v-date-picker>
+      <Table
+        class="item-container__table"
+        :data="rankedUsers"
+        @toggleView="toggleView"
+        :view="tableView"
+        :loading="loading"
+        :dateObj="this.createDateObj()"
       />
-      </div>
-        <RadarChart :data="shoutsToDisplay.slice(0, 7)" class="item-container__chart"/>
-    </v-tab-item>
+    </div>
+    <RadarChart
+      :data="shoutsToDisplay.slice(0, 7)"
+      class="item-container__chart"
+    />
+  </v-tab-item>
 </template>
 
 <script>
-import { getRankedByMonth } from '../../shared/apiCalls';
-import { rankedShoutersFormatter } from '../../shared/formatters';
-import RadarChart from './RadarChart';
-import Table from './Table';
+import { rankedShoutersFormatter } from "../../shared/formatters";
+import RadarChart from "./RadarChart";
+import Table from "./Table";
 
 export default {
-  name: 'MontlyReports',
+  name: "MonthlyReports",
   components: { Table, RadarChart },
   data() {
     return {
@@ -33,40 +39,42 @@ export default {
       tableView: true,
     };
   },
-  async created() {
+  created() {
     this.getRankedList();
   },
   methods: {
-    toggleView: function() {
+    toggleView: function () {
       this.tableView = !this.tableView;
     },
-    getRankedList: async function() {
+    getRankedList: function () {
       this.loading = true;
       const { selectedMonth, selectedYear } = this.createDateObj();
-      const formattedShouts = await getRankedByMonth(
-        this.tableView ? 'shouter' : 'shoutee',
-        selectedMonth,
-        selectedYear
-      );
+      this.$store.dispatch("getRankedUsersByMonth", {
+        type: this.tableView ? "shouter" : "shoutee",
+        month: selectedMonth,
+        year: selectedYear,
+      });
+
       this.loading = false;
-      
-      if (formattedShouts.length) {
-        this.shoutsToDisplay = rankedShoutersFormatter(formattedShouts);
-      } else this.shoutsToDisplay = [];
     },
-    createDateObj: function() {
+    createDateObj: function () {
       return {
-        selectedMonth: this.picker.split('-')[1],
-        selectedYear: this.picker.split('-')[0],
+        selectedMonth: this.picker.split("-")[1],
+        selectedYear: this.picker.split("-")[0],
       };
     },
   },
-  watch: {
-    async picker() {
-      await this.getRankedList();
+  computed: {
+    rankedUsers() {
+      return rankedShoutersFormatter(this.$store.state.rankedUsers);
     },
-    async tableView() {
-      await this.getRankedList();
+  },
+  watch: {
+    picker() {
+      this.getRankedList();
+    },
+    tableView() {
+      this.getRankedList();
     },
   },
 };
@@ -78,7 +86,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   background-color: v.$main-bkgrnd;
-  
+
   &__picker {
     height: 300px;
     margin: 1rem;
