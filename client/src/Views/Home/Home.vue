@@ -32,7 +32,6 @@
 </template>
 
 <script>
-// import { getRecentShouts } from "../../shared/apiCalls";
 import Carousel from "./Carousel";
 
 export default {
