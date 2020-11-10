@@ -1,30 +1,29 @@
 <template>
   <v-tab-item>
     <div class="all-reports">
-      <Table :data="shouts" :all="true" class="all-reports__table" />
-      <FillChart :data="shouts" class="all-reports__chart"/>
+      <Table :data="shoutouts" :all="true" class="all-reports__table" />
+      <FillChart :data="shoutouts" class="all-reports__chart" />
     </div>
   </v-tab-item>
 </template>
 
 <script>
-    import Table from "./Table";
-    import FillChart from "./FillChart";
-    import { getAllShouts } from "../../shared/apiCalls";
-    import { shoutoutFormatter } from "../../shared/formatters";
+import Table from "./Table";
+import FillChart from "./FillChart";
+import { shoutoutFormatter } from "../../shared/formatters";
 
-    export default {
-        name: "AllShouts",
-        components: { Table, FillChart },
-        data() {
-          return {
-            shouts: [],
-          }
-        },
-        async created() {
-          this.shouts = shoutoutFormatter(await getAllShouts());
-        },
-    }
+export default {
+  name: "AllShouts",
+  components: { Table, FillChart },
+  created() {
+    this.$store.dispatch("getShouts");
+  },
+  computed: {
+    shoutouts() {
+      return shoutoutFormatter(this.$store.state.shoutouts);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
