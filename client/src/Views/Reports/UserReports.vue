@@ -1,23 +1,43 @@
 <template>
   <v-tab-item class="user-container">
     <div class="user-container__table">
-      <Table :data="users" :searchable="true" />
+      <Table
+        class="user-container__users-list"
+        :data="usersList"
+        :searchable="true"
+        @selectedUser="handleSelectedUser"
+      />
+      <div class="user-container__placeholder">{{ selectedUserId }}</div>
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import Table from "./Table";
+import Table from './Table';
 
 export default {
-  name: "UserReports",
+  name: 'UserReports',
   components: { Table },
   created() {
-    this.$store.dispatch("getUsers");
+    this.$store.dispatch('getUsers');
+  },
+  data() {
+    return {
+      selectedUserId: -1,
+    };
   },
   computed: {
-    users() {
-      return this.$store.state.users;
+    usersList() {
+      return this.$store.state.users.map(({ id, first_name, last_name }) => ({
+        id,
+        first_name,
+        last_name,
+      }));
+    },
+  },
+  methods: {
+    handleSelectedUser(userId) {
+      this.selectedUserId = userId;
     },
   },
 };
@@ -34,6 +54,15 @@ export default {
 
   &__table {
     align-self: center;
+    display: flex;
+    flex-direction: row;
+  }
+  &__users-list {
+    margin-right: 10px;
+    width: 400px !important;
+  }
+  &__placeholder {
+    margin-left: 10px;
     width: 700px;
   }
 }
