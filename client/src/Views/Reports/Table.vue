@@ -1,18 +1,26 @@
 <template>
   <div class="table-container">
     <v-data-table
-      :headers="headers"
-      :items="data"
-      item-key="shoutId"
       class="elevation-1"
-      :search="search"
+      @click:row="handleSelection"
+      :footer-props="searchable ? {
+        'items-per-page-options': [10],
+        'items-per-page-text': '',
+      } : {}"
+      :headers="headers"
+      :height="searchable ? '528' : ''"
+      :items="data"
+      item-key="id"
       :items-per-page="5"
       :loading="loading"
+      :search="search"
+      :single-select="true"
+      :sort-by="searchable ? 'first_name' : 'id'"
     >
       <template v-slot:top>
         <v-toolbar v-if="searchable">
-          <v-toolbar-title class="table-container__title" >
-            User Data
+          <v-toolbar-title class="table-container__title">
+            Users
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
@@ -26,10 +34,12 @@
 
         <v-toolbar v-if="dateObj" class="table-container__title">
           <v-toolbar-title v-if="view">
-            Most Shoutouts Given In {{ selectedDate.month }}, {{ selectedDate.year }}
+            Most Shoutouts Given In {{ selectedDate.month }},
+            {{ selectedDate.year }}
           </v-toolbar-title>
           <v-toolbar-title v-else>
-            Most Shoutouts Received In {{ selectedDate.month }}, {{ selectedDate.year }}
+            Most Shoutouts Received In {{ selectedDate.month }},
+            {{ selectedDate.year }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-switch
@@ -52,11 +62,11 @@
 
 <script>
 export default {
-  name: "Table",
-  props: ["data", "view", "dateObj", "searchable", "all", "loading"],
+  name: 'Table',
+  props: ['data', 'view', 'dateObj', 'searchable', 'all', 'loading'],
   data() {
     return {
-      search: "",
+      search: '',
       tableData: [],
     };
   },
@@ -69,7 +79,7 @@ export default {
         return this.view;
       },
       set(view) {
-        this.$emit("toggleView", view);
+        this.$emit('toggleView', view);
       },
     },
     selectedDate() {
@@ -78,32 +88,37 @@ export default {
         this.dateObj.selectedMonth - 1,
         1
       );
-      const monthName = month.toLocaleString("default", { month: "long" });
+      const monthName = month.toLocaleString('default', { month: 'long' });
       return {
         month: monthName,
-        year: this.dateObj.selectedYear
-      }
+        year: this.dateObj.selectedYear,
+      };
     },
   },
   methods: {
     createHeaders(obj) {
       let headers = [];
       for (const key in obj) {
-        if (key !== "shoutId" && key !== "id") {
+        if (key !== 'shoutId' && key !== 'id') {
           headers.push({
             text: this.capitalize(key),
             value: key,
           });
         }
       }
-      headers[0] = { ...headers[0], align: "start" };
+      headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
     capitalize(str) {
       return str
-        .split("_")
+        .split('_')
         .map((s) => s[0].toUpperCase() + s.substring(1))
-        .join(" ");
+        .join(' ');
+    },
+    handleSelection(item, row) {
+      row.select(true);
+      this.selectedId = item.id;
+      this.$emit('selectedUser', item.id)
     },
   },
   watch: {
@@ -118,6 +133,11 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../../assets/styles/variables.scss" as v;
+
+tr.v-data-table__selected {
+  background: v.$accent-green !important;
+}
 .table-container {
   &__title {
     padding: 0;
