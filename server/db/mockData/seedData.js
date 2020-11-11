@@ -38,6 +38,10 @@ const getUsers = () => {
       last_name: user.split(' ')[1],
       slack_handle: `${firstName}_${lastName}`,
       slack_id: `CXKJLOKJ4JSHAKD${i + 1}`,
+      role: 'guest',
+      job_title: 'Developer',
+      avatar:
+        'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-04-25/174421215012_0636b5620754c9aa56bf_512.png',
     };
   });
 };

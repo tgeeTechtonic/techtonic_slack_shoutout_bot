@@ -10,7 +10,7 @@ exports.up = (knex) => {
       table.timestamps(true, true);
       table.string('role');
       table.string('avatar');
-      table.string('job_title').defaultTo('Developer')
+      table.string('job_title');
     })
     .createTable('company_values', (table) => {
       table.increments('id').primary();
