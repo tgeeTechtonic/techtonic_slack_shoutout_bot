@@ -74,7 +74,7 @@ exports.parseReqData = ({ channel_name, text }) => {
 };
 
 exports.parseSlackUserInfo = (slackId, { data }) => {
-  const { email, display_name, title, image } = data.user.profile;
+  const { email, display_name, title, image_192 } = data.user.profile;
   let name = email.split('@')[0].split('.');
   return {
     email,
@@ -83,6 +83,6 @@ exports.parseSlackUserInfo = (slackId, { data }) => {
     slack_handle: display_name,
     slack_id: slackId,
     job_title: title,
-    avatar: image
+    avatar: image_192,
   };
 };
