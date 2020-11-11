@@ -8,6 +8,9 @@ exports.up = (knex) => {
       table.string('slack_handle');
       table.string('slack_id');
       table.timestamps(true, true);
+      table.string('role');
+      table.string('avatar');
+      table.string('job_title');
     })
     .createTable('company_values', (table) => {
       table.increments('id').primary();
