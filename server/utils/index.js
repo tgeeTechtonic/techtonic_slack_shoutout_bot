@@ -82,7 +82,7 @@ exports.parseSlackUserInfo = (slackId, { data }) => {
     last_name: name[1],
     slack_handle: display_name,
     slack_id: slackId,
-    title,
+    job_title: title,
     avatar: image
   };
 };
