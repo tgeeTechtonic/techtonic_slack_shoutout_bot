@@ -4,8 +4,11 @@
       <Table
         class="user-container__users-list"
         :data="usersList"
+        :restricted="true"
         :searchable="true"
+        :selectable="true"
         @selectedUser="handleSelectedUser"
+        title="Users"
       />
       <div v-if="selectedUser.id">
         <ProfileCard :user="selectedUser" />

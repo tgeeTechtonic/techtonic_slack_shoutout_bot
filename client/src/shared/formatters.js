@@ -23,6 +23,7 @@ export const rankedShoutersFormatter = (shouts) => {
   });
 };
 
+
 export const userShoutoutsFormatter = (userData) => {
   let user = {
     shoutoutsGiven: [],
@@ -47,4 +48,11 @@ export const userShoutoutsFormatter = (userData) => {
     };
   });
   return user;
+
+  
+export const capitalizeWordFormatter = (str) => {
+  return str
+    .split('_')
+    .map((s) => s[0].toUpperCase() + s.substring(1))
+    .join(' ');
 };
