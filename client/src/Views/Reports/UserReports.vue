@@ -1,5 +1,6 @@
 <template>
   <v-tab-item class="user-container">
+    <MonthRangePicker @dateRange="handleDateRange"/>
     <div class="user-container__table">
       <Table
         class="user-container__users-list"
@@ -20,16 +21,19 @@
 <script>
 import ProfileCard from './ProfileCard';
 import Table from './Table';
+import MonthRangePicker from './MonthRangePicker';
 
 export default {
   name: 'UserReports',
-  components: { ProfileCard, Table },
+  components: { ProfileCard, Table, MonthRangePicker },
   created() {
     this.$store.dispatch('getUsers');
   },
   data() {
     return {
       selectedUser: {},
+      dateRange: '',
+      isValidDateRange: true,
     };
   },
   computed: {
@@ -47,7 +51,11 @@ export default {
         .filter((user) => user.id === userId)
         .pop();
     },
-  },
+    handleDateRange(date) {
+      if (date) this.dateRange = date;
+      else this.isValidDateRange = false;
+    },
+  }
 };
 </script>
 
@@ -59,6 +67,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   &__table {
     align-self: center;

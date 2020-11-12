@@ -124,11 +124,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .row-container {
-      display: flex;
-      justify-content: space-evenly;
-      height: 10vh;
-      margin: 1rem;
-    }
+@use "../../assets/styles/variables.scss" as v;
+.row-container {
+    background-color: v.$main-white;
+    display: flex;
+    justify-content: space-evenly;
+    height: 10vh;
+    margin: 1rem;
+}
    
 </style>
