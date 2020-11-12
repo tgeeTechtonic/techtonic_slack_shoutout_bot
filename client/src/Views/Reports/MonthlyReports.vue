@@ -10,10 +10,10 @@
       <Table
         class="item-container__table"
         :data="rankedUsers"
-        @toggleView="toggleView"
-        :view="tableView"
         :loading="loading"
-        :dateObj="this.createDateObj()"
+        :title="tableTitle"
+        :toggleable="true"
+        @toggleView="toggleView"
       />
     </div>
     <RadarChart
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import { rankedShoutersFormatter } from "../../shared/formatters";
-import RadarChart from "./RadarChart";
-import Table from "./Table";
+import { rankedShoutersFormatter } from '../../shared/formatters';
+import RadarChart from './RadarChart';
+import Table from './Table';
 
 export default {
-  name: "MonthlyReports",
+  name: 'MonthlyReports',
   components: { Table, RadarChart },
   data() {
     return {
@@ -43,28 +43,49 @@ export default {
     this.getRankedList();
   },
   methods: {
-    toggleView: function () {
-      this.tableView = !this.tableView;
+    createDateObj() {
+      return {
+        selectedMonth: this.picker.split('-')[1],
+        selectedYear: this.picker.split('-')[0],
+      };
     },
-    getRankedList: function () {
+    getRankedList() {
       this.loading = true;
       const { selectedMonth, selectedYear } = this.createDateObj();
-      this.$store.dispatch("getRankedUsersByMonth", {
-        type: this.tableView ? "shouter" : "shoutee",
+      this.$store.dispatch('getRankedUsersByMonth', {
+        type: this.tableView ? 'shouter' : 'shoutee',
         month: selectedMonth,
         year: selectedYear,
       });
 
       this.loading = false;
     },
-    createDateObj: function () {
+    selectedDate() {
+      const selectedDate = new Date(
+        this.picker.split('-')[0],
+        this.picker.split('-')[1] - 1,
+        1
+      );
+
       return {
-        selectedMonth: this.picker.split("-")[1],
-        selectedYear: this.picker.split("-")[0],
+        month: selectedDate.toLocaleString('default', { month: 'long' }),
+        year: selectedDate.toLocaleString('default', { year: 'numeric' }),
       };
+    },
+    toggleView() {
+      this.tableView = !this.tableView;
     },
   },
   computed: {
+    tableTitle() {
+      const { month, year } = this.selectedDate();
+      if (this.tableView)
+        return `Most Shoutouts Given In ${month},
+            ${year}`;
+      else
+        return `Most Shoutouts Received In ${month},
+            ${year}`;
+    },
     rankedUsers() {
       return rankedShoutersFormatter(this.$store.state.rankedUsers);
     },
@@ -82,22 +103,21 @@ export default {
 
 <style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
+
 .item-container {
+  background-color: v.$main-bkgrnd;
   display: flex;
   justify-content: space-evenly;
-  background-color: v.$main-bkgrnd;
 
   &__picker {
+    color: v.$accent-blue;
     height: 300px;
     margin: 1rem;
-    color: v.$accent-blue;
   }
-
   &__table {
-    width: 700px;
     margin: 1rem;
+    width: 700px;
   }
-
   &__chart {
     background-color: v.$main-bkgrnd;
   }

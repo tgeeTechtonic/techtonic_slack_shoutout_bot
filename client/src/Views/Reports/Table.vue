@@ -3,57 +3,36 @@
     <v-data-table
       class="elevation-1"
       @click:row="handleSelection"
-      :footer-props="searchable ? {
-        'items-per-page-options': [10],
-        'items-per-page-text': '',
-      } : {}"
+      :footer-props="customFooter"
       :headers="headers"
-      :height="searchable ? '528' : ''"
       :items="data"
       item-key="id"
       :items-per-page="5"
       :loading="loading"
       :search="search"
       :single-select="true"
-      :sort-by="searchable ? 'first_name' : 'id'"
+      :sort-by="sortBy"
     >
       <template v-slot:top>
-        <v-toolbar v-if="searchable">
-          <v-toolbar-title class="table-container__title">
-            Users
+        <v-toolbar class="table-container__title">
+          <v-toolbar-title>
+            {{ title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
-            v-model="search"
+            v-if="searchable"
+            hide-details
             append-icon="mdi-magnify"
             label="Search"
             single-line
-            hide-details
+            v-model="search"
           />
-        </v-toolbar>
-
-        <v-toolbar v-if="dateObj" class="table-container__title">
-          <v-toolbar-title v-if="view">
-            Most Shoutouts Given In {{ selectedDate.month }},
-            {{ selectedDate.year }}
-          </v-toolbar-title>
-          <v-toolbar-title v-else>
-            Most Shoutouts Received In {{ selectedDate.month }},
-            {{ selectedDate.year }}
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
           <v-switch
-            v-model="handleToggle"
+            v-if="toggleable"
             class="mt-5"
-            :label="view ? 'Toggle To Recieved' : 'Toggle To Given'"
+            :label="showingGiven ? 'Toggle To Received' : 'Toggle To Given'"
+            v-model="handleToggle"
           ></v-switch>
-        </v-toolbar>
-
-        <v-toolbar v-if="all" class="table-container__title">
-          <v-toolbar-title>
-            All Shoutouts
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
         </v-toolbar>
       </template>
     </v-data-table>
@@ -61,38 +40,48 @@
 </template>
 
 <script>
+import { capitalizeWordFormatter } from '../../shared/formatters';
+
 export default {
   name: 'Table',
-  props: ['data', 'view', 'dateObj', 'searchable', 'all', 'loading'],
+  props: [
+    'data', // DATA COMING IN TO BE DISPLAYED
+    'loading', // STATE OF DATA RETRIEVAL
+    'restricted', // LIMITING THE FUNCTIONALITY OF THE TABLE IN SOME WAY
+    'searchable', // HAVING A SEARCH BAR INCLUDED IN THE TABLE
+    'selectable', // BEING ABLE TO CLICK / SELECT ROWS IN THE TABLE (EX. USERS TABLE)
+    'title', // TITLE FOR THE TABLE
+    'toggleable', // HAVING A TOGGLE BUTTON ON THE TABLE TO SWITCH VIEWS
+  ],
   data() {
     return {
       search: '',
       tableData: [],
+      showingGiven: true,
     };
   },
   computed: {
+    customFooter() {
+      if (this.restricted)
+        return {
+          'items-per-page-options': [10], // HOW MANY RESULTS PER PAGE TO SHOW
+          'items-per-page-text': '', // REMOVES ROWS PER PAGE TEXT AND DROPDOWN SELECTOR
+        };
+      else return {};
+    },
     headers() {
       return this.createHeaders(this.tableData[0]);
     },
+    sortBy() {
+      return this.searchable ? 'first_name' : 'id';
+    },
     handleToggle: {
       get() {
-        return this.view;
+        return this.showingGiven;
       },
-      set(view) {
-        this.$emit('toggleView', view);
+      set() {
+        this.$emit('toggleView', this.showingGiven);
       },
-    },
-    selectedDate() {
-      const month = new Date(
-        this.dateObj.selectedYear,
-        this.dateObj.selectedMonth - 1,
-        1
-      );
-      const monthName = month.toLocaleString('default', { month: 'long' });
-      return {
-        month: monthName,
-        year: this.dateObj.selectedYear,
-      };
     },
   },
   methods: {
@@ -101,7 +90,7 @@ export default {
       for (const key in obj) {
         if (key !== 'shoutId' && key !== 'id') {
           headers.push({
-            text: this.capitalize(key),
+            text: capitalizeWordFormatter(key),
             value: key,
           });
         }
@@ -109,16 +98,11 @@ export default {
       headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
-    capitalize(str) {
-      return str
-        .split('_')
-        .map((s) => s[0].toUpperCase() + s.substring(1))
-        .join(' ');
-    },
     handleSelection(item, row) {
-      row.select(true);
-      this.selectedId = item.id;
-      this.$emit('selectedUser', item.id)
+      if (this.selectable) {
+        row.select(true);
+        this.$emit('selectedUser', item.id);
+      }
     },
   },
   watch: {
@@ -146,7 +130,7 @@ tr.v-data-table__selected {
     margin-left: 2rem;
   }
   &__search-bar {
-    background-color: white;
+    background-color: v.$main-white;
   }
 }
 </style>
