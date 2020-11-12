@@ -1,11 +1,10 @@
 <template>
   <v-row class="row-container">
-    <v-col cols="11" sm="5">
+    <v-col cols="11" sm="3">
       <v-menu
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
-        :return-value.sync="date"
         transition="scale-transition"
         offset-y
         max-width="290px"
@@ -13,8 +12,8 @@
         >
         <template v-slot:activator="{ on, attrs }">
             <v-text-field
-              v-model="date"
-              label="Picker in menu"
+              v-model="startDate"
+              label="Date Range Start"
               prepend-icon="mdi-calendar"
               readonly
               v-bind="attrs"
@@ -23,12 +22,12 @@
             </v-text-field>
         </template>
         <v-date-picker
-          v-model="date"
+          v-model="startDate"
           type="month"
           no-title
           scrollable
         >
-          <v-spacer></v-spacer>
+          
           <v-btn
             text
             color="primary"
@@ -39,29 +38,27 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.menu.save(date)"
+            @click="$refs.menu.save(startDate)"
           >
             OK
           </v-btn>
         </v-date-picker>
       </v-menu>
     </v-col>
-    <v-spacer></v-spacer>
     <v-col
       cols="11"
-      sm="5"
+      sm="3"
     >
       <v-dialog
         ref="dialog"
         v-model="modal"
-        :return-value.sync="date"
         persistent
         width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
-            label="Picker in dialog"
+            v-model="endDate"
+            label="Date Range End"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -69,7 +66,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="date"
+          v-model="endDate"
           type="month"
           scrollable
         >
@@ -84,7 +81,7 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.dialog.save(date)"
+            @click="$refs.dialog.save(endDate)"
           >
             OK
           </v-btn>
@@ -96,18 +93,42 @@
 
 <script>
 export default {
-    data() {
-        return {
-        date: new Date().toISOString().substr(0, 7),
-        menu: false,
-        modal: false,
-        }
+  data() {
+    return {
+    startDate: new Date().toISOString().substr(0, 4) + "-01",
+    endDate: new Date().toISOString().substr(0, 7),
+    menu: false,
+    modal: false,
+    }
+  },
+  methods: {
+    verifyDateRange() {
+      if (this.endDate.replace(/-/g, " ") > this.startDate.replace(/-/g, " ")) {
+        this.$emit('dateRange', { startDate: this.startDate, endDate: this.endDate })
+      } else {
+        this.$emit('dateRange', false)
+        this.startDate = this.endDate;
+      }
+    return;
+    }
+  },
+  watch: {
+    startDate() {
+      this.verifyDateRange();
     },
+    endDate() {
+      this.verifyDateRange();
+    }
+  }
 }
 </script>
 
-<style lang="scss">
-.row {
-    margin: 2rem;
-}
+<style lang="scss" scoped>
+    .row-container {
+      display: flex;
+      justify-content: space-evenly;
+      height: 10vh;
+      margin: 1rem;
+    }
+   
 </style>
