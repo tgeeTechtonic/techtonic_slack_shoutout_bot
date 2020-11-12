@@ -17,24 +17,95 @@
       </div>
     </v-card-text>
     <v-divider></v-divider>
+    <v-card-text>
+      <h3 class="headline mb-2">
+        <Table
+          :data="selectedUser.summary"
+          :all="true"
+          class="profile-card__table"
+        />
+      </h3>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-expansion-panels multiple class="profile-card__summary">
+      <v-expansion-panel>
+        <v-expansion-panel-header>Shoutouts Given</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <Table
+            :data="selectedUser.shoutoutsGiven"
+            :all="true"
+            class="profile-card__table"
+          />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>Shoutouts Received</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <Table
+            :data="selectedUser.shoutoutsReceived"
+            :all="true"
+            class="profile-card__table"
+          />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-card>
   <v-card v-else class="profile-card__placeholder"></v-card>
 </template>
 
 <script>
+import { userShoutoutsFormatter } from '../../shared/formatters';
+import Table from './Table';
+
 export default {
   name: 'ProfileCard',
+  components: { Table },
   props: ['user'],
+  created() {
+    this.getShoutouts();
+  },
+  computed: {
+    selectedUser() {
+      return userShoutoutsFormatter(this.$store.state.user);
+    },
+  },
+  methods: {
+    getShoutouts() {
+      this.$store.dispatch('getUserShoutoutsByType', {
+        userId: this.user.id,
+        type: 'shoutee',
+      });
+      this.$store.dispatch('getUserShoutoutsByType', {
+        userId: this.user.id,
+        type: 'shouter',
+      });
+    },
+  },
+  watch: {
+    user() {
+      this.getShoutouts();
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
 
+.v-expansion-panel-content__wrap {
+  padding: 0 !important;
+}
+.v-expansion-panel--active > .v-expansion-panel-header {
+  color: v.$main-white;
+  background-color: v.$accent-blue;
+}
 .profile-card {
   width: calc(100vw - 550px);
   &__placeholder {
     background-color: v.$main-bkgrnd;
+  }
+  &__summary {
+    margin: 0px 0 35px;
   }
 }
 </style>

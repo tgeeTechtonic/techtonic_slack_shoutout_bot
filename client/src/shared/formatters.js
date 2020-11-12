@@ -23,6 +23,33 @@ export const rankedShoutersFormatter = (shouts) => {
   });
 };
 
+
+export const userShoutoutsFormatter = (userData) => {
+  let user = {
+    shoutoutsGiven: [],
+    shoutoutsReceived: [],
+    summary: [userData.summary],
+  };
+
+  user.shoutoutsGiven = userData.shoutoutsGiven.map((shout) => {
+    return {
+      date: shout.date,
+      to: shout.shoutee,
+      company_value: shout.company_value,
+      message: shout.message,
+    };
+  });
+  user.shoutoutsReceived = userData.shoutoutsReceived.map((shout) => {
+    return {
+      date: shout.date,
+      from: shout.shouter,
+      company_value: shout.company_value,
+      message: shout.message,
+    };
+  });
+  return user;
+
+  
 export const capitalizeWordFormatter = (str) => {
   return str
     .split('_')

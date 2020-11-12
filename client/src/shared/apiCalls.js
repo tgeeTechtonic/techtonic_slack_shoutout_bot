@@ -3,7 +3,6 @@ import axios from 'axios';
 const baseUrl = process.env.VUE_APP_URL;
 
 export const getRecentShouts = async () => {
-  console.log('here', baseUrl)
   try {
     const response = await axios.get(baseUrl + '/api/recents');
     return response.data;
@@ -34,6 +33,16 @@ export const getRankedByMonth = async (type, month, year) => {
 export const getAllUsers = async () => {
   try {
     const response = await axios.get(baseUrl + '/api/all-users');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserShoutoutsByType = async (userId, type) => {
+  const urlQueries = `/api/shoutouts/user/${userId}?type=${type}`;
+  try {
+    const response = await axios.get(baseUrl + urlQueries);
     return response.data;
   } catch (error) {
     console.log(error);
