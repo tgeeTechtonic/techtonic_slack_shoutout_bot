@@ -7,23 +7,26 @@
         :searchable="true"
         @selectedUser="handleSelectedUser"
       />
-      <div class="user-container__placeholder">{{ selectedUserId }}</div>
+      <div v-if="selectedUser.id">
+        <ProfileCard :user="selectedUser" />
+      </div>
     </div>
   </v-tab-item>
 </template>
 
 <script>
+import ProfileCard from './ProfileCard';
 import Table from './Table';
 
 export default {
   name: 'UserReports',
-  components: { Table },
+  components: { ProfileCard, Table },
   created() {
     this.$store.dispatch('getUsers');
   },
   data() {
     return {
-      selectedUserId: -1,
+      selectedUser: {},
     };
   },
   computed: {
@@ -37,7 +40,9 @@ export default {
   },
   methods: {
     handleSelectedUser(userId) {
-      this.selectedUserId = userId;
+      this.selectedUser = this.$store.state.users
+        .filter((user) => user.id === userId)
+        .pop();
     },
   },
 };
@@ -56,14 +61,11 @@ export default {
     align-self: center;
     display: flex;
     flex-direction: row;
+    width: 90%;
   }
   &__users-list {
     margin-right: 10px;
     width: 400px !important;
-  }
-  &__placeholder {
-    margin-left: 10px;
-    width: 700px;
   }
 }
 </style>
