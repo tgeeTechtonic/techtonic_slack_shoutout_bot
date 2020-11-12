@@ -14,7 +14,7 @@
       :sort-by="sortBy"
     >
       <template v-slot:top>
-        <v-toolbar class="table-container__title">
+        <v-toolbar v-if="title" class="table-container__title">
           <v-toolbar-title>
             {{ title }}
           </v-toolbar-title>
