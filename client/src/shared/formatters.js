@@ -23,7 +23,6 @@ export const rankedShoutersFormatter = (shouts) => {
   });
 };
 
-
 export const userShoutoutsFormatter = (userData) => {
   let user = {
     shoutoutsGiven: [],
@@ -48,8 +47,8 @@ export const userShoutoutsFormatter = (userData) => {
     };
   });
   return user;
+};
 
-  
 export const capitalizeWordFormatter = (str) => {
   return str
     .split('_')
