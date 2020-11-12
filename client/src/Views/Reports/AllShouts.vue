@@ -1,16 +1,16 @@
 <template>
   <v-tab-item>
     <div class="all-reports">
-      <Table :data="shoutouts" :all="true" class="all-reports__table" />
+      <Table :data="shoutouts" class="all-reports__table" title="All Shoutouts"/>
       <FillChart :data="shoutouts" class="all-reports__chart" />
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import Table from "./Table";
-import FillChart from "./FillChart";
 import { shoutoutFormatter } from "../../shared/formatters";
+import FillChart from "./FillChart";
+import Table from "./Table";
 
 export default {
   name: "AllShouts",
@@ -31,17 +31,17 @@ export default {
 
 .all-reports {
   background-color: v.$main-bkgrnd;
-  width: 100%;
   display: flex;
   justify-content: space-evenly;
+  width: 100%;
 
   &__table {
-    width: 60%;
     margin: 1rem;
+    width: 60%;
   }
   &__chart {
-    width: 50%;
     margin: 1rem, 1rem, 0, 1rem;
+    width: 50%;
   }
 }
 </style>

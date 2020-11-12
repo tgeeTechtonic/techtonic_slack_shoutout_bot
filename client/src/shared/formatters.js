@@ -22,3 +22,10 @@ export const rankedShoutersFormatter = (shouts) => {
     };
   });
 };
+
+export const capitalizeWordFormatter = (str) => {
+  return str
+    .split('_')
+    .map((s) => s[0].toUpperCase() + s.substring(1))
+    .join(' ');
+};
