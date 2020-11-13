@@ -89,11 +89,8 @@ export default {
     user() {
       this.getShoutouts();
     },
-    date: {
-      immediate: true,
-      handler() {
-        this.getShoutouts();
-      },
+    date() {
+      this.getShoutouts();
     },
   },
 };
