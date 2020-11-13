@@ -26,9 +26,15 @@ const shoutoutController = {
       )
       .then((shoutouts) => formatMonthlyShoutouts(shoutouts, userType));
   },
-  getAllShoutOuts: async () => {
+  getAllShoutOuts: async (start_date, end_date) => {
+    const [year, month] = end_date.split('-');
+    const numDaysInMonth = new Date(year, month, 0).getDate();
+
     return await db('shoutouts')
-      .select()
+      .whereBetween('date', [
+        new Date(start_date),
+        new Date(year, parseInt(month) - 1, numDaysInMonth),
+      ])
       .orderBy('date', 'desc')
       .then((shouts) =>
         Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
