@@ -2,9 +2,6 @@
   <v-row class="row-container">
     <v-col cols="11" sm="3">
       <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
         transition="scale-transition"
         offset-y
         width="290px"
@@ -21,19 +18,11 @@
           </v-text-field>
         </template>
         <v-date-picker v-model="startDate" type="month" scrollable>
-          <v-btn text color="primary" @click="menu = false">
-            Cancel
-          </v-btn>
-          <v-btn text color="primary" @click="$refs.menu.save(startDate)">
-            OK
-          </v-btn>
         </v-date-picker>
       </v-menu>
     </v-col>
     <v-col cols="11" sm="3">
       <v-menu
-        ref="dialog"
-        v-model="modal"
         transition="scale-transition"
         offset-y
         width="290px"
@@ -49,13 +38,6 @@
           ></v-text-field>
         </template>
         <v-date-picker v-model="endDate" type="month" scrollable>
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="modal = false">
-            Cancel
-          </v-btn>
-          <v-btn text color="primary" @click="$refs.dialog.save(endDate)">
-            OK
-          </v-btn>
         </v-date-picker>
       </v-menu>
     </v-col>
@@ -69,16 +51,14 @@ export default {
       startDate: new Date().toISOString().substr(0, 4) + '-01',
       endDate: new Date().toISOString().substr(0, 7),
       validDate: true,
-      menu: false,
-      modal: false,
     };
   },
   methods: {
     verifyDateRange() {
       const invalidDate =
         this.endDate.replace(/-/g, ' ') < this.startDate.replace(/-/g, ' ');
-      this.validDate = invalidDate;
 
+      this.validDate = invalidDate;
       this.$emit('dateRange', {
         invalidDate,
         startDate: this.startDate,
