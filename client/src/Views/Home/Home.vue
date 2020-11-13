@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import Carousel from "./Carousel";
+import Carousel from './Carousel';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: { Carousel },
   created() {
-    this.$store.dispatch("getRecentShoutouts");
+    this.$store.dispatch('getRecentShoutouts');
   },
   computed: {
     recentShouts() {
@@ -53,7 +53,9 @@ export default {
 
 .home {
   &__section {
-    padding: 0px 50px 50px 50px;
+    height: 500px;
+    margin: 0px 0px 50px 0px;
+    padding: 0px 50px;
   }
   &__section--blurb {
     color: v.$main-white;

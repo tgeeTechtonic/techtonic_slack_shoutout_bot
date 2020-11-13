@@ -45,7 +45,14 @@ export default {
   data() {
     return {
       model: 0,
-      shouts: null,
+      shouts: [
+        {
+          company_value: '',
+          message: '',
+          shoutee: ' ', // NEEDS TO HAVE AN EMPTY SPACE IN ORDER TO RENDER SKELETON LOADER
+          shouter: ' ', // NEEDS TO HAVE AN EMPTY SPACE IN ORDER TO RENDER SKELETON LOADER
+        },
+      ],
     };
   },
   mounted() {
