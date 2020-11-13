@@ -1,41 +1,57 @@
 <template>
-  <v-carousel
-    cycle
-    height="500"
-    interval="6000"
-    :show-arrows="false"
-    v-model="model"
-  >
-    <v-carousel-item v-for="(shout, i) in shouts" :key="i">
-      <v-sheet height="100%" :style="bgImgStyle(i)" tile>
-        <v-row align="center" class="carousel__company-value" justify="center">
-          {{ shout.company_value }}
-        </v-row>
-        <v-row
-          align="center"
-          class="carousel__shoutout-message"
-          justify="center"
-          :style="{ fontSize: shout.fontSize + 'rem' }"
-        >
-          {{ shout.message }}
-        </v-row>
-        <v-row align="end" justify="center">
-          <div class="display-1 carousel__shoutout-user">
-            <span class="carousel__shoutout-identifier">
-              Shoutee:
-            </span>
-            {{ capitalizeName(shout.shoutee) }}
-          </div>
-          <div class="display-1 carousel__shoutout-user">
-            <span class="carousel__shoutout-identifier">
-              Shouter:
-            </span>
-            {{ capitalizeName(shout.shouter) }}
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+  <v-card>
+    <v-carousel
+      cycle
+      height="500"
+      interval="6000"
+      :show-arrows="false"
+      v-model="model"
+    >
+      <v-carousel-item v-for="(shout, i) in shouts" :key="i">
+        <v-sheet height="100%" :style="bgImgStyle(i)" tile>
+          <v-row
+            align="center"
+            class="carousel__company-value"
+            justify="center"
+          >
+            {{ shout.company_value }}
+          </v-row>
+          <v-row
+            align="center"
+            class="carousel__shoutout-message"
+            justify="center"
+            :style="{ fontSize: shout.fontSize + 'rem' }"
+          >
+            {{ shout.message }}
+          </v-row>
+          <v-row align="end" justify="center">
+            <div class="display-1 carousel__shoutout-user">
+              <span class="carousel__shoutout-identifier">
+                Shoutee:
+              </span>
+              {{ capitalizeName(shout.shoutee) }}
+            </div>
+            <div class="display-1 carousel__shoutout-user">
+              <span class="carousel__shoutout-identifier">
+                Shouter:
+              </span>
+              {{ capitalizeName(shout.shouter) }}
+            </div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <v-list dark>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title
+            >Above are the 5 most recent shoutouts, don't forget to check back
+            for new ones!</v-list-item-title
+          >
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
