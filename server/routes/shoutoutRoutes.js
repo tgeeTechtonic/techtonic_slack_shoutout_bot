@@ -32,7 +32,12 @@ router.get('/reports/monthly', verifyParams, async (req, res) => {
 
 router.get('/shoutouts', async (req, res) => {
   try {
-    const shoutouts = await shoutoutController.getAllShoutOuts();
+    const start_date = req.query['start-date'];
+    const end_date = req.query['end-date'];
+    const shoutouts = await shoutoutController.getAllShoutOuts(
+      start_date,
+      end_date
+    );
 
     if (shoutouts.length) res.status(200).json(shoutouts);
     else res.status(204).json('No Content');
