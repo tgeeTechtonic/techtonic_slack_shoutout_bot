@@ -56,7 +56,7 @@ export default {
     padding: 0px 50px 50px 50px;
   }
   &__section--blurb {
-    color: white;
+    color: v.$main-white;
     background-color: v.$main-grey-underlay;
     margin: 0px 50px;
     padding: 0px 50px;

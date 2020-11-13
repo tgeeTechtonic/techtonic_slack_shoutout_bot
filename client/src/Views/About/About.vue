@@ -41,7 +41,7 @@ export default {
 
 .about {
   &__section {
-    color: white;
+    color: v.$main-white;
     background-color: v.$main-grey-underlay;
     padding: 0px 50px;
   }
