@@ -60,7 +60,7 @@ import Table from './Table';
 export default {
   name: 'ProfileCard',
   components: { Table },
-  props: ['user'],
+  props: ['user', 'date'],
   created() {
     this.getShoutouts();
   },
@@ -74,10 +74,14 @@ export default {
       this.$store.dispatch('getUserShoutoutsByType', {
         userId: this.user.id,
         type: 'shoutee',
+        startDate: this.date.startDate,
+        endDate: this.date.endDate,
       });
       this.$store.dispatch('getUserShoutoutsByType', {
         userId: this.user.id,
         type: 'shouter',
+        startDate: this.date.startDate,
+        endDate: this.date.endDate,
       });
     },
   },

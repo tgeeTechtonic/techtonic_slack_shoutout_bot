@@ -1,5 +1,25 @@
 <template>
   <v-tab-item class="user-container">
+    <MonthRangePicker @dateRange="handleDateRange" />
+    <v-dialog v-model="dateRange.invalidDate" width="500">
+      <v-card class="error-card">
+        <v-card-title class="headline error-card__title lighten-2">
+          Invalid Date Range Selected
+        </v-card-title>
+        <v-card-text>
+          The dates you have chosen are not valid, please check your selection
+          and try again.
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dateRange.invalidDate = false">
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="user-container__table">
       <Table
         class="user-container__users-list"
@@ -11,7 +31,7 @@
         title="Users"
       />
       <div v-if="selectedUser.id">
-        <ProfileCard :user="selectedUser" />
+        <ProfileCard :user="selectedUser" :date="dateRange" />
       </div>
     </div>
   </v-tab-item>
@@ -20,16 +40,22 @@
 <script>
 import ProfileCard from './ProfileCard';
 import Table from './Table';
+import MonthRangePicker from './MonthRangePicker';
 
 export default {
   name: 'UserReports',
-  components: { ProfileCard, Table },
+  components: { ProfileCard, Table, MonthRangePicker },
   created() {
     this.$store.dispatch('getUsers');
   },
   data() {
     return {
       selectedUser: {},
+      dateRange: {
+        invalidDate: false,
+        startDate: new Date().toISOString().substr(0, 4) + '-01',
+        endDate: new Date().toISOString().substr(0, 7),
+      },
     };
   },
   computed: {
@@ -47,6 +73,9 @@ export default {
         .filter((user) => user.id === userId)
         .pop();
     },
+    handleDateRange(date) {
+      this.dateRange = date;
+    },
   },
 };
 </script>
@@ -54,11 +83,22 @@ export default {
 <style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
 
+.error-card {
+  &__title {
+    background-color: v.$accent-blue;
+    color: v.$main-white;
+  }
+  .v-card__text {
+    margin: 20px 0 0;
+  }
+}
+
 .user-container {
   background-color: v.$main-bkgrnd;
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   &__table {
     align-self: center;
