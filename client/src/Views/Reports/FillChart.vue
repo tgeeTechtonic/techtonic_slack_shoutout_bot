@@ -11,18 +11,18 @@
 
 <script>
 export default {
-  name: "FillChart",
-  props: ["data"],
+  name: 'FillChart',
+  props: ['data'],
   data() {
     return {
       dateRange: 30,
       chartOptions: {
         chart: {
-          type: "area",
+          type: 'area',
           stacked: false,
-          width: "auto",
+          width: 'auto',
           toolbar: {
-            autoSelected: "zoom",
+            autoSelected: 'zoom',
             show: true,
           },
           dropShadow: {
@@ -34,13 +34,20 @@ export default {
             opacity: 0.06,
           },
         },
-        colors: ["#accc20", "#1aa5ca", "#f77046", "#ADB5BD", "#AF125A"],
+        colors: [
+          '#accc20',
+          '#1aa5ca',
+          '#f77046',
+          '#ADB5BD',
+          '#AF125A',
+          '#a320cc',
+        ],
         dataLabels: {
           enabled: false,
         },
         markers: {
           size: 0,
-          strokeColor: "#fff",
+          strokeColor: '#fff',
           strokeWidth: 3,
           strokeOpacity: 1,
           fillOpacity: 1,
@@ -49,7 +56,7 @@ export default {
           },
         },
         xaxis: {
-          type: "datetime",
+          type: 'datetime',
           axisBorder: {
             show: false,
           },
@@ -74,14 +81,14 @@ export default {
         },
         tooltip: {
           fillSeriesColor: true,
-          theme: "dark",
+          theme: 'dark',
           x: {
-            format: "dd MMM yyyy",
+            format: 'dd MMM yyyy',
           },
         },
         legend: {
-          position: "top",
-          horizontalAlign: "left",
+          position: 'top',
+          horizontalAlign: 'left',
           onItemClick: {
             toggleOnDataSeries: true,
           },
@@ -93,7 +100,7 @@ export default {
           },
         },
         fill: {
-          type: "gradient",
+          type: 'gradient',
         },
       },
     };
@@ -140,7 +147,7 @@ export default {
         let dateToCheck = new Date();
         const pastDate = dateToCheck.getDate() - i;
         dateToCheck.setDate(pastDate);
-        dateToCheck = dateToCheck.toISOString().split("T")[0];
+        dateToCheck = dateToCheck.toISOString().split('T')[0];
 
         updateData.forEach((shoutout) => {
           if (shoutout.date === dateToCheck) {
@@ -180,5 +187,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
