@@ -45,16 +45,19 @@ router.get('/shoutouts/user/:userId', verifyParams, async (req, res) => {
   try {
     const { userId } = req.params;
     const { type } = req.query;
-    const days = req.query.days ? req.query.days : 30;
+    const start_date = req.query['start-date'];
+    const end_date = req.query['end-date'];
     const shoutouts = await shoutoutController.getShoutoutsByuserId(
       type,
       userId,
-      days
+      start_date,
+      end_date
     );
 
     if (shoutouts.length) res.status(200).json(shoutouts);
     else res.status(204).json('No Content');
   } catch (err) {
+    console.log(err);
     res.status(500).json({ err });
   }
 });

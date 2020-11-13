@@ -35,12 +35,9 @@ const shoutoutController = {
       )
       .then((formattedShoutouts) => formattedShoutouts);
   },
-  getShoutoutsByuserId: async (type, userId, days) => {
-    const lastDay = new Date();
-    const firstDay = new Date(new Date().setDate(lastDay.getDate() - days));
-
+  getShoutoutsByuserId: async (type, userId, start_date, end_date) => {
     return await db('shoutouts')
-      .whereBetween('date', [firstDay, lastDay])
+      .whereBetween('date', [new Date(start_date), new Date(end_date)])
       .where(type, userId)
       .orderBy('date', 'desc')
       .then((shouts) =>
