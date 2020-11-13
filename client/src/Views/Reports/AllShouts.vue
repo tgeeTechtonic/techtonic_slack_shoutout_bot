@@ -1,26 +1,76 @@
 <template>
   <v-tab-item>
+    <MonthRangePicker @dateRange="handleDateRange" />
+    <v-dialog v-model="dateRange.invalidDate" width="500">
+      <v-card class="error-card">
+        <v-card-title class="headline error-card__title lighten-2">
+          Invalid Date Range Selected
+        </v-card-title>
+        <v-card-text>
+          The dates you have chosen are not valid, please check your selection
+          and try again.
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dateRange.invalidDate = false">
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <div class="all-reports">
-      <Table :data="shoutouts" class="all-reports__table" title="All Shoutouts"/>
+      <Table
+        class="all-reports__table"
+        :data="shoutouts"
+        :searchable="true"
+        title="All Shoutouts"
+      />
       <FillChart :data="shoutouts" class="all-reports__chart" />
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import { shoutoutFormatter } from "../../shared/formatters";
-import FillChart from "./FillChart";
-import Table from "./Table";
+import { shoutoutFormatter } from '../../shared/formatters';
+import FillChart from './FillChart';
+import MonthRangePicker from './MonthRangePicker';
+import Table from './Table';
 
 export default {
-  name: "AllShouts",
-  components: { Table, FillChart },
+  name: 'AllShouts',
+  components: { Table, FillChart, MonthRangePicker },
+  data() {
+    return {
+      dateRange: {
+        invalidDate: false,
+        startDate: new Date().toISOString().substr(0, 4) + '-01',
+        endDate: new Date().toISOString().substr(0, 7),
+      },
+    };
+  },
   created() {
-    this.$store.dispatch("getShouts");
+    this.getShoutouts();
   },
   computed: {
     shoutouts() {
       return shoutoutFormatter(this.$store.state.shoutouts);
+    },
+  },
+  methods: {
+    getShoutouts() {
+      this.$store.dispatch('getShouts', {
+        startDate: this.dateRange.startDate,
+        endDate: this.dateRange.endDate,
+      });
+    },
+    handleDateRange(date) {
+      this.dateRange = date;
+    },
+  },
+  watch: {
+    dateRange() {
+      this.getShoutouts();
     },
   },
 };
@@ -28,6 +78,16 @@ export default {
 
 <style lang="scss">
 @use "../../assets/styles/variables.scss" as v;
+
+.error-card {
+  &__title {
+    background-color: v.$accent-blue;
+    color: v.$main-white;
+  }
+  .v-card__text {
+    margin: 20px 0 0;
+  }
+}
 
 .all-reports {
   background-color: v.$main-bkgrnd;

@@ -11,9 +11,10 @@ export const getRecentShouts = async () => {
   }
 };
 
-export const getAllShouts = async () => {
+export const getAllShouts = async (startDate, endDate) => {
+  const urlQueries = `/api/shoutouts?start-date=${startDate}&end-date=${endDate}`;
   try {
-    const response = await axios.get(baseUrl + '/api/shoutouts');
+    const response = await axios.get(baseUrl + urlQueries);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -46,7 +47,6 @@ export const getUserShoutoutsByType = async (
   endDate
 ) => {
   const urlQueries = `/api/shoutouts/user/${userId}?type=${type}&start-date=${startDate}&end-date=${endDate}`;
-  console.log(urlQueries)
   try {
     const response = await axios.get(baseUrl + urlQueries);
     return response.data;

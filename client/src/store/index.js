@@ -64,9 +64,9 @@ export default new Vuex.Store({
         console.error;
       }
     },
-    async getShouts({ commit }) {
+    async getShouts({ commit }, { startDate, endDate }) {
       try {
-        const shoutouts = await getAllShouts();
+        const shoutouts = await getAllShouts(startDate, endDate);
         commit('updateShoutouts', shoutouts);
       } catch (e) {
         console.error;

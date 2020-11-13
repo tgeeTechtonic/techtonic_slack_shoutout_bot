@@ -5,6 +5,7 @@
       @click:row="handleSelection"
       :footer-props="customFooter"
       :headers="headers"
+      :hide-default-footer="hideFooter"
       :items="data"
       item-key="id"
       :items-per-page="5"
@@ -62,7 +63,7 @@ export default {
   },
   computed: {
     customFooter() {
-      if (this.restricted)
+      if (this.restricted?.footer === 'disable-items')
         return {
           'items-per-page-options': [10], // HOW MANY RESULTS PER PAGE TO SHOW
           'items-per-page-text': '', // REMOVES ROWS PER PAGE TEXT AND DROPDOWN SELECTOR
@@ -71,6 +72,9 @@ export default {
     },
     headers() {
       return this.createHeaders(this.tableData[0]);
+    },
+    hideFooter() {
+      return this.restricted?.footer === 'all';
     },
     sortBy() {
       return this.searchable ? 'first_name' : 'id';
