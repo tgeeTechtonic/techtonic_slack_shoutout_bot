@@ -88,9 +88,17 @@ export default new Vuex.Store({
         console.error;
       }
     },
-    async getUserShoutoutsByType({ commit }, { userId, type }) {
+    async getUserShoutoutsByType(
+      { commit },
+      { userId, type, startDate, endDate }
+    ) {
       try {
-        const shoutouts = await getUserShoutoutsByType(userId, type);
+        const shoutouts = await getUserShoutoutsByType(
+          userId,
+          type,
+          startDate,
+          endDate
+        );
         if (type === 'shoutee')
           commit('updateUserShoutoutsReceived', shoutouts);
         else commit('updateUserShoutoutsGiven', shoutouts);
