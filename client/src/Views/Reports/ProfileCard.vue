@@ -20,9 +20,9 @@
     <v-card-text>
       <h3 class="headline mb-2">
         <Table
-          :data="selectedUser.summary"
-          :all="true"
           class="profile-card__table"
+          :data="selectedUser.summary"
+          :restricted="{ footer: 'all' }"
         />
       </h3>
     </v-card-text>
@@ -89,6 +89,12 @@ export default {
     user() {
       this.getShoutouts();
     },
+    date: {
+      immediate: true,
+      handler() {
+        this.getShoutouts();
+      },
+    },
   },
 };
 </script>
@@ -104,7 +110,7 @@ export default {
   background-color: v.$accent-blue;
 }
 .profile-card {
-  width: calc(100vw - 550px);
+  width: calc(100vw - 440px);
   &__placeholder {
     background-color: v.$main-bkgrnd;
   }

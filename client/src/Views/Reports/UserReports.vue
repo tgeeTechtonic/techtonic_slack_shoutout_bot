@@ -24,7 +24,7 @@
       <Table
         class="user-container__users-list"
         :data="usersList"
-        :restricted="true"
+        :restricted="{ footer: 'disable-items' }"
         :searchable="true"
         :selectable="true"
         @selectedUser="handleSelectedUser"
@@ -104,7 +104,8 @@ export default {
     align-self: center;
     display: flex;
     flex-direction: row;
-    width: 90%;
+    padding: 0 16px;
+    width: 100%;
   }
   &__users-list {
     margin-right: 10px;
