@@ -22,7 +22,7 @@
         <Table
           class="profile-card__table"
           :data="selectedUser.summary"
-          :restricted="{ footer: 'all' }"
+          :restricted="{ footer: 'all', disableSort: true }"
         />
       </h3>
     </v-card-text>

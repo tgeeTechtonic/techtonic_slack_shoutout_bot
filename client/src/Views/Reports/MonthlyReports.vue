@@ -111,7 +111,7 @@ export default {
 
   &__picker {
     color: v.$accent-blue;
-    height: 300px;
+    height: 380px;
     margin: 1rem;
   }
   &__table {
