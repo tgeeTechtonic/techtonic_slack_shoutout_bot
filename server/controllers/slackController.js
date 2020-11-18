@@ -33,16 +33,16 @@ const slackController = {
       return await db('company_values').insert({ value: company_value }, 'id');
   },
   findOrCreateUser: async (slackId) => {
+    const user = await axios
+      .get(`${process.env.SLACK_API}user=${slackId}`)
+      .then((res) => parseSlackUserInfo(slackId, res));
     const userId = await db('users').where('slack_id', slackId).first();
 
-    if (userId) return [userId.id];
-    else {
-      const user = await axios
-        .get(`${process.env.SLACK_API}user=${slackId}`)
-        .then((res) => parseSlackUserInfo(slackId, res));
+    if (userId) {
+      await db('users').where({ 'id': userId.id }).update(user, 'id');
 
-      return await db('users').insert(user, 'id');
-    }
+      return [userId.id];
+    } else return await db('users').insert(user, 'id');
   },
   getExisting: async () => {
     return await axios
