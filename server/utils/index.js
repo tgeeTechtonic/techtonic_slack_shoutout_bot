@@ -58,7 +58,7 @@ exports.parseReqData = ({ channel_name, text }) => {
    *SPLIT ON WORKFLOW ANSWER BY USING UNIQUE TEXT OF -- &GT;
    *SHOUTOUT MESSAGE: GRAB THE TEXT FOLLOWING THE 1ST OCCURRENCE **INDEX 1
    *COMPANY VALUE: GRAB THE TEXT FOLLOWING THE 2ND OCCURRENCE **INDEX 2
-   * --IF-- NO COMPANY VALUE IS FOUND IN MESSAGE, DEFAULT TO N/A 
+   * --IF-- NO COMPANY VALUE IS FOUND IN MESSAGE, DEFAULT TO N/A
    *
    *SPLIT AGAIN ON EACH TO GRAB WHAT IS NEEDED AND TRIM EXTRA WHITESPACE OFF
    */
@@ -76,11 +76,15 @@ exports.parseReqData = ({ channel_name, text }) => {
 
 exports.parseSlackUserInfo = (slackId, { data }) => {
   const { email, display_name, title, image_192 } = data.user.profile;
-  let name = email.split('@')[0].split('.');
+  const [first_name, last_name] = email
+    .split('@')[0]
+    .split('.')
+    .map((s) => s[0].toUpperCase() + s.substring(1));
+
   return {
     email,
-    first_name: name[0],
-    last_name: name[1],
+    first_name,
+    last_name,
     slack_handle: display_name,
     slack_id: slackId,
     job_title: title,
