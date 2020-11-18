@@ -36,6 +36,9 @@
           ></v-switch>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.avatar`]="{ item }">
+        <v-avatar icon> <v-img :src="item.avatar"> </v-img></v-avatar>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -92,13 +95,19 @@ export default {
     createHeaders(obj) {
       let headers = [];
       for (const key in obj) {
-        if (key !== 'shoutId' && key !== 'id') {
+        if (key !== 'shoutId' && key !== 'id' && key !== 'avatar') {
           headers.push({
             text: capitalizeWordFormatter(key),
             value: key,
           });
+        } else if (key === 'avatar') {
+          headers.push({
+            text: '',
+            value: key,
+          });
         }
       }
+
       headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },

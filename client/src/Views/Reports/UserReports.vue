@@ -60,8 +60,9 @@ export default {
   },
   computed: {
     usersList() {
-      return this.$store.state.users.map(({ id, first_name, last_name }) => ({
+      return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
         id,
+        avatar,
         first_name,
         last_name,
       }));
