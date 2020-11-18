@@ -58,11 +58,12 @@ exports.parseReqData = ({ channel_name, text }) => {
    *SPLIT ON WORKFLOW ANSWER BY USING UNIQUE TEXT OF -- &GT;
    *SHOUTOUT MESSAGE: GRAB THE TEXT FOLLOWING THE 1ST OCCURRENCE **INDEX 1
    *COMPANY VALUE: GRAB THE TEXT FOLLOWING THE 2ND OCCURRENCE **INDEX 2
+   * --IF-- NO COMPANY VALUE IS FOUND IN MESSAGE, DEFAULT TO N/A 
    *
    *SPLIT AGAIN ON EACH TO GRAB WHAT IS NEEDED AND TRIM EXTRA WHITESPACE OFF
    */
   const shoutout_message = text.split('&gt;')[1].split('\n')[0].trim();
-  const company_value = text.split('&gt;')[2].split('\n')[0].trim();
+  const company_value = text.split('&gt;')[2]?.split('\n')[0].trim() || 'N/A';
 
   return {
     channel_name,
