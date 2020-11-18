@@ -1,8 +1,8 @@
 <template>
   <v-card v-if="user.id" :key="user.id" class="pt-6 mx-auto profile-card" flat>
     <v-card-text>
-      <v-avatar size="88">
-        <v-img :src="user.avatar" class="mb-6"></v-img>
+      <v-avatar size="88" class="profile-card__avatar">
+        <v-img :src="user.avatar"></v-img>
       </v-avatar>
       <h3 class="headline mb-2">
         {{ user.first_name }}
@@ -12,7 +12,7 @@
         {{ user.email }}
       </div>
       <div class="blue--text subheading font-weight-bold">
-        {{ user.slack_handle }}
+        @{{ user.slack_handle }}
         {{ user.job_title ? `  |  ${user.job_title}` : '' }}
       </div>
     </v-card-text>
@@ -22,7 +22,7 @@
         <Table
           class="profile-card__table"
           :data="selectedUser.summary"
-          :restricted="{ footer: 'all' }"
+          :restricted="{ footer: 'all', disableSort: true }"
         />
       </h3>
     </v-card-text>
@@ -50,7 +50,6 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </v-card>
-  <v-card v-else class="profile-card__placeholder"></v-card>
 </template>
 
 <script>
@@ -108,8 +107,9 @@ export default {
 }
 .profile-card {
   width: calc(100vw - 440px);
-  &__placeholder {
-    background-color: v.$main-bkgrnd;
+
+  &__avatar {
+    margin: 0 0 10px;
   }
   &__summary {
     margin: 0px 0 35px;

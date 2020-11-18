@@ -25,33 +25,37 @@ export default new Vuex.Store({
   // direct store changes
   mutations: {
     updateUsers(state, users) {
-      state.users = users;
+      state.users = users || [];
     },
     updateShoutouts(state, shoutouts) {
-      state.shoutouts = shoutouts;
+      state.shoutouts = shoutouts || [];
     },
     updateRecentShoutouts(state, recentShoutouts) {
-      state.recentShoutouts = recentShoutouts;
+      state.recentShoutouts = recentShoutouts || [];
     },
     updateRankedUsers(state, ranked) {
-      state.rankedUsers = ranked;
+      state.rankedUsers = ranked || [];
     },
     updateUserShoutoutsGiven(state, shoutouts) {
-      state.user.shoutoutsGiven = shoutouts.length ? shoutouts : [];
+      state.user.shoutoutsGiven = shoutouts || [];
     },
     updateUserShoutoutsReceived(state, shoutouts) {
-      state.user.shoutoutsReceived = shoutouts.length ? shoutouts : [];
+      state.user.shoutoutsReceived = shoutouts || [];
     },
     updateUserSummary(state, userId) {
-      let userIndex = state.users.findIndex((user) => user.id === userId);
-      state.user.summary = {
-        total_shoutouts_given: state.users[userIndex].num_shoutouts_given,
-        total_shoutouts_received: state.users[userIndex].num_shoutouts_received,
-        most_company_value_given:
-          state.users[userIndex].most_company_value_given,
-        most_company_value_received:
-          state.users[userIndex].most_company_value_received,
-      };
+      const userIndex = state.users.findIndex((user) => user.id === userId);
+      if (userIndex === -1) state.user.summary = {};
+      else {
+        state.user.summary = {
+          total_shoutouts_given: state.users[userIndex].num_shoutouts_given,
+          total_shoutouts_received:
+            state.users[userIndex].num_shoutouts_received,
+          most_company_value_given:
+            state.users[userIndex].most_company_value_given,
+          most_company_value_received:
+            state.users[userIndex].most_company_value_received,
+        };
+      }
     },
   },
   // async changes (api calls)

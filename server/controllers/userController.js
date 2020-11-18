@@ -39,6 +39,8 @@ const createAllUsersRes = async (
 
 const getMostUsedCompanyValue = async (id, type) => {
   const shoutouts = await db('shoutouts').where(type, id);
+  if (!shoutouts.length) return '-';
+  
   const allValues = shoutouts.map((shout) => shout.company_value);
 
   const mostUsedValue = allValues
