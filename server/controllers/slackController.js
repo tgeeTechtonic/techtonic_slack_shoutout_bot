@@ -4,6 +4,7 @@ const { parseSlackUserInfo } = require('../utils');
 
 const slackController = {
   addShoutout: async (
+    date,
     channel_name,
     companyValueId,
     shouteeId,
@@ -14,7 +15,7 @@ const slackController = {
       {
         channel_name,
         company_value: companyValueId[0],
-        date: new Date().toDateString(),
+        date,
         message: shoutout,
         shoutee: shouteeId[0],
         shouter: shouterId[0],
@@ -42,6 +43,24 @@ const slackController = {
 
       return await db('users').insert(user, 'id');
     }
+  },
+  getExisting: async () => {
+    return await axios
+      .get(process.env.SLACK_EXISTING_SHOUTOUTS_URL)
+      .then((res) => {
+        return res.data.messages
+          .sort((a, b) => a.ts - b.ts)
+          .filter(
+            (msg) =>
+              msg.subtype === 'bot_message' &&
+              msg.text.includes(':raised_hands:')
+          )
+          .map((msg) => ({
+            channel_name: 'gen',
+            date: new Date(Math.floor(msg.ts * 1000)),
+            text: msg.text,
+          }));
+      });
   },
 };
 
