@@ -3,6 +3,7 @@
     <v-data-table
       class="elevation-1"
       @click:row="handleSelection"
+      :disable-sort="disableSort"
       :footer-props="customFooter"
       :headers="headers"
       :hide-default-footer="hideFooter"
@@ -72,6 +73,9 @@ export default {
           'items-per-page-text': '', // REMOVES ROWS PER PAGE TEXT AND DROPDOWN SELECTOR
         };
       else return {};
+    },
+    disableSort() {
+      return this.restricted?.disableSort;
     },
     headers() {
       return this.createHeaders(this.tableData[0]);

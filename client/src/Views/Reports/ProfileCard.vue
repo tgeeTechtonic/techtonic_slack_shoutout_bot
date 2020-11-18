@@ -2,7 +2,7 @@
   <v-card v-if="user.id" :key="user.id" class="pt-6 mx-auto profile-card" flat>
     <v-card-text>
       <v-avatar size="88" class="profile-card__avatar">
-        <v-img :src="user.avatar" class="mb-r6"></v-img>
+        <v-img :src="user.avatar"></v-img>
       </v-avatar>
       <h3 class="headline mb-2">
         {{ user.first_name }}
@@ -22,7 +22,7 @@
         <Table
           class="profile-card__table"
           :data="selectedUser.summary"
-          :restricted="{ footer: 'all' }"
+          :restricted="{ footer: 'all', disableSort: true }"
         />
       </h3>
     </v-card-text>
