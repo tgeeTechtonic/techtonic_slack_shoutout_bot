@@ -12,6 +12,7 @@
         <router-link class="navbar__link" to="/">Home</router-link>
         <router-link class="navbar__link" to="/reports">Reports</router-link>
         <router-link class="navbar__link" to="/about">About</router-link>
+        <router-link class="navbar__link" to="/company-values">Company Values</router-link>
       </span>
     </v-app-bar>
   </nav>
