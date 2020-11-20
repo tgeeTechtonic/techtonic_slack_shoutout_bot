@@ -55,3 +55,9 @@ export const capitalizeWordFormatter = (str) => {
     .map((s) => s[0].toUpperCase() + s.substring(1))
     .join(' ');
 };
+
+export const companyValuesFormatter = (values) => {
+  return values.map(({value, description, active}) => {
+    return {value, description, active}
+  })
+}
