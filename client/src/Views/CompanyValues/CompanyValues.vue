@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       loading: false,
-      values: []
+      values: [],
     };
   },
   async created() {
@@ -42,8 +42,10 @@ export default {
   display: flex;
   justify-content: space-evenly;
 
-  &__table {
-    width: 100%;
+  .item-container {
+    &__table {
+      width: calc(100vw - 2em);
+    }
   }
 }
 </style>
