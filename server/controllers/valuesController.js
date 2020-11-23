@@ -32,8 +32,9 @@ const createRes = async (values) => {
       value: values[i].value,
     });
   }
-
-  return results;
+  return results.sort((a, b) =>
+    a.value.toLowerCase().localeCompare(b.value.toLowerCase())
+  );
 };
 
 const getTopUser = async (valueId, userType) => {
