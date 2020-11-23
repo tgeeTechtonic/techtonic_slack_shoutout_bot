@@ -41,5 +41,9 @@ export default {
 .company-values {
   display: flex;
   justify-content: space-evenly;
+
+  &__table {
+    width: 100%;
+  }
 }
 </style>
