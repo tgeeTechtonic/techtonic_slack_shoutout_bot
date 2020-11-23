@@ -57,7 +57,23 @@ export const capitalizeWordFormatter = (str) => {
 };
 
 export const companyValuesFormatter = (values) => {
-  return values.map(({value, description, active}) => {
-    return {value, description, active}
-  })
-}
+  return values.map(
+    ({
+      active,
+      description,
+      num_times_used,
+      top_user_shoutouts_given,
+      top_user_shoutouts_received,
+      value,
+    }) => {
+      return {
+        value,
+        description,
+        num_times_used,
+        top_user_shoutouts_given,
+        top_user_shoutouts_received,
+        active,
+      };
+    }
+  );
+};
