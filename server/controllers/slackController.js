@@ -39,10 +39,10 @@ const slackController = {
     const userId = await db('users').where('slack_id', slackId).first();
 
     if (userId) {
-      await db('users').where({ 'id': userId.id }).update(user, 'id');
+      await db('users').where({ id: userId.id }).update(user, 'id');
 
       return [userId.id];
-    } else return await db('users').insert(user, 'id');
+    } else return await db('users').insert({ ...user, role: 'user' }, 'id');
   },
   getExisting: async () => {
     return await axios
