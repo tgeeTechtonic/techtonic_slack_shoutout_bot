@@ -91,6 +91,7 @@ export default {
         return this.showingGiven;
       },
       set() {
+        this.showingGiven = !this.showingGiven
         this.$emit('toggleView', this.showingGiven);
       },
     },
