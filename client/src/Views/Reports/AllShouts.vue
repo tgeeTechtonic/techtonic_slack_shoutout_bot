@@ -23,6 +23,7 @@
       <Table
         class="all-reports__table"
         :data="shoutouts"
+        :loading="loading"
         :searchable="true"
         title="All Shoutouts"
       />
@@ -53,6 +54,9 @@ export default {
     this.getShoutouts();
   },
   computed: {
+    loading() {
+      return this.$store.state.loading.shoutouts
+    },
     shoutouts() {
       return shoutoutFormatter(this.$store.state.shoutouts);
     },

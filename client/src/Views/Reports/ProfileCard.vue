@@ -22,6 +22,7 @@
         <Table
           class="profile-card__table"
           :data="selectedUser.summary"
+          :loading="loading"
           :restricted="{ footer: 'all', disableSort: true }"
         />
       </h3>
@@ -33,8 +34,8 @@
         <v-expansion-panel-content>
           <Table
             :data="selectedUser.shoutoutsGiven"
-            :all="true"
             class="profile-card__table"
+            :loading="loading"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -43,8 +44,8 @@
         <v-expansion-panel-content>
           <Table
             :data="selectedUser.shoutoutsReceived"
-            :all="true"
             class="profile-card__table"
+            :loading="loading"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -64,6 +65,9 @@ export default {
     this.getShoutouts();
   },
   computed: {
+    loading() {
+      return this.$store.state.loading.user;
+    },
     selectedUser() {
       return userShoutoutsFormatter(this.$store.state.user);
     },

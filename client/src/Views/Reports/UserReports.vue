@@ -24,6 +24,7 @@
       <Table
         class="user-container__users-list"
         :data="usersList"
+        :loading="loading"
         :restricted="{ footer: 'disable-items' }"
         :searchable="true"
         :selectable="true"
@@ -59,6 +60,9 @@ export default {
     };
   },
   computed: {
+    loading() {
+      return this.$store.state.loading.users
+    },
     usersList() {
       return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
         id,

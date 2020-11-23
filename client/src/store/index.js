@@ -21,6 +21,13 @@ export default new Vuex.Store({
       shoutoutsGiven: [],
       summary: {},
     },
+    loading: {
+      users: false,
+      shoutouts: false,
+      recentShoutouts: false,
+      rankedUsers: false,
+      user: false,
+    },
   },
   // direct store changes
   mutations: {
@@ -57,45 +64,57 @@ export default new Vuex.Store({
         };
       }
     },
+    updateLoading(state, { data, isLoading }) {
+      state.loading[data] = isLoading;
+    },
   },
   // async changes (api calls)
   actions: {
     async getUsers({ commit }) {
+      commit('updateLoading', { data: 'users', isLoading: true });
       try {
         const users = await getAllUsers();
         commit('updateUsers', users);
       } catch (e) {
         console.error;
       }
+      commit('updateLoading', { data: 'users', isLoading: false });
     },
     async getShouts({ commit }, { startDate, endDate }) {
+      commit('updateLoading', { data: 'shoutouts', isLoading: true });
       try {
         const shoutouts = await getAllShouts(startDate, endDate);
         commit('updateShoutouts', shoutouts);
       } catch (e) {
         console.error;
       }
+      commit('updateLoading', { data: 'shoutouts', isLoading: false });
     },
     async getRecentShoutouts({ commit }) {
+      commit('updateLoading', { data: 'recentShoutouts', isLoading: true });
       try {
         const recentShoutouts = await getRecentShouts();
         commit('updateRecentShoutouts', recentShoutouts);
       } catch (e) {
         console.error;
       }
+      commit('updateLoading', { data: 'recentShoutouts', isLoading: false });
     },
     async getRankedUsersByMonth({ commit }, { type, month, year }) {
+      commit('updateLoading', { data: 'rankedUsers', isLoading: true });
       try {
         const ranked = await getRankedByMonth(type, month, year);
         commit('updateRankedUsers', ranked);
       } catch (e) {
         console.error;
       }
+      commit('updateLoading', { data: 'rankedUsers', isLoading: false });
     },
     async getUserShoutoutsByType(
       { commit },
       { userId, type, startDate, endDate }
     ) {
+      commit('updateLoading', { data: 'user', isLoading: true });
       try {
         const shoutouts = await getUserShoutoutsByType(
           userId,
@@ -110,6 +129,7 @@ export default new Vuex.Store({
       } catch (e) {
         console.error;
       }
+      commit('updateLoading', { data: 'user', isLoading: false });
     },
   },
   // similar to computed properties
