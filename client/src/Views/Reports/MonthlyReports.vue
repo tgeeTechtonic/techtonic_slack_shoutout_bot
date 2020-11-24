@@ -26,7 +26,7 @@
 <script>
 import { rankedShoutersFormatter } from '../../shared/formatters';
 import RadarChart from './RadarChart';
-import Table from './Table';
+import Table from '../../components/common/Table';
 
 export default {
   name: 'MonthlyReports',

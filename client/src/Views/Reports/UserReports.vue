@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import ProfileCard from './ProfileCard';
-import Table from './Table';
 import MonthRangePicker from './MonthRangePicker';
+import ProfileCard from './ProfileCard';
+import Table from '../../components/common/Table';
 
 export default {
   name: 'UserReports',

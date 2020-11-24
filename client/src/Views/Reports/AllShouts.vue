@@ -36,7 +36,7 @@
 import { shoutoutFormatter } from '../../shared/formatters';
 import FillChart from './FillChart';
 import MonthRangePicker from './MonthRangePicker';
-import Table from './Table';
+import Table from '../../components/common/Table';
 
 export default {
   name: 'AllShouts',

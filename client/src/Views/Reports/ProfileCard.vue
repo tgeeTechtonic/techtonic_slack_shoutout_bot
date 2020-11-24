@@ -55,7 +55,7 @@
 
 <script>
 import { userShoutoutsFormatter } from '../../shared/formatters';
-import Table from './Table';
+import Table from '../../components/common/Table';
 
 export default {
   name: 'ProfileCard',

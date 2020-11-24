@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Table from '../Reports/Table';
 import { companyValuesFormatter } from '../../shared/formatters';
+import Table from '../../components/common/Table';
 
 export default {
   name: 'CompanyValues',
