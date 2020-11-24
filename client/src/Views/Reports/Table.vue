@@ -112,6 +112,9 @@ export default {
             filter: () => {
               if (!this.avatar) return true;
             },
+            sort: () => {
+              return -1;
+            },
           });
         }
       }
