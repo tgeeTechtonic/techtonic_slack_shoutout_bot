@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import { rankedShoutersFormatter } from '../../shared/formatters';
+import { rankedShoutersFormatter } from '../../../shared/formatters';
 import RadarChart from './RadarChart';
-import Table from '../../components/common/Table';
+import Table from '../../../components/common/Table';
 
 export default {
   name: 'MonthlyReports',
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "../../../assets/styles/variables.scss" as v;
 
 .item-container {
   background-color: v.$main-bkgrnd;

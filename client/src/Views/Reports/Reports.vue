@@ -21,8 +21,7 @@
 </template>
 
 <script>
-
-import MonthlyReports from "./MonthlyReports";
+import MonthlyReports from "./MonthlyReports/MonthlyReports";
 import UserReports from "./UserReports";
 import AllShouts from "./AllShouts";
 
