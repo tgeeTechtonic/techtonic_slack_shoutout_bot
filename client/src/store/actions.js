@@ -7,26 +7,26 @@ import {
   getAllCompanyValues,
 } from '../shared/apiCalls';
 
-const getUsers = async ({ commit }) => {
-  commit('updateLoading', { data: 'users', isLoading: true });
+const getCompanyValues = async ({ commit }) => {
+  commit('updateLoading', { data: 'companyValues', isLoading: true });
   try {
-    const users = await getAllUsers();
-    commit('updateUsers', users);
+    const companyValues = await getAllCompanyValues();
+    commit('updateCompanyValues', companyValues);
   } catch (e) {
     console.error;
   }
-  commit('updateLoading', { data: 'users', isLoading: false });
+  commit('updateLoading', { data: 'companyValues', isLoading: false });
 };
 
-const getShouts = async ({ commit }, { startDate, endDate }) => {
-  commit('updateLoading', { data: 'shoutouts', isLoading: true });
+const getRankedUsersByMonth = async ({ commit }, { type, month, year }) => {
+  commit('updateLoading', { data: 'rankedUsers', isLoading: true });
   try {
-    const shoutouts = await getAllShouts(startDate, endDate);
-    commit('updateShoutouts', shoutouts);
+    const ranked = await getRankedByMonth(type, month, year);
+    commit('updateRankedUsers', ranked);
   } catch (e) {
     console.error;
   }
-  commit('updateLoading', { data: 'shoutouts', isLoading: false });
+  commit('updateLoading', { data: 'rankedUsers', isLoading: false });
 };
 
 const getRecentShoutouts = async ({ commit }) => {
@@ -40,15 +40,26 @@ const getRecentShoutouts = async ({ commit }) => {
   commit('updateLoading', { data: 'recentShoutouts', isLoading: false });
 };
 
-const getRankedUsersByMonth = async ({ commit }, { type, month, year }) => {
-  commit('updateLoading', { data: 'rankedUsers', isLoading: true });
+const getShouts = async ({ commit }, { startDate, endDate }) => {
+  commit('updateLoading', { data: 'shoutouts', isLoading: true });
   try {
-    const ranked = await getRankedByMonth(type, month, year);
-    commit('updateRankedUsers', ranked);
+    const shoutouts = await getAllShouts(startDate, endDate);
+    commit('updateShoutouts', shoutouts);
   } catch (e) {
     console.error;
   }
-  commit('updateLoading', { data: 'rankedUsers', isLoading: false });
+  commit('updateLoading', { data: 'shoutouts', isLoading: false });
+};
+
+const getUsers = async ({ commit }) => {
+  commit('updateLoading', { data: 'users', isLoading: true });
+  try {
+    const users = await getAllUsers();
+    commit('updateUsers', users);
+  } catch (e) {
+    console.error;
+  }
+  commit('updateLoading', { data: 'users', isLoading: false });
 };
 
 const getUserShoutoutsByType = async (
@@ -72,21 +83,12 @@ const getUserShoutoutsByType = async (
   commit('updateLoading', { data: 'user', isLoading: false });
 };
 
-const getCompanyValues = async ({ commit }) => {
-  try {
-    const companyValues = await getAllCompanyValues();
-    commit('updateCompanyValues', companyValues);
-  } catch (e) {
-    console.error;
-  }
-};
-
 // async changes (api calls)
 export default {
-  getUsers,
-  getShouts,
-  getRecentShoutouts,
-  getRankedUsersByMonth,
-  getUserShoutoutsByType,
   getCompanyValues,
+  getRankedUsersByMonth,
+  getRecentShoutouts,
+  getShouts,
+  getUsers,
+  getUserShoutoutsByType,
 };
