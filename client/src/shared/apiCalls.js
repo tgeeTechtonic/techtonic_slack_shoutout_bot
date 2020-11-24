@@ -54,3 +54,12 @@ export const getUserShoutoutsByType = async (
     console.log(error);
   }
 };
+
+export const getAllCompanyValues = async () => {
+  try {
+    const response = await axios.get(baseUrl + '/api/company-values');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

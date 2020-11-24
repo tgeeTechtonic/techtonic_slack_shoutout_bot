@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import About from '../Views/About/About';
+import CompanyValues from '../Views/CompanyValues/CompanyValues';
 import Home from '../Views/Home/Home';
 import Reports from '../Views/Reports/Reports';
 
@@ -19,8 +20,13 @@ const routes = [
   },
   {
     path: '/about',
-    name: 'About', 
+    name: 'About',
     component: About,
+  },
+  {
+    path: '/company-values',
+    name: 'CompanyValues',
+    component: CompanyValues,
   },
 ];
 

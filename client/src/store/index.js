@@ -6,6 +6,7 @@ import {
   getRankedByMonth,
   getAllUsers,
   getUserShoutoutsByType,
+  getAllCompanyValues,
 } from '../shared/apiCalls';
 
 Vue.use(Vuex);
@@ -21,6 +22,7 @@ export default new Vuex.Store({
       shoutoutsGiven: [],
       summary: {},
     },
+    values: [],
   },
   // direct store changes
   mutations: {
@@ -56,6 +58,9 @@ export default new Vuex.Store({
             state.users[userIndex].most_company_value_received,
         };
       }
+    },
+    updateCompanyValues(state, values) {
+      state.companyValues = values || [];
     },
   },
   // async changes (api calls)
@@ -107,6 +112,14 @@ export default new Vuex.Store({
           commit('updateUserShoutoutsReceived', shoutouts);
         else commit('updateUserShoutoutsGiven', shoutouts);
         commit('updateUserSummary', userId);
+      } catch (e) {
+        console.error;
+      }
+    },
+    async getCompanyValues({ commit }) {
+      try {
+        const companyValues = await getAllCompanyValues();
+        commit('updateCompanyValues', companyValues);
       } catch (e) {
         console.error;
       }
