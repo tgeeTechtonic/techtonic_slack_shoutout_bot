@@ -109,6 +109,9 @@ export default {
           headers.push({
             text: '',
             value: key,
+            filter: () => {
+              if (!this.avatar) return true;
+            },
           });
         }
       }
