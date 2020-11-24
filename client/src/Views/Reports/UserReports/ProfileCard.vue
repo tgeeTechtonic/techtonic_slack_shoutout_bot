@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import { userShoutoutsFormatter } from '../../shared/formatters';
-import Table from '../../components/common/Table';
+import { userShoutoutsFormatter } from '../../../shared/formatters';
+import Table from '../../../components/common/Table';
 
 export default {
   name: 'ProfileCard',
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "../../../assets/styles/variables.scss" as v;
 
 .v-expansion-panel-content__wrap {
   padding: 0 !important;

@@ -22,7 +22,7 @@
 
 <script>
 import MonthlyReports from "./MonthlyReports/MonthlyReports";
-import UserReports from "./UserReports";
+import UserReports from "./UserReports/UserReports";
 import AllShouts from "./AllShouts";
 
 export default {

@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import MonthRangePicker from './MonthRangePicker';
+import MonthRangePicker from '../MonthRangePicker';
 import ProfileCard from './ProfileCard';
-import Table from '../../components/common/Table';
+import Table from '../../../components/common/Table';
 
 export default {
   name: 'UserReports',
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "../../../assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {
