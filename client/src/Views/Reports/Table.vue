@@ -23,8 +23,8 @@
           <v-spacer></v-spacer>
           <v-text-field
             v-if="searchable"
+            clearable
             hide-details
-            append-icon="mdi-magnify"
             label="Search"
             single-line
             v-model="search"
@@ -91,7 +91,7 @@ export default {
         return this.showingGiven;
       },
       set() {
-        this.showingGiven = !this.showingGiven
+        this.showingGiven = !this.showingGiven;
         this.$emit('toggleView', this.showingGiven);
       },
     },
@@ -141,6 +141,9 @@ tr.v-data-table__selected {
   background: v.$accent-green !important;
 }
 .table-container {
+  .v-input__icon--clear button {
+    visibility: visible;
+  }
   &__title {
     padding: 0;
   }
