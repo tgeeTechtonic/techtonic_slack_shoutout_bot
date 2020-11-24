@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { capitalizeWordFormatter } from '../../shared/formatters';
+import { capitalizeWordFormatter } from '@/shared/formatters';
 
 export default {
   name: 'DataTable',
@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 tr.v-data-table__selected {
   background: v.$accent-green !important;

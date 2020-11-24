@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import AboutPage from '../Views/AboutPage/AboutPage';
-import CompanyValuesPage from '../Views/CompanyValuesPage/CompanyValuesPage';
-import HomePage from '../Views/HomePage/HomePage';
-import ReportsPage from '../Views/ReportsPage/ReportsPage';
+import AboutPage from '@/Views/AboutPage/AboutPage';
+import CompanyValuesPage from '@/Views/CompanyValuesPage/CompanyValuesPage';
+import HomePage from '@/Views/HomePage/HomePage';
+import ReportsPage from '@/Views/ReportsPage/ReportsPage';
 
 Vue.use(VueRouter);
 

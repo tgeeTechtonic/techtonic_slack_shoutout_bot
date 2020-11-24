@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import MonthRangePicker from '../../components/common/MonthRangePicker';
-import DataTable from '../../components/common/DataTable';
+import MonthRangePicker from '@/components/common/MonthRangePicker';
+import DataTable from '@/components/common/DataTable';
 import UserProfileCard from './UserProfileCard';
 
 export default {
@@ -61,15 +61,17 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.state.loading.users
+      return this.$store.state.loading.users;
     },
     usersList() {
-      return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
-        id,
-        avatar,
-        first_name,
-        last_name,
-      }));
+      return this.$store.state.users.map(
+        ({ id, avatar, first_name, last_name }) => ({
+          id,
+          avatar,
+          first_name,
+          last_name,
+        })
+      );
     },
   },
   methods: {
@@ -86,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {

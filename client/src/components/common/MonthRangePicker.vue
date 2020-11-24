@@ -1,11 +1,7 @@
 <template>
   <v-row class="row-container">
     <v-col cols="11" sm="3">
-      <v-menu
-        transition="scale-transition"
-        offset-y
-        width="290px"
-      >
+      <v-menu transition="scale-transition" offset-y width="290px">
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="startDate"
@@ -22,11 +18,7 @@
       </v-menu>
     </v-col>
     <v-col cols="11" sm="3">
-      <v-menu
-        transition="scale-transition"
-        offset-y
-        width="290px"
-      >
+      <v-menu transition="scale-transition" offset-y width="290px">
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="endDate"
@@ -78,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .row-container {
   background-color: v.$main-white;

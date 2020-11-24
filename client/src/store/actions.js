@@ -5,7 +5,7 @@ import {
   getAllUsers,
   getShoutoutsByType,
   getAllCompanyValues,
-} from '../shared/apiCalls';
+} from '@/shared/apiCalls';
 
 const getCompanyValues = async ({ commit }) => {
   commit('updateLoading', { data: 'companyValues', isLoading: true });

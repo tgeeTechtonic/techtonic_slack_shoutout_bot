@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { companyValuesFormatter } from '../../shared/formatters';
-import DataTable from '../../components/common/DataTable';
+import { companyValuesFormatter } from '@/shared/formatters';
+import DataTable from '@/components/common/DataTable';
 
 export default {
   name: 'CompanyValues',
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables.scss' as v;
+@use '@/assets/styles/variables.scss' as v;
 
 .company-values {
   display: flex;
