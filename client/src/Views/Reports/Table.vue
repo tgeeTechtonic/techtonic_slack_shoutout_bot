@@ -110,10 +110,10 @@ export default {
             text: '',
             value: key,
             filter: () => {
-              if (!this.avatar) return true;
+              if (!this.avatar) return true; // REMOVES THE AVATAR COLUMN FROM THE SEARCH RESULTS
             },
             sort: () => {
-              return -1;
+              return -1; // ALTERS SORTING IN THE AVATAR COLUMN TO ALIGN WITH FIRST NAME COLUMN
             },
           });
         }
