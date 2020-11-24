@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item class="user-container">
+  <v-tab-item>
     <MonthRangePicker @dateRange="handleDateRange" />
     <v-dialog v-model="dateRange.invalidDate" width="500">
       <v-card class="error-card">
@@ -19,39 +19,30 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <div class="user-container__table">
-      <Table
-        class="user-container__users-list"
-        :data="usersList"
+    <div class="all-reports">
+      <DataTable
+        class="all-reports__table"
+        :data="shoutouts"
         :loading="loading"
-        :restricted="{ footer: 'disable-items' }"
         :searchable="true"
-        :selectable="true"
-        @selectedUser="handleSelectedUser"
-        title="Users"
+        title="All Shoutouts"
       />
-      <div v-if="selectedUser.id">
-        <ProfileCard :user="selectedUser" :date="dateRange" />
-      </div>
+      <FillChart :data="shoutouts" class="all-reports__chart" />
     </div>
   </v-tab-item>
 </template>
 
 <script>
+import { shoutoutFormatter } from '../../shared/formatters';
+import DataTable from '../../components/common/DataTable';
+import FillChart from './Charts/FillChart';
 import MonthRangePicker from '../../components/common/MonthRangePicker';
-import ProfileCard from './ProfileCard';
-import Table from '../../components/common/Table';
 
 export default {
-  name: 'UserReports',
-  components: { ProfileCard, Table, MonthRangePicker },
-  created() {
-    this.$store.dispatch('getUsers');
-  },
+  name: 'AllShouts',
+  components: { DataTable, FillChart, MonthRangePicker },
   data() {
     return {
-      selectedUser: {},
       dateRange: {
         invalidDate: false,
         startDate: new Date().toISOString().substr(0, 4) + '-01',
@@ -59,27 +50,31 @@ export default {
       },
     };
   },
+  created() {
+    this.getShoutouts();
+  },
   computed: {
     loading() {
-      return this.$store.state.loading.users
+      return this.$store.state.loading.shoutouts
     },
-    usersList() {
-      return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
-        id,
-        avatar,
-        first_name,
-        last_name,
-      }));
+    shoutouts() {
+      return shoutoutFormatter(this.$store.state.shoutouts);
     },
   },
   methods: {
-    handleSelectedUser(userId) {
-      this.selectedUser = this.$store.state.users
-        .filter((user) => user.id === userId)
-        .pop();
+    getShoutouts() {
+      this.$store.dispatch('getShouts', {
+        startDate: this.dateRange.startDate,
+        endDate: this.dateRange.endDate,
+      });
     },
     handleDateRange(date) {
       this.dateRange = date;
+    },
+  },
+  watch: {
+    dateRange() {
+      this.getShoutouts();
     },
   },
 };
@@ -98,23 +93,19 @@ export default {
   }
 }
 
-.user-container {
+.all-reports {
   background-color: v.$main-bkgrnd;
-  width: 100%;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
 
   &__table {
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-    padding: 0 16px;
-    width: 100%;
+    margin: 1rem;
+    width: 60%;
   }
-  &__users-list {
-    margin-right: 10px;
-    width: 400px !important;
+  &__chart {
+    margin: 1rem, 1rem, 0, 1rem;
+    width: 50%;
   }
 }
 </style>

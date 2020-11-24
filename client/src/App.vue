@@ -1,22 +1,22 @@
 <template>
   <div id="app">
     <v-app>
-      <Navbar />
+      <AppNavbar />
       <v-main>
         <router-view />
       </v-main>
-      <Footer />
+      <AppFooter />
     </v-app>
   </div>
 </template>
 
 <script>
-import Footer from './components/Layout/Footer';
-import Navbar from './components/Layout/Navbar';
+import AppFooter from './components/Layout/AppFooter';
+import AppNavbar from './components/Layout/AppNavbar';
 
 export default {
   name: 'App',
-  components: { Footer, Navbar },
+  components: { AppFooter, AppNavbar },
 };
 </script>
 

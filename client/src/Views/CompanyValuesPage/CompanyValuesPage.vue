@@ -1,7 +1,7 @@
 <template>
   <article class="company-values">
     <section class="company-values__table">
-      <Table
+      <DataTable
         class="item-container__table"
         :data="values"
         :loading="loading"
@@ -15,11 +15,11 @@
 
 <script>
 import { companyValuesFormatter } from '../../shared/formatters';
-import Table from '../../components/common/Table';
+import DataTable from '../../components/common/DataTable';
 
 export default {
   name: 'CompanyValues',
-  components: { Table },
+  components: { DataTable },
   created() {
     this.$store.dispatch('getCompanyValues');
   },

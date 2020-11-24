@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Footer',
+  name: 'AppFooter',
   methods: {
     getYear() {
       return new Date().getFullYear();

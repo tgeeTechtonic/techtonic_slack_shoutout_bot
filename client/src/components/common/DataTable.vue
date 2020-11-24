@@ -48,7 +48,7 @@
 import { capitalizeWordFormatter } from '../../shared/formatters';
 
 export default {
-  name: 'Table',
+  name: 'DataTable',
   props: [
     'data', // DATA COMING IN TO BE DISPLAYED
     'loading', // STATE OF DATA RETRIEVAL
