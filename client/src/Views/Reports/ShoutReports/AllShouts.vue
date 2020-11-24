@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import { shoutoutFormatter } from '../../shared/formatters';
+import { shoutoutFormatter } from '../../../shared/formatters';
 import FillChart from './FillChart';
-import MonthRangePicker from './MonthRangePicker';
-import Table from '../../components/common/Table';
+import MonthRangePicker from '../MonthRangePicker';
+import Table from '../../../components/common/Table';
 
 export default {
   name: 'AllShouts',
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "../../../assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {
