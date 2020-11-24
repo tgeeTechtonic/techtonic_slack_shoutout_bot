@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import MonthRangePicker from '../MonthRangePicker';
+import MonthRangePicker from '../../../components/common/MonthRangePicker';
 import ProfileCard from './ProfileCard';
 import Table from '../../../components/common/Table';
 
