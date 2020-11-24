@@ -7,6 +7,8 @@ If you do not have Homebrew and/or PostgreSQL installed on your machine
 - Start Postgres: `brew services start postgresql`
 - Add database in Postgres: 
   - `psql`
+    - If this command does not work and gives you an error: `psql: FATAL:  database "<user>" does not exist`
+    - Run `createdb <yourcomputerusername>` first
   - `CREATE DATABASE shoutoutapp;`
   - `q`
 - If you would like a client for PostgreSQL, download: `https://eggerapps.at/postico/`

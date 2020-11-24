@@ -23,8 +23,8 @@
           <v-spacer></v-spacer>
           <v-text-field
             v-if="searchable"
+            clearable
             hide-details
-            append-icon="mdi-magnify"
             label="Search"
             single-line
             v-model="search"
@@ -91,6 +91,7 @@ export default {
         return this.showingGiven;
       },
       set() {
+        this.showingGiven = !this.showingGiven;
         this.$emit('toggleView', this.showingGiven);
       },
     },
@@ -108,6 +109,12 @@ export default {
           headers.push({
             text: '',
             value: key,
+            filter: () => {
+              if (!this.avatar) return true; // REMOVES THE AVATAR COLUMN FROM THE SEARCH RESULTS
+            },
+            sort: () => {
+              return -1; // ALTERS SORTING IN THE AVATAR COLUMN TO ALIGN WITH FIRST NAME COLUMN
+            },
           });
         }
       }
@@ -140,6 +147,9 @@ tr.v-data-table__selected {
   background: v.$accent-green !important;
 }
 .table-container {
+  .v-input__icon--clear button {
+    visibility: visible;
+  }
   &__title {
     padding: 0;
   }

@@ -33,7 +33,6 @@ export default {
   components: { Table, RadarChart },
   data() {
     return {
-      loading: false,
       picker: new Date().toISOString().substr(0, 7),
       shoutsToDisplay: [],
       tableView: true,
@@ -50,15 +49,12 @@ export default {
       };
     },
     getRankedList() {
-      this.loading = true;
       const { selectedMonth, selectedYear } = this.createDateObj();
       this.$store.dispatch('getRankedUsersByMonth', {
         type: this.tableView ? 'shouter' : 'shoutee',
         month: selectedMonth,
         year: selectedYear,
       });
-
-      this.loading = false;
     },
     selectedDate() {
       const selectedDate = new Date(
@@ -88,6 +84,9 @@ export default {
     },
     rankedUsers() {
       return rankedShoutersFormatter(this.$store.state.rankedUsers);
+    },
+    loading() {
+      return this.$store.state.loading.rankedUsers;
     },
   },
   watch: {
