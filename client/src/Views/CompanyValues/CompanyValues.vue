@@ -20,17 +20,16 @@ import { companyValuesFormatter } from '../../shared/formatters';
 export default {
   name: 'CompanyValues',
   components: { Table },
-  data() {
-    return {
-      loading: false,
-      values: [],
-    };
+  created() {
+    this.$store.dispatch('getCompanyValues');
   },
-  async created() {
-    this.loading = true;
-    await this.$store.dispatch('getCompanyValues');
-    this.loading = false;
-    this.values = companyValuesFormatter(this.$store.state.companyValues);
+  computed: {
+    loading() {
+      return this.$store.state.loading.companyValues;
+    },
+    values() {
+      return companyValuesFormatter(this.$store.state.companyValues);
+    },
   },
 };
 </script>
