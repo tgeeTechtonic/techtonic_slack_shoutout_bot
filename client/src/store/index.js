@@ -6,6 +6,7 @@ import {
   getRankedByMonth,
   getAllUsers,
   getUserShoutoutsByType,
+  getAllCompanyValues,
 } from '../shared/apiCalls';
 
 Vue.use(Vuex);
@@ -21,6 +22,7 @@ export default new Vuex.Store({
       shoutoutsGiven: [],
       summary: {},
     },
+    values: [],
     loading: {
       users: false,
       shoutouts: false,
@@ -63,6 +65,9 @@ export default new Vuex.Store({
             state.users[userIndex].most_company_value_received,
         };
       }
+    },
+    updateCompanyValues(state, values) {
+      state.companyValues = values || [];
     },
     updateLoading(state, { data, isLoading }) {
       state.loading[data] = isLoading;
@@ -130,6 +135,14 @@ export default new Vuex.Store({
         console.error;
       }
       commit('updateLoading', { data: 'user', isLoading: false });
+    },
+    async getCompanyValues({ commit }) {
+      try {
+        const companyValues = await getAllCompanyValues();
+        commit('updateCompanyValues', companyValues);
+      } catch (e) {
+        console.error;
+      }
     },
   },
   // similar to computed properties
