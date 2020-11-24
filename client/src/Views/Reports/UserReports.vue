@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item>
+  <v-tab-item class="user-container">
     <MonthRangePicker @dateRange="handleDateRange" />
     <v-dialog v-model="dateRange.invalidDate" width="500">
       <v-card class="error-card">
@@ -19,30 +19,39 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <div class="all-reports">
+
+    <div class="user-container__table">
       <Table
-        class="all-reports__table"
-        :data="shoutouts"
+        class="user-container__users-list"
+        :data="usersList"
         :loading="loading"
+        :restricted="{ footer: 'disable-items' }"
         :searchable="true"
-        title="All Shoutouts"
+        :selectable="true"
+        @selectedUser="handleSelectedUser"
+        title="Users"
       />
-      <FillChart :data="shoutouts" class="all-reports__chart" />
+      <div v-if="selectedUser.id">
+        <ProfileCard :user="selectedUser" :date="dateRange" />
+      </div>
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import { shoutoutFormatter } from '../../../shared/formatters';
-import FillChart from './FillChart';
-import MonthRangePicker from '../../../components/common/MonthRangePicker';
-import Table from '../../../components/common/Table';
+import MonthRangePicker from '../../components/common/MonthRangePicker';
+import ProfileCard from './ProfileCard';
+import Table from '../../components/common/Table';
 
 export default {
-  name: 'AllShouts',
-  components: { Table, FillChart, MonthRangePicker },
+  name: 'UserReports',
+  components: { ProfileCard, Table, MonthRangePicker },
+  created() {
+    this.$store.dispatch('getUsers');
+  },
   data() {
     return {
+      selectedUser: {},
       dateRange: {
         invalidDate: false,
         startDate: new Date().toISOString().substr(0, 4) + '-01',
@@ -50,38 +59,34 @@ export default {
       },
     };
   },
-  created() {
-    this.getShoutouts();
-  },
   computed: {
     loading() {
-      return this.$store.state.loading.shoutouts
+      return this.$store.state.loading.users
     },
-    shoutouts() {
-      return shoutoutFormatter(this.$store.state.shoutouts);
+    usersList() {
+      return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
+        id,
+        avatar,
+        first_name,
+        last_name,
+      }));
     },
   },
   methods: {
-    getShoutouts() {
-      this.$store.dispatch('getShouts', {
-        startDate: this.dateRange.startDate,
-        endDate: this.dateRange.endDate,
-      });
+    handleSelectedUser(userId) {
+      this.selectedUser = this.$store.state.users
+        .filter((user) => user.id === userId)
+        .pop();
     },
     handleDateRange(date) {
       this.dateRange = date;
-    },
-  },
-  watch: {
-    dateRange() {
-      this.getShoutouts();
     },
   },
 };
 </script>
 
 <style lang="scss">
-@use "../../../assets/styles/variables.scss" as v;
+@use "../../assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {
@@ -93,19 +98,23 @@ export default {
   }
 }
 
-.all-reports {
+.user-container {
   background-color: v.$main-bkgrnd;
-  display: flex;
-  justify-content: space-evenly;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
   &__table {
-    margin: 1rem;
-    width: 60%;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0 16px;
+    width: 100%;
   }
-  &__chart {
-    margin: 1rem, 1rem, 0, 1rem;
-    width: 50%;
+  &__users-list {
+    margin-right: 10px;
+    width: 400px !important;
   }
 }
 </style>

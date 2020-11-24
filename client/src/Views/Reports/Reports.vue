@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import MonthlyReports from './MonthlyReports/MonthlyReports';
-import UserReports from './UserReports/UserReports';
-import AllShouts from './ShoutReports/AllShouts';
+import MonthlyReports from './MonthlyReports';
+import UserReports from './UserReports';
+import AllShouts from './AllShouts';
 
 export default {
   name: 'Reports',
