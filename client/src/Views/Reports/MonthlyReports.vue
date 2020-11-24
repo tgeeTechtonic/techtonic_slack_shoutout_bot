@@ -48,7 +48,7 @@ export default {
         selectedYear: this.picker.split('-')[0],
       };
     },
-    async getRankedList() {
+    getRankedList() {
       const { selectedMonth, selectedYear } = this.createDateObj();
       this.$store.dispatch('getRankedUsersByMonth', {
         type: this.tableView ? 'shouter' : 'shoutee',
