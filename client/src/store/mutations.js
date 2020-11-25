@@ -1,5 +1,11 @@
+import {
+  companyValuesFormatter,
+  rankedShoutersFormatter,
+  shoutoutFormatter,
+} from '../shared/formatters';
+
 const updateCompanyValues = (state, values) => {
-  state.companyValues = values || [];
+  state.companyValues = companyValuesFormatter(values) || [];
 };
 
 const updateLoading = (state, { data, isLoading }) => {
@@ -7,7 +13,7 @@ const updateLoading = (state, { data, isLoading }) => {
 };
 
 const updateRankedUsers = (state, ranked) => {
-  state.rankedUsers = ranked || [];
+  state.rankedUsers = rankedShoutersFormatter(ranked) || [];
 };
 
 const updateRecentShoutouts = (state, recentShoutouts) => {
@@ -15,7 +21,7 @@ const updateRecentShoutouts = (state, recentShoutouts) => {
 };
 
 const updateShoutouts = (state, shoutouts) => {
-  state.shoutouts = shoutouts || [];
+  state.shoutouts = shoutoutFormatter(shoutouts) || [];
 };
 
 const updateUserShoutoutsGiven = (state, shoutouts) => {
@@ -28,16 +34,7 @@ const updateUserShoutoutsReceived = (state, shoutouts) => {
 
 const updateUserSummary = (state, userId) => {
   const userIndex = state.users.findIndex((user) => user.id === userId);
-  if (userIndex === -1) state.user.summary = {};
-  else {
-    state.user.summary = {
-      total_shoutouts_given: state.users[userIndex].num_shoutouts_given,
-      total_shoutouts_received: state.users[userIndex].num_shoutouts_received,
-      most_company_value_given: state.users[userIndex].most_company_value_given,
-      most_company_value_received:
-        state.users[userIndex].most_company_value_received,
-    };
-  }
+  state.user.summary = userIndex !== -1 ? state.users[userIndex] : {};
 };
 
 const updateUsers = (state, users) => {

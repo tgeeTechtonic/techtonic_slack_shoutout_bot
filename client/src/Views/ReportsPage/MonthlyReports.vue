@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { rankedShoutersFormatter } from '@/shared/formatters';
 import RadarChart from './Charts/RadarChart';
 import DataTable from '@/components/common/DataTable';
 
@@ -83,7 +82,7 @@ export default {
             ${year}`;
     },
     rankedUsers() {
-      return rankedShoutersFormatter(this.$store.state.rankedUsers);
+      return this.$store.state.rankedUsers;
     },
     loading() {
       return this.$store.state.loading.rankedUsers;

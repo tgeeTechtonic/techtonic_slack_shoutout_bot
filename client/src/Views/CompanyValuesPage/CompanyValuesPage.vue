@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { companyValuesFormatter } from '@/shared/formatters';
 import DataTable from '@/components/common/DataTable';
 
 export default {
@@ -28,7 +27,7 @@ export default {
       return this.$store.state.loading.companyValues;
     },
     values() {
-      return companyValuesFormatter(this.$store.state.companyValues);
+      return this.$store.state.companyValues;
     },
   },
 };

@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { shoutoutFormatter } from '@/shared/formatters';
 import DataTable from '@/components/common/DataTable';
 import FillChart from './Charts/FillChart';
 import MonthRangePicker from '@/components/common/MonthRangePicker';
@@ -58,7 +57,7 @@ export default {
       return this.$store.state.loading.shoutouts;
     },
     shoutouts() {
-      return shoutoutFormatter(this.$store.state.shoutouts);
+      return this.$store.state.shoutouts;
     },
   },
   methods: {
