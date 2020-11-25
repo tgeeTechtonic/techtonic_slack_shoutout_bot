@@ -21,7 +21,7 @@
     </v-dialog>
 
     <div class="user-container__table">
-      <Table
+      <DataTable
         class="user-container__users-list"
         :data="usersList"
         :loading="loading"
@@ -32,20 +32,20 @@
         title="Users"
       />
       <div v-if="selectedUser.id">
-        <ProfileCard :user="selectedUser" :date="dateRange" />
+        <UserProfileCard :user="selectedUser" :date="dateRange" />
       </div>
     </div>
   </v-tab-item>
 </template>
 
 <script>
-import ProfileCard from './ProfileCard';
-import Table from './Table';
-import MonthRangePicker from './MonthRangePicker';
+import MonthRangePicker from '@/components/common/MonthRangePicker';
+import DataTable from '@/components/common/DataTable';
+import UserProfileCard from './UserProfileCard';
 
 export default {
   name: 'UserReports',
-  components: { ProfileCard, Table, MonthRangePicker },
+  components: { DataTable, UserProfileCard, MonthRangePicker },
   created() {
     this.$store.dispatch('getUsers');
   },
@@ -61,15 +61,17 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.state.loading.users
+      return this.$store.state.loading.users;
     },
     usersList() {
-      return this.$store.state.users.map(({ id, avatar, first_name, last_name }) => ({
-        id,
-        avatar,
-        first_name,
-        last_name,
-      }));
+      return this.$store.state.users.map(
+        ({ id, avatar, first_name, last_name }) => ({
+          id,
+          avatar,
+          first_name,
+          last_name,
+        })
+      );
     },
   },
   methods: {
@@ -86,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {

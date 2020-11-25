@@ -19,7 +19,7 @@
     <v-divider></v-divider>
     <v-card-text>
       <h3 class="headline mb-2">
-        <Table
+        <DataTable
           class="profile-card__table"
           :data="selectedUser.summary"
           :loading="loading"
@@ -32,7 +32,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Shoutouts Given</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Table
+          <DataTable
             :data="selectedUser.shoutoutsGiven"
             class="profile-card__table"
             :loading="loading"
@@ -42,7 +42,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Shoutouts Received</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Table
+          <DataTable
             :data="selectedUser.shoutoutsReceived"
             class="profile-card__table"
             :loading="loading"
@@ -54,12 +54,12 @@
 </template>
 
 <script>
-import { userShoutoutsFormatter } from '../../shared/formatters';
-import Table from './Table';
+import { userShoutoutsFormatter } from '@/shared/formatters';
+import DataTable from '@/components/common/DataTable';
 
 export default {
   name: 'ProfileCard',
-  components: { Table },
+  components: { DataTable },
   props: ['user', 'date'],
   created() {
     this.getShoutouts();
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .v-expansion-panel-content__wrap {
   padding: 0 !important;

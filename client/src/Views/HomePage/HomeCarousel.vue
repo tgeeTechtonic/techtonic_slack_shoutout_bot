@@ -93,7 +93,7 @@ export default {
       return {
         background:
           "url('" +
-          require(`../../assets/images/carousel_${index}.jpg`) +
+          require(`@/assets/images/carousel_${index}.jpg`) +
           "') no-repeat center center",
         backgroundSize: 'cover',
       };
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .v-sheet {
   display: flex;

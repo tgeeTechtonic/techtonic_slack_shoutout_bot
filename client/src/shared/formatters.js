@@ -24,29 +24,35 @@ export const rankedShoutersFormatter = (shouts) => {
 };
 
 export const userShoutoutsFormatter = (userData) => {
-  let user = {
-    shoutoutsGiven: [],
-    shoutoutsReceived: [],
-    summary: [userData.summary],
-  };
+  const {
+    num_shoutouts_given,
+    num_shoutouts_received,
+    most_company_value_given,
+    most_company_value_received,
+  } = userData.summary;
 
-  user.shoutoutsGiven = userData.shoutoutsGiven.map((shout) => {
-    return {
+  return {
+    shoutoutsGiven: userData.shoutoutsGiven.map((shout) => ({
       date: shout.date,
       to: shout.shoutee,
       company_value: shout.company_value,
       message: shout.message,
-    };
-  });
-  user.shoutoutsReceived = userData.shoutoutsReceived.map((shout) => {
-    return {
+    })),
+    shoutoutsReceived: userData.shoutoutsReceived.map((shout) => ({
       date: shout.date,
       from: shout.shouter,
       company_value: shout.company_value,
       message: shout.message,
-    };
-  });
-  return user;
+    })),
+    summary: [
+      {
+        total_shoutouts_given: num_shoutouts_given,
+        total_shoutouts_received: num_shoutouts_received,
+        most_company_value_given,
+        most_company_value_received,
+      },
+    ],
+  };
 };
 
 export const capitalizeWordFormatter = (str) => {

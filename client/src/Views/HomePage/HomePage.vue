@@ -1,7 +1,7 @@
 <template>
   <article class="home">
     <section class="home__section">
-      <Carousel v-if="recentShouts.length" :recentShouts="recentShouts" />
+      <HomeCarousel v-if="recentShouts.length" :recentShouts="recentShouts" />
     </section>
     <section class="home__section--blurb">
       <p class="home__blurb-quote">
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import Carousel from './Carousel';
+import HomeCarousel from './HomeCarousel';
 
 export default {
   name: 'Home',
-  components: { Carousel },
+  components: { HomeCarousel },
   created() {
     this.$store.dispatch('getRecentShoutouts');
   },
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .home {
   &__section {

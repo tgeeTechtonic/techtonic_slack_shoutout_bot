@@ -1,32 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import About from '../Views/About/About';
-import CompanyValues from '../Views/CompanyValues/CompanyValues';
-import Home from '../Views/Home/Home';
-import Reports from '../Views/Reports/Reports';
+import AboutPage from '@/Views/AboutPage/AboutPage';
+import CompanyValuesPage from '@/Views/CompanyValuesPage/CompanyValuesPage';
+import HomePage from '@/Views/HomePage/HomePage';
+import ReportsPage from '@/Views/ReportsPage/ReportsPage';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'HomePage',
+    component: HomePage,
   },
   {
     path: '/reports',
-    name: 'Reports',
-    component: Reports,
+    name: 'ReportsPage',
+    component: ReportsPage,
   },
   {
     path: '/about',
-    name: 'About',
-    component: About,
+    name: 'AboutPage',
+    component: AboutPage,
   },
   {
     path: '/company-values',
-    name: 'CompanyValues',
-    component: CompanyValues,
+    name: 'CompanyValuesPage',
+    component: CompanyValuesPage,
   },
 ];
 

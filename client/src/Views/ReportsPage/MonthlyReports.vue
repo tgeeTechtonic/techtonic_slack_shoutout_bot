@@ -7,7 +7,7 @@
         class="item-container__picker"
       >
       </v-date-picker>
-      <Table
+      <DataTable
         class="item-container__table"
         :data="rankedUsers"
         :loading="loading"
@@ -24,13 +24,12 @@
 </template>
 
 <script>
-import { rankedShoutersFormatter } from '../../shared/formatters';
-import RadarChart from './RadarChart';
-import Table from './Table';
+import RadarChart from './Charts/RadarChart';
+import DataTable from '@/components/common/DataTable';
 
 export default {
   name: 'MonthlyReports',
-  components: { Table, RadarChart },
+  components: { DataTable, RadarChart },
   data() {
     return {
       picker: new Date().toISOString().substr(0, 7),
@@ -83,7 +82,7 @@ export default {
             ${year}`;
     },
     rankedUsers() {
-      return rankedShoutersFormatter(this.$store.state.rankedUsers);
+      return this.$store.state.rankedUsers;
     },
     loading() {
       return this.$store.state.loading.rankedUsers;
@@ -101,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .item-container {
   background-color: v.$main-bkgrnd;

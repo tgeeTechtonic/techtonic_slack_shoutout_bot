@@ -1,7 +1,7 @@
 <template>
   <article class="company-values">
     <section class="company-values__table">
-      <Table
+      <DataTable
         class="item-container__table"
         :data="values"
         :loading="loading"
@@ -14,29 +14,27 @@
 </template>
 
 <script>
-import Table from '../Reports/Table';
-import { companyValuesFormatter } from '../../shared/formatters';
+import DataTable from '@/components/common/DataTable';
 
 export default {
   name: 'CompanyValues',
-  components: { Table },
-  data() {
-    return {
-      loading: false,
-      values: [],
-    };
+  components: { DataTable },
+  created() {
+    this.$store.dispatch('getCompanyValues');
   },
-  async created() {
-    this.loading = true;
-    await this.$store.dispatch('getCompanyValues');
-    this.loading = false;
-    this.values = companyValuesFormatter(this.$store.state.companyValues);
+  computed: {
+    loading() {
+      return this.$store.state.loading.companyValues;
+    },
+    values() {
+      return this.$store.state.companyValues;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables.scss' as v;
+@use '@/assets/styles/variables.scss' as v;
 
 .company-values {
   display: flex;

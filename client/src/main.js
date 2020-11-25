@@ -5,7 +5,7 @@ import Vuetify from 'vuetify/lib';
 import './assets/styles/normalize.css';
 
 import router from './router';
-import store from './store';
+import store from './store/store';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);

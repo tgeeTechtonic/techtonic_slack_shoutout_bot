@@ -40,12 +40,7 @@ export const getAllUsers = async () => {
   }
 };
 
-export const getUserShoutoutsByType = async (
-  userId,
-  type,
-  startDate,
-  endDate
-) => {
+export const getShoutoutsByType = async (userId, type, startDate, endDate) => {
   const urlQueries = `/api/shoutouts/user/${userId}?type=${type}&start-date=${startDate}&end-date=${endDate}`;
   try {
     const response = await axios.get(baseUrl + urlQueries);

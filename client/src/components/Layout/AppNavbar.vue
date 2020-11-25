@@ -5,14 +5,16 @@
         <img
           alt="Techtonic Logo"
           class="navbar__logo"
-          src="../../assets/images/logo-techtonic.png"
+          src="@/assets/images/logo-techtonic.png"
         />
       </router-link>
       <span>
         <router-link class="navbar__link" to="/">Home</router-link>
         <router-link class="navbar__link" to="/reports">Reports</router-link>
         <router-link class="navbar__link" to="/about">About</router-link>
-        <router-link class="navbar__link" to="/company-values">Company Values</router-link>
+        <router-link class="navbar__link" to="/company-values"
+          >Company Values</router-link
+        >
       </span>
     </v-app-bar>
   </nav>
@@ -20,13 +22,13 @@
 
 <script>
 export default {
-  name: 'Navbar',
+  name: 'AppNavbar',
   methods: {},
 };
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 nav {
   position: fixed;
   width: 100%;

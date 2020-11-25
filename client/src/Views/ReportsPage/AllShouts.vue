@@ -20,7 +20,7 @@
       </v-card>
     </v-dialog>
     <div class="all-reports">
-      <Table
+      <DataTable
         class="all-reports__table"
         :data="shoutouts"
         :loading="loading"
@@ -33,14 +33,13 @@
 </template>
 
 <script>
-import { shoutoutFormatter } from '../../shared/formatters';
-import FillChart from './FillChart';
-import MonthRangePicker from './MonthRangePicker';
-import Table from './Table';
+import DataTable from '@/components/common/DataTable';
+import FillChart from './Charts/FillChart';
+import MonthRangePicker from '@/components/common/MonthRangePicker';
 
 export default {
   name: 'AllShouts',
-  components: { Table, FillChart, MonthRangePicker },
+  components: { DataTable, FillChart, MonthRangePicker },
   data() {
     return {
       dateRange: {
@@ -55,10 +54,10 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.state.loading.shoutouts
+      return this.$store.state.loading.shoutouts;
     },
     shoutouts() {
-      return shoutoutFormatter(this.$store.state.shoutouts);
+      return this.$store.state.shoutouts;
     },
   },
   methods: {
@@ -81,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../../assets/styles/variables.scss" as v;
+@use "@/assets/styles/variables.scss" as v;
 
 .error-card {
   &__title {
