@@ -31,9 +31,10 @@ export const getRankedByMonth = async (type, month, year) => {
   }
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (startDate, endDate) => {
+  const urlQueries = `/api/all-users?start-date=${startDate}&end-date=${endDate}`;
   try {
-    const response = await axios.get(baseUrl + '/api/all-users');
+    const response = await axios.get(baseUrl + urlQueries);
     return response.data;
   } catch (error) {
     console.log(error);
