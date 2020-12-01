@@ -1,34 +1,25 @@
 const { db } = require('../dbConfig');
 
 const userController = {
-  getAllUsers: async (start_date, end_date) => {
+  getAllUsers: async () => {
     return await db('users')
       .select()
       .orderBy('first_name', 'desc')
-      .then((users) =>
-        Promise.all(
-          users.map((user) => createAllUsersRes(db, user, start_date, end_date))
-        )
-      );
+      .then((users) => Promise.all(users));
+  },
+  getSingleUser: async (userId, start_date, end_date) => {
+    return await db('users')
+      .where('id', userId)
+      .then((user) => createUserRes(user[0], start_date, end_date));
   },
 };
 
-const createAllUsersRes = async (
-  db,
+const createUserRes = async (
   { id, avatar, email, first_name, job_title, last_name, slack_handle, role },
   start_date,
   end_date
 ) => {
   const { startDate, endDate } = getDateRange(start_date, end_date);
-
-  const shoutsGiven = await db('shoutouts')
-    .whereBetween('date', [startDate, endDate])
-    .where('shouter', id)
-    .count();
-  const shoutsReceived = await db('shoutouts')
-    .whereBetween('date', [startDate, endDate])
-    .where('shoutee', id)
-    .count();
 
   const mostValueGiven = await getMostUsedCompanyValue(
     id,
@@ -50,8 +41,6 @@ const createAllUsersRes = async (
     first_name,
     job_title,
     last_name,
-    num_shoutouts_given: parseInt(shoutsGiven[0].count),
-    num_shoutouts_received: parseInt(shoutsReceived[0].count),
     most_company_value_given: mostValueGiven,
     most_company_value_received: mostValueReceived,
     role,
