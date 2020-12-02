@@ -23,35 +23,26 @@ export const rankedShoutersFormatter = (shouts) => {
   });
 };
 
-export const userShoutoutsFormatter = (userData) => {
-  const {
-    num_shoutouts_given,
-    num_shoutouts_received,
-    most_company_value_given,
-    most_company_value_received,
-  } = userData.summary;
-
+export const userFormatter = (user) => {
+  const { shoutoutsGiven: given, shoutoutsReceived: received } = user;
   return {
-    shoutoutsGiven: userData.shoutoutsGiven.map((shout) => ({
-      date: shout.date,
-      to: shout.shoutee,
-      company_value: shout.company_value,
-      message: shout.message,
-    })),
-    shoutoutsReceived: userData.shoutoutsReceived.map((shout) => ({
-      date: shout.date,
-      from: shout.shouter,
-      company_value: shout.company_value,
-      message: shout.message,
-    })),
-    summary: [
-      {
-        total_shoutouts_given: num_shoutouts_given,
-        total_shoutouts_received: num_shoutouts_received,
-        most_company_value_given,
-        most_company_value_received,
-      },
-    ],
+    ...user,
+    shoutoutsGiven: given
+      ? given.map((shout) => ({
+          date: shout.date,
+          to: shout.shoutee,
+          company_value: shout.company_value,
+          message: shout.message,
+        }))
+      : [],
+    shoutoutsReceived: received
+      ? received.map((shout) => ({
+          date: shout.date,
+          from: shout.shouter,
+          company_value: shout.company_value,
+          message: shout.message,
+        }))
+      : [],
   };
 };
 

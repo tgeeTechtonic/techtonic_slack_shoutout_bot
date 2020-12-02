@@ -21,7 +21,7 @@
       <h3 class="headline mb-2">
         <DataTable
           class="profile-card__table"
-          :data="selectedUser.summary"
+          :data="userSummary"
           :loading="loading"
           :restricted="{ footer: 'all', disableSort: true }"
         />
@@ -33,7 +33,7 @@
         <v-expansion-panel-header>Shoutouts Given</v-expansion-panel-header>
         <v-expansion-panel-content>
           <DataTable
-            :data="selectedUser.shoutoutsGiven"
+            :data="user.shoutoutsGiven"
             class="profile-card__table"
             :loading="loading"
           />
@@ -43,7 +43,7 @@
         <v-expansion-panel-header>Shoutouts Received</v-expansion-panel-header>
         <v-expansion-panel-content>
           <DataTable
-            :data="selectedUser.shoutoutsReceived"
+            :data="user.shoutoutsReceived"
             class="profile-card__table"
             :loading="loading"
           />
@@ -54,46 +54,31 @@
 </template>
 
 <script>
-import { userShoutoutsFormatter } from '@/shared/formatters';
 import DataTable from '@/components/common/DataTable';
 
 export default {
   name: 'ProfileCard',
   components: { DataTable },
-  props: ['user', 'date'],
-  created() {
-    this.getShoutouts();
-  },
+  props: ['user'],
   computed: {
     loading() {
       return this.$store.state.loading.user;
     },
-    selectedUser() {
-      return userShoutoutsFormatter(this.$store.state.user);
-    },
-  },
-  methods: {
-    getShoutouts() {
-      this.$store.dispatch('getUserShoutoutsByType', {
-        userId: this.user.id,
-        type: 'shoutee',
-        startDate: this.date.startDate,
-        endDate: this.date.endDate,
-      });
-      this.$store.dispatch('getUserShoutoutsByType', {
-        userId: this.user.id,
-        type: 'shouter',
-        startDate: this.date.startDate,
-        endDate: this.date.endDate,
-      });
-    },
-  },
-  watch: {
-    user() {
-      this.getShoutouts();
-    },
-    date() {
-      this.getShoutouts();
+    userSummary() {
+      const {
+        most_company_value_given,
+        most_company_value_received,
+        shoutoutsGiven,
+        shoutoutsReceived,
+      } = this.user;
+      return [
+        {
+          num_shoutouts_given: shoutoutsGiven.length,
+          num_shoutouts_received: shoutoutsReceived.length,
+          most_company_value_given,
+          most_company_value_received,
+        },
+      ];
     },
   },
 };

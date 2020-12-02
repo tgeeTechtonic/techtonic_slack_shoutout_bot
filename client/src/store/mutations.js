@@ -2,6 +2,7 @@ import {
   companyValuesFormatter,
   rankedShoutersFormatter,
   shoutoutFormatter,
+  userFormatter,
 } from '../shared/formatters';
 
 const updateCompanyValues = (state, values) => {
@@ -24,17 +25,8 @@ const updateShoutouts = (state, shoutouts) => {
   state.shoutouts = shoutoutFormatter(shoutouts) || [];
 };
 
-const updateUserShoutoutsGiven = (state, shoutouts) => {
-  state.user.shoutoutsGiven = shoutouts || [];
-};
-
-const updateUserShoutoutsReceived = (state, shoutouts) => {
-  state.user.shoutoutsReceived = shoutouts || [];
-};
-
-const updateUserSummary = (state, userId) => {
-  const userIndex = state.users.findIndex((user) => user.id === userId);
-  state.user.summary = userIndex !== -1 ? state.users[userIndex] : {};
+const updateUser = (state, user) => {
+  state.user = userFormatter(user) || {};
 };
 
 const updateUsers = (state, users) => {
@@ -48,8 +40,6 @@ export default {
   updateRankedUsers,
   updateRecentShoutouts,
   updateShoutouts,
-  updateUserShoutoutsGiven,
-  updateUserShoutoutsReceived,
-  updateUserSummary,
+  updateUser,
   updateUsers,
 };

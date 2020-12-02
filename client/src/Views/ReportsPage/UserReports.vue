@@ -31,8 +31,8 @@
         @selectedUser="handleSelectedUser"
         title="Users"
       />
-      <div v-if="selectedUser.id">
-        <UserProfileCard :user="selectedUser" :date="dateRange" />
+      <div v-if="user.id">
+        <UserProfileCard :user="user" />
       </div>
     </div>
   </v-tab-item>
@@ -51,7 +51,6 @@ export default {
   },
   data() {
     return {
-      selectedUser: {},
       dateRange: {
         invalidDate: false,
         startDate: new Date().toISOString().substr(0, 4) + '-01',
@@ -73,15 +72,24 @@ export default {
         })
       );
     },
+    user() {
+      return this.$store.state.user;
+    },
   },
   methods: {
     handleSelectedUser(userId) {
-      this.selectedUser = this.$store.state.users
-        .filter((user) => user.id === userId)
-        .pop();
+      this.$store.dispatch('getUser', { userId, ...this.dateRange });
     },
     handleDateRange(date) {
       this.dateRange = date;
+    },
+  },
+  watch: {
+    dateRange() {
+      this.$store.dispatch('getUser', {
+        userId: this.user.id,
+        ...this.dateRange,
+      });
     },
   },
 };
