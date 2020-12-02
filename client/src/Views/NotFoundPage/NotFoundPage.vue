@@ -29,7 +29,7 @@ export default {
   color: v.$main-white;
   font-size: 5rem;
   font-weight: 800;
-  font-family: "Fjalla One", "Open Sans", sans-serif;
+  font-family: v.$main-font;
 }
 
 .not-found-info {
