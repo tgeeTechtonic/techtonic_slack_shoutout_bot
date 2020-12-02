@@ -52,7 +52,7 @@ export default {
     text-align: left;
   }
   &__intro {
-    margin: 0px 50px;
+    margin: 16px 50px 0px 50px;
   }
   &__intro-text {
     border-bottom: 10px solid v.$accent-blue;
