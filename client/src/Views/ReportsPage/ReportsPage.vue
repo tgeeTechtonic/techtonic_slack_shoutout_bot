@@ -1,8 +1,8 @@
 <template>
   <div class="reports-container">
     <template class="reports-container__v-tabs">
-      <v-tabs fixed-tabs v-model="tabs">
-        <v-tab>Monthly Reports</v-tab>
+      <v-tabs fixed-tabs v-model="tabs" :class="tabBarColoring">
+        <v-tab class="thingasasdassd">Monthly Reports</v-tab>
         <v-tab>Users</v-tab>
         <v-tab>All Shouts</v-tab>
       </v-tabs>
@@ -30,6 +30,13 @@ export default {
       tabs: null,
     };
   },
+  computed: {
+    tabBarColoring() {
+      if (this.tabs === 0) return 'v-tab-1--active';
+      else if (this.tabs === 1) return 'v-tab-2-active';
+      else return 'v-tab-3--active';
+    },
+  },
 };
 </script>
 
@@ -37,13 +44,32 @@ export default {
 @use "@/assets/styles/variables.scss" as v;
 
 .reports-container {
+  .v-tabs {
+    position: fixed;
+    top: 70px;
+    z-index: 12;
+  }
+  .v-tabs-bar {
+    background-color: v.$accent-dark-grey !important;
+  }
+  .v-tab:not(.v-tab--active) {
+    color: v.$main-white !important;
+  }
+  .v-tab-1--active .v-item-group {
+    color: v.$accent-blue !important;
+  }
+  .v-tab-2-active .v-item-group {
+    color: v.$accent-green !important;
+  }
+  .v-tab-3--active .v-item-group {
+    color: v.$accent-yellow !important;
+  }
   &__main {
+    background-color: v.$main-bkgrnd;
     margin-top: 2rem;
     width: 100%;
-    background-color: v.$main-bkgrnd;
   }
   &__v-tabs {
-    background-color: v.$accent-blue;
     color: v.$main-white;
   }
 }
