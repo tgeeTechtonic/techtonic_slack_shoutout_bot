@@ -123,6 +123,9 @@ export default {
       border-radius: 6px;
       border: 3px solid v.$main-white;
     }
+    tr .text-start {
+      padding: 0 0 0 50px;
+    }
   }
   .v-toolbar {
     border-radius: 5px;
