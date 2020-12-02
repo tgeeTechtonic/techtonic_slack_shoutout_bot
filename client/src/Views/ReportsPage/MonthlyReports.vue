@@ -1,10 +1,10 @@
 <template>
-  <v-tab-item>
+  <v-tab-item class="monthly-reports">
     <div class="item-container">
       <v-date-picker
-        v-model="picker"
-        type="month"
         class="item-container__picker"
+        type="month"
+        v-model="picker"
       >
       </v-date-picker>
       <DataTable
@@ -98,6 +98,10 @@ export default {
 
 <style lang="scss">
 @use "@/assets/styles/variables.scss" as v;
+
+.monthly-reports .apexcharts-toolbar {
+  display: none;
+}
 
 .item-container {
   background-color: v.$main-bkgrnd;
