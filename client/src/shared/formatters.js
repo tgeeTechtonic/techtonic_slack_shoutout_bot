@@ -24,20 +24,25 @@ export const rankedShoutersFormatter = (shouts) => {
 };
 
 export const userFormatter = (user) => {
+  const { shoutoutsGiven: given, shoutoutsReceived: received } = user;
   return {
     ...user,
-    shoutoutsGiven: user.shoutoutsGiven.map((shout) => ({
-      date: shout.date,
-      to: shout.shoutee,
-      company_value: shout.company_value,
-      message: shout.message,
-    })),
-    shoutoutsReceived: user.shoutoutsReceived.map((shout) => ({
-      date: shout.date,
-      from: shout.shouter,
-      company_value: shout.company_value,
-      message: shout.message,
-    })),
+    shoutoutsGiven: given
+      ? given.map((shout) => ({
+          date: shout.date,
+          to: shout.shoutee,
+          company_value: shout.company_value,
+          message: shout.message,
+        }))
+      : [],
+    shoutoutsReceived: received
+      ? received.map((shout) => ({
+          date: shout.date,
+          from: shout.shouter,
+          company_value: shout.company_value,
+          message: shout.message,
+        }))
+      : [],
   };
 };
 
