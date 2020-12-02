@@ -25,6 +25,7 @@ export default {
 }
 
 .not-found-heading {
+  margin: 0.67em 0 0.10em;
   color: v.$main-white;
   font-size: 5rem;
   font-weight: 800;
