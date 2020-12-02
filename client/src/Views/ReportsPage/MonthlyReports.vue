@@ -16,10 +16,7 @@
         @toggleView="toggleView"
       />
     </div>
-    <RadarChart
-      :data="shoutsToDisplay.slice(0, 7)"
-      class="item-container__chart"
-    />
+    <RadarChart :data="rankedUsers.slice(0, 7)" class="item-container__chart" />
   </v-tab-item>
 </template>
 
@@ -151,6 +148,7 @@ export default {
   }
   &__chart {
     background-color: v.$main-bkgrnd;
+    max-height: 300px;
   }
 }
 </style>
