@@ -105,16 +105,46 @@ export default {
 .item-container {
   background-color: v.$main-bkgrnd;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 
+  .v-data-table__wrapper {
+    height: 288px;
+    overflow-y: scroll !important;
+    scrollbar-width: thin;
+    scrollbar-color: green;
+    &::-webkit-scrollbar {
+      width: 11px;
+    }
+    &::-webkit-scrollbar-track {
+      background: v.$main-white;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: v.$main-grey;
+      border-radius: 6px;
+      border: 3px solid v.$main-white;
+    }
+  }
+  .v-toolbar {
+    border-radius: 5px;
+  }
+  .table-container__title {
+    height: 64px !important;
+  }
+  .v-picker__title {
+    padding: 21px;
+  }
+  .v-date-picker-header {
+    padding: 17.5px 16px;
+  }
   &__picker {
     color: v.$accent-blue;
     height: 380px;
-    margin: 1rem;
+    margin: 1rem 5px 1rem 20px;
   }
   &__table {
-    margin: 1rem;
-    width: 700px;
+    margin: 1rem 20px 1rem 5px;
+    max-width: 700px;
+    width: calc(100% - 320px);
   }
   &__chart {
     background-color: v.$main-bkgrnd;
