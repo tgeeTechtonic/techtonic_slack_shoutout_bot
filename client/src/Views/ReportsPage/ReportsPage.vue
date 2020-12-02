@@ -66,7 +66,6 @@ export default {
   }
   &__main {
     background-color: v.$main-bkgrnd;
-    margin-top: 2rem;
     width: 100%;
   }
   &__v-tabs {
