@@ -2,7 +2,7 @@
   <div class="reports-container">
     <template class="reports-container__v-tabs">
       <v-tabs fixed-tabs v-model="tabs" :class="tabBarColoring">
-        <v-tab class="thingasasdassd">Monthly Reports</v-tab>
+        <v-tab>Monthly Reports</v-tab>
         <v-tab>Users</v-tab>
         <v-tab>All Shouts</v-tab>
       </v-tabs>

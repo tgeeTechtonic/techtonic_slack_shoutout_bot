@@ -1,10 +1,10 @@
 <template>
-  <v-tab-item>
+  <v-tab-item class="monthly-reports">
     <div class="item-container">
       <v-date-picker
-        v-model="picker"
-        type="month"
         class="item-container__picker"
+        type="month"
+        v-model="picker"
       >
       </v-date-picker>
       <DataTable
@@ -16,10 +16,7 @@
         @toggleView="toggleView"
       />
     </div>
-    <RadarChart
-      :data="shoutsToDisplay.slice(0, 7)"
-      class="item-container__chart"
-    />
+    <RadarChart :data="rankedUsers.slice(0, 7)" class="item-container__chart" />
   </v-tab-item>
 </template>
 
@@ -102,22 +99,60 @@ export default {
 <style lang="scss">
 @use "@/assets/styles/variables.scss" as v;
 
+.monthly-reports .apexcharts-toolbar {
+  display: none;
+}
+
 .item-container {
   background-color: v.$main-bkgrnd;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 
+  .v-data-table__wrapper {
+    height: 288px;
+    overflow-y: scroll !important;
+    scrollbar-width: thin;
+    scrollbar-color: green;
+    &::-webkit-scrollbar {
+      width: 11px;
+    }
+    &::-webkit-scrollbar-track {
+      background: v.$main-white;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: v.$main-grey;
+      border-radius: 6px;
+      border: 3px solid v.$main-white;
+    }
+    tr .text-start {
+      padding: 0 0 0 50px;
+    }
+  }
+  .v-toolbar {
+    border-radius: 5px;
+  }
+  .table-container__title {
+    height: 64px !important;
+  }
+  .v-picker__title {
+    padding: 21px;
+  }
+  .v-date-picker-header {
+    padding: 17.5px 16px;
+  }
   &__picker {
     color: v.$accent-blue;
     height: 380px;
-    margin: 1rem;
+    margin: 1rem 5px 1rem 20px;
   }
   &__table {
-    margin: 1rem;
-    width: 700px;
+    margin: 1rem 20px 1rem 5px;
+    max-width: 700px;
+    width: calc(100% - 320px);
   }
   &__chart {
     background-color: v.$main-bkgrnd;
+    max-height: 300px;
   }
 }
 </style>
