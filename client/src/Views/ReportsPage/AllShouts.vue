@@ -21,7 +21,7 @@
     </v-dialog>
     <v-row>
       <v-col/>
-      <v-col sm="10" lg="8" xl="4">
+      <v-col sm="10" lg="6" xl="4">
         <div class="all-reports">
           <FillChart :data="shoutouts" class="all-reports__chart" />
           <DataTable
@@ -116,6 +116,23 @@ export default {
   &__chart {
     margin: 1rem 1rem 0 1rem;
     width: 100%;
+  }
+
+  .v-data-table__wrapper {
+    height: 288px;
+    overflow-y: scroll !important;
+    
+    &::-webkit-scrollbar {
+      width: 11px;
+    }
+    &::-webkit-scrollbar-track {
+      background: v.$main-white;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: v.$main-grey;
+      border-radius: 6px;
+      border: 3px solid v.$main-white;
+    }
   }
 }
 </style>
