@@ -40,6 +40,16 @@ export const getAllUsers = async () => {
   }
 };
 
+export const getSingleUser = async (userId, startDate, endDate) => {
+  const urlQueries = `/api/all-users/${userId}?start-date=${startDate}&end-date=${endDate}`;
+  try {
+    const response = await axios.get(baseUrl + urlQueries);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getShoutoutsByType = async (userId, type, startDate, endDate) => {
   const urlQueries = `/api/shoutouts/user/${userId}?type=${type}&start-date=${startDate}&end-date=${endDate}`;
   try {

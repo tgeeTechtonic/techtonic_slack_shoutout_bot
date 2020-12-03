@@ -3,6 +3,7 @@ import {
   getAllShouts,
   getRankedByMonth,
   getAllUsers,
+  getSingleUser,
   getShoutoutsByType,
   getAllCompanyValues,
 } from '@/shared/apiCalls';
@@ -51,6 +52,30 @@ const getShouts = async ({ commit }, { startDate, endDate }) => {
   commit('updateLoading', { data: 'shoutouts', isLoading: false });
 };
 
+const getUser = async ({ commit }, { userId, startDate, endDate }) => {
+  commit('updateLoading', { data: 'user', isLoading: true });
+  try {
+    const user = await getSingleUser(userId, startDate, endDate);
+    const shoutoutsGiven = await getShoutoutsByType(
+      userId,
+      'shouter',
+      startDate,
+      endDate
+    );
+    const shoutoutsReceived = await getShoutoutsByType(
+      userId,
+      'shoutee',
+      startDate,
+      endDate
+    );
+
+    commit('updateUser', { ...user, shoutoutsGiven, shoutoutsReceived });
+  } catch (e) {
+    console.error;
+  }
+  commit('updateLoading', { data: 'user', isLoading: false });
+};
+
 const getUsers = async ({ commit }) => {
   commit('updateLoading', { data: 'users', isLoading: true });
   try {
@@ -62,33 +87,12 @@ const getUsers = async ({ commit }) => {
   commit('updateLoading', { data: 'users', isLoading: false });
 };
 
-const getUserShoutoutsByType = async (
-  { commit },
-  { userId, type, startDate, endDate }
-) => {
-  commit('updateLoading', { data: 'user', isLoading: true });
-  try {
-    const shoutouts = await getShoutoutsByType(
-      userId,
-      type,
-      startDate,
-      endDate
-    );
-    if (type === 'shoutee') commit('updateUserShoutoutsReceived', shoutouts);
-    else commit('updateUserShoutoutsGiven', shoutouts);
-    commit('updateUserSummary', userId);
-  } catch (e) {
-    console.error;
-  }
-  commit('updateLoading', { data: 'user', isLoading: false });
-};
-
 // async changes (api calls)
 export default {
   getCompanyValues,
   getRankedUsersByMonth,
   getRecentShoutouts,
   getShouts,
+  getUser,
   getUsers,
-  getUserShoutoutsByType,
 };
