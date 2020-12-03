@@ -6,9 +6,18 @@ export const state = {
   users: [], // ARRAY OF ALL USERS IN DATABASE
   user: {
     // CURRENTLY SELECTED USER
-    shoutoutsGiven: [], // ARRAY OF SPECIFIC USER SHOUTOUTS GIVEN
-    shoutoutsReceived: [], // ARRAY OF SPECIFIC USER SHOUTOUTS RECEIVED
-    summary: [], // SUMMARY OF SPECIFIC USER SHOUTOUTS
+    avatar: '',
+    email: '',
+    first_name: '',
+    id: 0,
+    job_title: '',
+    last_name: '',
+    most_company_value_given: '-',
+    most_company_value_received: '-',
+    role: '',
+    shoutoutsGiven: [],
+    shoutoutsReceived: [],
+    slack_handle: '',
   },
   // LOADING STATUSES FOR EACH STATE PROP IN STORE
   loading: {

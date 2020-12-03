@@ -11,4 +11,5 @@ $main-white: #fffafa;
 $main-black-overlay: #000000d9;
 $main-grey-underlay: #343434;
 
-$navbar-font: 'Fjalla One', 'Open Sans', sans-serif;
+$main-font: 'Fjalla One', 'Open Sans', sans-serif;
+$navbar-font: $main-font;
