@@ -20,6 +20,7 @@
       </v-card>
     </v-dialog>
     <div class="all-reports">
+      <FillChart :data="shoutouts" class="all-reports__chart" />
       <DataTable
         class="all-reports__table"
         :data="shoutouts"
@@ -27,7 +28,6 @@
         :searchable="true"
         title="All Shoutouts"
       />
-      <FillChart :data="shoutouts" class="all-reports__chart" />
     </div>
   </v-tab-item>
 </template>
@@ -95,6 +95,8 @@ export default {
 .all-reports {
   background-color: v.$main-bkgrnd;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   width: 100%;
 
@@ -103,7 +105,7 @@ export default {
     width: 60%;
   }
   &__chart {
-    margin: 1rem, 1rem, 0, 1rem;
+    margin: 1rem 1rem 0 1rem;
     width: 50%;
   }
 }
