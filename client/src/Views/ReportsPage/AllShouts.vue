@@ -21,7 +21,7 @@
     </v-dialog>
     <v-row>
       <v-col/>
-      <v-col sm="10" lg="6" xl="4">
+      <v-col sm="10" lg="8" xl="4">
         <div class="all-reports">
           <FillChart :data="shoutouts" class="all-reports__chart" />
           <DataTable
@@ -63,7 +63,7 @@ export default {
       return this.$store.state.loading.shoutouts;
     },
     shoutouts() {
-      return this.$store.state.shoutouts;
+      return this.$store.state.shoutouts.map(({ date, shoutee, shouter, shoutout, value }) => ({ date, shoutee, shouter, shoutout, value }));
     },
   },
   methods: {
