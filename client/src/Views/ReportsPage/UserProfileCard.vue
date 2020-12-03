@@ -92,7 +92,8 @@ export default {
 }
 .v-expansion-panel--active > .v-expansion-panel-header {
   color: v.$main-white;
-  background-color: v.$accent-blue;
+  background-color: v.$accent-green;
+  font-weight: 600;
 }
 .profile-card {
   width: calc(100vw - 440px);
