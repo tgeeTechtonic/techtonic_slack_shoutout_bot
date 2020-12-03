@@ -4,6 +4,7 @@ import AboutPage from '@/Views/AboutPage/AboutPage';
 import CompanyValuesPage from '@/Views/CompanyValuesPage/CompanyValuesPage';
 import HomePage from '@/Views/HomePage/HomePage';
 import ReportsPage from '@/Views/ReportsPage/ReportsPage';
+import NotFoundPage from '@/Views/NotFoundPage/NotFoundPage';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/company-values',
     name: 'CompanyValuesPage',
     component: CompanyValuesPage,
+  },
+  {
+    path: '*',
+    name: 'NotFoundPage',
+    component: NotFoundPage,
   },
 ];
 
