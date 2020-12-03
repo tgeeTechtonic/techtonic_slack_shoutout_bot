@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item>
+  <v-tab-item class="all-container">
     <MonthRangePicker @dateRange="handleDateRange" />
     <v-dialog v-model="dateRange.invalidDate" width="500">
       <v-card class="error-card">
@@ -19,16 +19,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <div class="all-reports">
-      <FillChart :data="shoutouts" class="all-reports__chart" />
-      <DataTable
-        class="all-reports__table"
-        :data="shoutouts"
-        :loading="loading"
-        :searchable="true"
-        title="All Shoutouts"
-      />
-    </div>
+    <v-row>
+      <v-col/>
+      <v-col sm="10" lg="6" xl="4">
+        <div class="all-reports">
+          <FillChart :data="shoutouts" class="all-reports__chart" />
+          <DataTable
+            class="all-reports__table"
+            :data="shoutouts"
+            :loading="loading"
+            :searchable="true"
+            title="All Shoutouts"
+          />
+        </div>
+      </v-col>
+      <v-col/>
+    </v-row>
   </v-tab-item>
 </template>
 
@@ -92,8 +98,11 @@ export default {
   }
 }
 
-.all-reports {
+.all-container {
   background-color: v.$main-bkgrnd;
+}
+
+.all-reports {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,11 +111,11 @@ export default {
 
   &__table {
     margin: 1rem;
-    width: 60%;
+    width: 100%;
   }
   &__chart {
     margin: 1rem 1rem 0 1rem;
-    width: 50%;
+    width: 100%;
   }
 }
 </style>
