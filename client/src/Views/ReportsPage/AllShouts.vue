@@ -1,7 +1,7 @@
 <template>
   <v-tab-item class="all-container">
     <v-row>
-      <v-col/>
+      <v-col />
       <v-col cols="10" xl="6">
         <div class="all-reports">
           <FillChart :data="shoutouts" class="all-reports__chart" />
@@ -12,13 +12,17 @@
                 Invalid Date Range Selected
               </v-card-title>
               <v-card-text>
-                The dates you have chosen are not valid, please check your selection
-                and try again.
+                The dates you have chosen are not valid, please check your
+                selection and try again.
               </v-card-text>
               <v-divider></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dateRange.invalidDate = false">
+                <v-btn
+                  color="primary"
+                  text
+                  @click="dateRange.invalidDate = false"
+                >
                   Ok
                 </v-btn>
               </v-card-actions>
@@ -33,7 +37,7 @@
           />
         </div>
       </v-col>
-      <v-col/>
+      <v-col />
     </v-row>
   </v-tab-item>
 </template>
@@ -63,7 +67,15 @@ export default {
       return this.$store.state.loading.shoutouts;
     },
     shoutouts() {
-      return this.$store.state.shoutouts.map(({ date, shoutee, shouter, shoutout, value }) => ({ date, shoutee, shouter, shoutout, value }));
+      return this.$store.state.shoutouts.map(
+        ({ date, shoutee, shouter, shoutout, value }) => ({
+          date,
+          shoutee,
+          shouter,
+          shoutout,
+          value,
+        })
+      );
     },
   },
   methods: {
@@ -89,18 +101,19 @@ export default {
 @use "@/assets/styles/variables.scss" as v;
 
 .row-container {
-    border-radius: 5px 5px 0 0;
-    margin-bottom: 0;
-    width: 100%;
-    height: 90px;
+  background-color: v.$table-white !important;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 90px;
 
-    .col-sm-3,
-    .col-11 {
-      flex: 0 0 33%;
-      max-width: 200px;
-      padding: 20px 0;
-    }
+  .col-sm-3,
+  .col-11 {
+    flex: 0 0 33%;
+    max-width: 200px;
+    padding: 20px 0;
   }
+}
 
 .error-card {
   &__title {
@@ -134,7 +147,7 @@ export default {
   .v-data-table__wrapper {
     height: 288px;
     overflow-y: scroll !important;
-    
+
     &::-webkit-scrollbar {
       width: 11px;
     }
