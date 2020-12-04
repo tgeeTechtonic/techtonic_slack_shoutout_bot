@@ -150,6 +150,10 @@ tr.v-data-table__selected {
   .v-input__icon--clear button {
     visibility: visible;
   }
+  .v-data-table__selected {
+    color: v.$main-white;
+    font-weight: 600;
+  }
   &__title {
     padding: 0;
   }
