@@ -145,7 +145,7 @@ export default {
   }
 
   .v-data-table__wrapper {
-    height: 288px;
+    height: 287px;
     overflow-y: scroll !important;
 
     &::-webkit-scrollbar {
