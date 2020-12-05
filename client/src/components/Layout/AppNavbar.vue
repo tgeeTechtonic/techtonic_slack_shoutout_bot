@@ -8,13 +8,81 @@
           src="@/assets/images/logo-techtonic.png"
         />
       </router-link>
-      <span>
+      <span class="navbar_links">
         <router-link class="navbar__link" to="/">Home</router-link>
-        <router-link class="navbar__link" to="/reports">Reports</router-link>
-        <router-link class="navbar__link" to="/about">About</router-link>
-        <router-link class="navbar__link" to="/company-values"
-          >Company Values</router-link
+        <v-menu
+          content-class="navbar__menu"
+          offset-y
+          open-on-hover
+          close-on-hover
+          close-delay="200"
+          rounded="0"
+          bottom
         >
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on">
+              <router-link
+                class="navbar__link navbar__link--menu-header"
+                to="/reports"
+                >Reports</router-link
+              >
+              <v-icon dark>mdi-chevron-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list dark>
+            <v-list-item>
+              <router-link
+                class="navbar__link navbar__link--menu-item"
+                to="/reports"
+                >Monthly</router-link
+              >
+            </v-list-item>
+            <v-list-item>
+              <router-link
+                class="navbar__link navbar__link--menu-item"
+                to="/reports"
+                >Users</router-link
+              >
+            </v-list-item>
+            <v-list-item>
+              <router-link
+                class="navbar__link navbar__link--menu-item"
+                to="/reports"
+                >All Shoutouts</router-link
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-menu
+          content-class="navbar__menu"
+          offset-y
+          open-on-hover
+          close-delay="200"
+          close-on-content-click
+          rounded="0"
+          bottom
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on">
+              <router-link
+                class="navbar__link navbar__link--menu-header"
+                to="/about"
+                >About</router-link
+              >
+              <v-icon dark>mdi-chevron-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list dark>
+            <v-list-item>
+              <router-link
+                class="navbar__link navbar__link--menu-item"
+                to="/company-values"
+              >
+                Company Values
+              </router-link>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </span>
     </v-app-bar>
   </nav>
@@ -22,7 +90,7 @@
 
 <script>
 export default {
-  name: 'AppNavbar',
+  name: "AppNavbar",
   methods: {},
 };
 </script>
@@ -38,6 +106,17 @@ nav {
   background-color: v.$main-bkgrnd !important;
   height: 70px !important;
 
+  .v-btn {
+    padding: 0 !important;
+    text-transform: none;
+    letter-spacing: 0;
+    vertical-align: initial;
+
+    .mdi-chevron-down::before {
+      color: v.$main-white !important;
+    }
+  }
+
   .v-toolbar__content {
     height: 70px !important;
     justify-content: space-between;
@@ -45,6 +124,7 @@ nav {
   &__logo {
     height: 40px;
   }
+
   &__link {
     color: v.$main-white !important;
     font-family: v.$navbar-font;
@@ -53,7 +133,28 @@ nav {
     text-decoration: none;
 
     &.router-link-exact-active {
-      color: v.$accent-green !important;
+      // color: v.$accent-green !important;
+    }
+    &--menu-item {
+      width: 100%;
+      text-align: left;
+      font-size: 1.1em;
+      padding: 0.5rem;
+    }
+
+    &--menu-header {
+      margin-right: 5px;
+    }
+  }
+
+  &__menu {
+    top: 70px !important;
+
+    .v-list-item {
+      padding: 0;
+      :hover {
+        background-color: v.$main-grey-underlay !important;
+      }
     }
   }
 }
