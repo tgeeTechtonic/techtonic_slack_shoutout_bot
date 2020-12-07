@@ -38,14 +38,14 @@
             <v-list-item>
               <router-link
                 class="navbar__link navbar__link--menu-item"
-                to="/reports"
+                to="/reports/users"
                 >Users</router-link
               >
             </v-list-item>
             <v-list-item>
               <router-link
                 class="navbar__link navbar__link--menu-item"
-                to="/reports"
+                to="/reports/all-shoutouts"
                 >All Shoutouts</router-link
               >
             </v-list-item>

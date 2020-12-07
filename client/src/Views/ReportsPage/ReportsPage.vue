@@ -1,40 +1,56 @@
 <template>
   <div class="reports-container">
     <template class="reports-container__v-tabs">
-      <v-tabs fixed-tabs v-model="tabs" :class="tabBarColoring">
-        <v-tab>Monthly Reports</v-tab>
-        <v-tab>Users</v-tab>
-        <v-tab>All Shouts</v-tab>
+      <v-tabs fixed-tabs v-model="activeTab" :slider-color="tabBarColoring">
+        <v-tab
+          v-for="tab in tabs"
+          :exact-active-class="tab.activeClass"
+          :key="tab.name"
+          :to="tab.route"
+          exact
+          >{{ tab.name }}</v-tab
+        >
       </v-tabs>
     </template>
     <div class="reports-container__main">
-      <v-tabs-items v-model="tabs">
-        <MonthlyReports />
-        <UserReports />
-        <AllShouts />
-      </v-tabs-items>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import MonthlyReports from './MonthlyReports';
-import UserReports from './UserReports';
-import AllShouts from './AllShouts';
-
 export default {
-  name: 'Reports',
-  components: { MonthlyReports, UserReports, AllShouts },
+  name: "Reports",
   data() {
     return {
-      tabs: null,
+      activeTab: "/reports",
+      tabs: [
+        {
+          name: "Monthly Reports",
+          route: "/reports",
+          activeClass: "v-tab-1--active",
+          color: "#1aa5ca",
+        },
+        {
+          name: "Users",
+          route: "/reports/users",
+          activeClass: "v-tab-2--active",
+          color: "#accc20",
+        },
+        {
+          name: "All Shouts",
+          route: "/reports/all-shoutouts",
+          activeClass: "v-tab-3--active",
+          color: "#ffc641",
+        },
+      ],
     };
   },
   computed: {
     tabBarColoring() {
-      if (this.tabs === 0) return 'v-tab-1--active';
-      else if (this.tabs === 1) return 'v-tab-2-active';
-      else return 'v-tab-3--active';
+      const activeTab = this.activeTab;
+      const tab = this.tabs.find((tab) => tab.route === activeTab);
+      return tab.color;
     },
   },
 };
@@ -55,13 +71,13 @@ export default {
   .v-tab:not(.v-tab--active) {
     color: v.$main-white !important;
   }
-  .v-tab-1--active .v-item-group {
+  .v-tab-1--active {
     color: v.$accent-blue !important;
   }
-  .v-tab-2-active .v-item-group {
+  .v-tab-2--active {
     color: v.$accent-green !important;
   }
-  .v-tab-3--active .v-item-group {
+  .v-tab-3--active {
     color: v.$accent-yellow !important;
   }
   &__main {
