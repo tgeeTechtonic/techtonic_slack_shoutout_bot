@@ -8,13 +8,11 @@
           src="@/assets/images/logo-techtonic.png"
         />
       </router-link>
-      <span class="navbar_links">
+      <span class="navbar__links">
         <router-link class="navbar__link" to="/">Home</router-link>
         <v-menu
           content-class="navbar__menu"
-          offset-y
           open-on-hover
-          close-on-hover
           close-delay="200"
           rounded="0"
           bottom
@@ -125,30 +123,34 @@ nav {
     height: 40px;
   }
 
+  &__links {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 270px;
+  }
+
   &__link {
     color: v.$main-white !important;
     font-family: v.$navbar-font;
     font-size: 1.3rem;
-    margin: auto 10px;
     text-decoration: none;
 
-    &.router-link-exact-active {
-      // color: v.$accent-green !important;
-    }
     &--menu-item {
       width: 100%;
       text-align: left;
       font-size: 1.1em;
-      padding: 0.5rem;
+      padding: 10px 20px;
     }
 
     &--menu-header {
-      margin-right: 5px;
+      margin-right: 2px;
     }
   }
 
   &__menu {
-    top: 70px !important;
+    top: 71px !important;
 
     .v-list-item {
       padding: 0;
