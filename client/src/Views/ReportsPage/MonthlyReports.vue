@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item class="monthly-reports">
+  <div class="monthly-reports">
     <div class="item-container">
       <v-date-picker
         class="item-container__picker"
@@ -17,15 +17,15 @@
       />
     </div>
     <RadarChart :data="rankedUsers.slice(0, 7)" class="item-container__chart" />
-  </v-tab-item>
+  </div>
 </template>
 
 <script>
-import RadarChart from './Charts/RadarChart';
-import DataTable from '@/components/common/DataTable';
+import RadarChart from "./Charts/RadarChart";
+import DataTable from "@/components/common/DataTable";
 
 export default {
-  name: 'MonthlyReports',
+  name: "MonthlyReports",
   components: { DataTable, RadarChart },
   data() {
     return {
@@ -40,28 +40,28 @@ export default {
   methods: {
     createDateObj() {
       return {
-        selectedMonth: this.picker.split('-')[1],
-        selectedYear: this.picker.split('-')[0],
+        selectedMonth: this.picker.split("-")[1],
+        selectedYear: this.picker.split("-")[0],
       };
     },
     getRankedList() {
       const { selectedMonth, selectedYear } = this.createDateObj();
-      this.$store.dispatch('getRankedUsersByMonth', {
-        type: this.tableView ? 'shouter' : 'shoutee',
+      this.$store.dispatch("getRankedUsersByMonth", {
+        type: this.tableView ? "shouter" : "shoutee",
         month: selectedMonth,
         year: selectedYear,
       });
     },
     selectedDate() {
       const selectedDate = new Date(
-        this.picker.split('-')[0],
-        this.picker.split('-')[1] - 1,
+        this.picker.split("-")[0],
+        this.picker.split("-")[1] - 1,
         1
       );
 
       return {
-        month: selectedDate.toLocaleString('default', { month: 'long' }),
-        year: selectedDate.toLocaleString('default', { year: 'numeric' }),
+        month: selectedDate.toLocaleString("default", { month: "long" }),
+        year: selectedDate.toLocaleString("default", { year: "numeric" }),
       };
     },
     toggleView() {
