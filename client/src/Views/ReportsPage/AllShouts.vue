@@ -142,6 +142,11 @@ export default {
   &__chart {
     margin: 1rem 1rem 0 1rem;
     width: 100%;
+
+    .apexcharts-menu.apexcharts-menu-open {
+      background-color: v.$main-bkgrnd;
+      color: v.$table-grey;
+    }
   }
 
   .v-data-table__wrapper {
