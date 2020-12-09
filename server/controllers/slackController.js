@@ -11,17 +11,28 @@ const slackController = {
     shouterId,
     shoutout
   ) => {
-    return await db('shoutouts').insert(
-      {
-        channel_name,
-        company_value: companyValueId[0],
-        date,
+    const existingRecordsFound = await db('shoutouts')
+      .where({
         message: shoutout,
         shoutee: shouteeId[0],
         shouter: shouterId[0],
-      },
-      'id'
-    );
+        company_value: companyValueId[0],
+      })
+      .then((shoutout) => Promise.all(shoutout));
+
+    if (existingRecordsFound.length) return [];
+    else
+      return await db('shoutouts').insert(
+        {
+          channel_name,
+          company_value: companyValueId[0],
+          date,
+          message: shoutout,
+          shoutee: shouteeId[0],
+          shouter: shouterId[0],
+        },
+        'id'
+      );
   },
   findorCreateCompanyValue: async (company_value) => {
     const companyValueId = await db('company_values')
@@ -56,7 +67,7 @@ const slackController = {
               msg.text.includes(':raised_hands:')
           )
           .map((msg) => ({
-            channel_name: 'gen',
+            channel_name: 'general',
             date: new Date(Math.floor(msg.ts * 1000)),
             text: msg.text,
           }));
