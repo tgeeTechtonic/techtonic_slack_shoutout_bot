@@ -4,6 +4,7 @@
       class="elevation-1"
       @click:row="handleSelection"
       :disable-sort="disableSort"
+      :expanded.sync="expanded"
       :footer-props="customFooter"
       :headers="headers"
       :hide-default-footer="hideFooter"
@@ -12,6 +13,8 @@
       :items-per-page="5"
       :loading="loading"
       :search="search"
+      :show-expand="showExpand"
+      :single-expand="true"
       :single-select="true"
       :sort-by="sortBy"
     >
@@ -40,6 +43,11 @@
       <template v-slot:[`item.avatar`]="{ item }">
         <v-avatar icon> <v-img :src="item.avatar"> </v-img></v-avatar>
       </template>
+      <template v-if="expandable" v-slot:expanded-item="{ headers, item }">
+        <td :colspan="headers.length">
+          {{ expandableRowContent(item) }}
+        </td>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -51,6 +59,7 @@ export default {
   name: 'DataTable',
   props: [
     'data', // DATA COMING IN TO BE DISPLAYED
+    'expandable', // BEING ABLE TO HAVE EXPANDABLE ROWS ON THE TABLE
     'loading', // STATE OF DATA RETRIEVAL
     'restricted', // LIMITING THE FUNCTIONALITY OF THE TABLE IN SOME WAY
     'searchable', // HAVING A SEARCH BAR INCLUDED IN THE TABLE
@@ -60,9 +69,10 @@ export default {
   ],
   data() {
     return {
+      expanded: [],
       search: '',
-      tableData: [],
       showingGiven: true,
+      tableData: [],
     };
   },
   computed: {
@@ -82,6 +92,9 @@ export default {
     },
     hideFooter() {
       return this.restricted?.footer === 'all';
+    },
+    showExpand() {
+      return this.expandable?.type?.length > 0;
     },
     sortBy() {
       return this.searchable ? 'first_name' : 'id';
@@ -118,12 +131,26 @@ export default {
           });
         }
       }
+      if (this.$props.expandable) {
+        headers.push({
+          text: '',
+          sortable: false,
+          width: '1px',
+          value: 'data-table-expand',
+        });
+      }
 
       headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
+    expandableRowContent(item) {
+      const { content, row } = this.expandable;
+      return row.find((el) => el.id === item.id)[content];
+    },
     handleSelection(item, row) {
-      if (this.selectable) {
+      if (this.$props.expandable) {
+        this.expanded = item === this.expanded[0] ? [] : [item];
+      } else if (this.selectable) {
         row.select(true);
         this.$emit('selectedUser', item.id);
       }

@@ -24,6 +24,7 @@ const createRes = async (values) => {
     const top_shouter = await getTopUser(values[i].id, 'shouter');
 
     results.push({
+      id: values[i].id,
       active: values[i].active_status,
       description: values[i].description,
       num_times_used: num_times_used[0].count,
