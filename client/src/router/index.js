@@ -23,7 +23,7 @@ const routes = [
     component: ReportsPage,
     children: [
       {
-        path: '',
+        path: 'monthly',
         name: 'MonthlyReports',
         component: MonthlyReports,
       },
