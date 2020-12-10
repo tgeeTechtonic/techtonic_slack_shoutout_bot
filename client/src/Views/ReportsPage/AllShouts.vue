@@ -4,7 +4,11 @@
       <v-col />
       <v-col cols="10" xl="6">
         <div class="all-reports">
-          <FillChart :data="shoutouts" class="all-reports__chart" />
+          <FillChart
+            class="all-reports__chart"
+            :data="shoutouts"
+            :dateRange="dateRange"
+          />
           <MonthRangePicker @dateRange="handleDateRange" />
           <v-dialog v-model="dateRange.invalidDate" width="500">
             <v-card class="error-card">

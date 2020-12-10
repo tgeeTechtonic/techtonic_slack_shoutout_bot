@@ -23,13 +23,14 @@ import {
   tableColor10,
   tableColorWhite,
 } from '../../../assets/styles/variables.scss';
+import moment from 'moment';
+moment().format();
 
 export default {
   name: 'FillChart',
-  props: ['data'],
+  props: ['data', 'dateRange'],
   data() {
     return {
-      dateRange: 30,
       chartOptions: {
         chart: {
           type: 'area',
@@ -81,11 +82,19 @@ export default {
           axisTicks: {
             show: false,
           },
+          labels: {
+            style: {
+              colors: tableColorWhite,
+            },
+          },
         },
         yaxis: {
           labels: {
             offsetX: 14,
             offsetY: -5,
+            style: {
+              colors: tableColorWhite,
+            },
           },
           tooltip: {
             enabled: true,
@@ -127,28 +136,36 @@ export default {
     series() {
       return this.formatSeries(this.data);
     },
-    initialStartDate() {
-      const startDate = new Date();
-      const pastDate = startDate.getDate() - this.dateRange;
-      startDate.setDate(pastDate);
-      return startDate.toDateString();
+    date() {
+      const { startDate, endDate } = this.$props.dateRange;
+      const [year, month] = endDate.split('-');
+      const numDaysInMonth = new Date(year, month, 0).getDate();
+      const start = moment(startDate + '-01');
+      const end = moment(endDate + '-' + numDaysInMonth);
+      const daysRange = end.diff(start, 'days');
+
+      return {
+        range: daysRange > 0 ? daysRange : 0,
+        startDate: parseInt(start.format('x')),
+        endDate: `${endDate}-${numDaysInMonth}`,
+      };
     },
   },
   methods: {
     formatSeries(data) {
-      // order chronologically and truncate data
-      const chronological = this.sortByTimeAndTruncate(data, this.dateRange);
+      // order chronologically
+      const chronological = data.sort((b, a) => a.date - b.date);
 
       // loop over chronological shoutouts,
       // fill object with company values for keys set to array of zeros length of date range
-      const series = this.createInitialSeries(chronological, this.dateRange);
+      const series = this.createInitialSeries(chronological, this.date.range);
 
-      // loop over with the dateRange, go through each day and check to see if any shoutouts match that day
+      // loop over with the date.range, go through each day and check to see if any shoutouts match that day
       // if yes, go into series object and incremement the corresponding element in correct value array
-      this.updateSeries(series, chronological, this.dateRange);
+      this.updateSeries(series, chronological, this.date.range);
 
       // loop over series object and create correctly formatted data series for graph
-      return this.createFinalSeries(series, this.dateRange);
+      return this.createFinalSeries(series, this.date.range);
     },
     createFinalSeries(seriesObj, seriesLimit) {
       let finalSeries = [];
@@ -162,7 +179,7 @@ export default {
     },
     updateSeries(seriesToUpdate, updateData, seriesLimit) {
       for (let i = seriesLimit; i >= 0; i--) {
-        let dateToCheck = new Date();
+        let dateToCheck = new Date(this.date.endDate);
         const pastDate = dateToCheck.getDate() - i;
         dateToCheck.setDate(pastDate);
         dateToCheck = dateToCheck.toISOString().split('T')[0];
@@ -186,13 +203,10 @@ export default {
 
       return series;
     },
-    sortByTimeAndTruncate(data, truncateValue) {
-      return data.sort((b, a) => a.date - b.date).slice(0, truncateValue);
-    },
     generateDayWiseTimeSeries(value, count) {
       var i = 0;
       var series = [];
-      var x = new Date(this.initialStartDate.slice(4)).getTime();
+      var x = this.date.startDate;
       while (i < count) {
         series.push([x, value[i]]);
         x += 86400000;
