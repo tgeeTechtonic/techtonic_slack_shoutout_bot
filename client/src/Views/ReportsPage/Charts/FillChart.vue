@@ -10,6 +10,20 @@
 </template>
 
 <script>
+import {
+  tableColor1,
+  tableColor2,
+  tableColor3,
+  tableColor4,
+  tableColor5,
+  tableColor6,
+  tableColor7,
+  tableColor8,
+  tableColor9,
+  tableColor10,
+  tableColorWhite,
+} from '../../../assets/styles/variables.scss';
+
 export default {
   name: 'FillChart',
   props: ['data'],
@@ -35,19 +49,23 @@ export default {
           },
         },
         colors: [
-          '#accc20',
-          '#1aa5ca',
-          '#f77046',
-          '#ADB5BD',
-          '#AF125A',
-          '#a320cc',
+          tableColor1,
+          tableColor2,
+          tableColor3,
+          tableColor4,
+          tableColor5,
+          tableColor6,
+          tableColor7,
+          tableColor8,
+          tableColor9,
+          tableColor10,
         ],
         dataLabels: {
           enabled: false,
         },
         markers: {
           size: 0,
-          strokeColor: '#fff',
+          strokeColor: tableColorWhite,
           strokeWidth: 3,
           strokeOpacity: 1,
           fillOpacity: 1,

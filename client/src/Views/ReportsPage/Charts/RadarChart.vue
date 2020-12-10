@@ -10,9 +10,16 @@
 </template>
 
 <script>
+import {
+  tableColorBlueGrey,
+  tableColorDarkGrey,
+  tableColorLightGrey,
+  tableColorWhite,
+} from '../../../assets/styles/variables.scss';
+
 export default {
-  name: "RadarChart",
-  props: ["data"],
+  name: 'RadarChart',
+  props: ['data'],
   computed: {
     quantities() {
       return this.data.map((user) => user.quantity);
@@ -23,7 +30,7 @@ export default {
     series() {
       return [
         {
-          name: "Monthly quantity",
+          name: 'Monthly quantity',
           data: this.quantities,
         },
       ];
@@ -32,7 +39,7 @@ export default {
       return {
         chart: {
           height: 350,
-          type: "radar",
+          type: 'radar',
         },
         xaxis: {
           categories: this.names,
@@ -41,17 +48,17 @@ export default {
           radar: {
             size: 120,
             polygons: {
-              strokeColors: "#e9e9e9",
+              strokeColors: tableColorDarkGrey,
               fill: {
-                colors: ["#f8f8f8", "#fff"],
+                colors: [tableColorLightGrey, tableColorWhite],
               },
             },
           },
         },
         tooltip: {
-          theme: "dark",
+          theme: 'dark',
           y: {
-            formatter: function (val) {
+            formatter: function(val) {
               return val;
             },
           },
@@ -62,13 +69,13 @@ export default {
           forceNiceScale: true,
           labels: {
             style: {
-              colors: ["#78909C"],
+              colors: [tableColorBlueGrey],
             },
-            formatter: function (val, i) {
+            formatter: function(val, i) {
               if (i % 2 === 0) {
                 return val;
               } else {
-                return "";
+                return '';
               }
             },
           },
@@ -81,7 +88,7 @@ export default {
       options: {
         chart: {
           height: 350,
-          type: "radar",
+          type: 'radar',
         },
         xaxis: {
           categories: this.names,
@@ -100,5 +107,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

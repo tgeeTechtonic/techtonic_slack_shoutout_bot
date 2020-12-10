@@ -111,8 +111,7 @@ export default {
   .v-data-table__wrapper {
     height: 288px;
     overflow-y: scroll !important;
-    scrollbar-width: thin;
-    scrollbar-color: green;
+
     &::-webkit-scrollbar {
       width: 11px;
     }
