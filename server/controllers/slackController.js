@@ -59,7 +59,7 @@ const slackController = {
   },
   getExisting: async () => {
     return await axios
-      .get(process.env.SLACK_EXISTING_SHOUTOUTS_URL)
+      .get(process.env.SLACK_EXISTING_SHOUTOUTS_URL + '&limit=500')
       .then((res) => {
         return res.data.messages
           .sort((a, b) => a.ts - b.ts)
