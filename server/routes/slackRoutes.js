@@ -5,7 +5,10 @@ const { parseReqData } = require('../utils');
 
 router.post('/add-shoutout', async (req, res) => {
   try {
-    const insertsSuccess = await insertIntoDb(req.body, new Date().toDateString());
+    const insertsSuccess = await insertIntoDb(
+      req.body,
+      new Date().toDateString()
+    );
 
     if (insertsSuccess) res.status(201).json({ msg: 'Added' });
     else res.status(401).json({ msg: "didn't work" });
@@ -18,17 +21,19 @@ router.get('/existing-shoutouts', async (req, res) => {
   try {
     const shoutouts = await slackController.getExisting();
     let successful = true;
-  
+
     for (let i = 0; i < shoutouts.length; i++) {
-      const insertsSuccess = await insertIntoDb(shoutouts[i], shoutouts[i].date);
+      const insertsSuccess = await insertIntoDb(
+        shoutouts[i],
+        shoutouts[i].date
+      );
       if (!insertsSuccess) successful = false;
     }
-  
+
     if (successful) res.status(201).json({ msg: 'Added' });
-    else res.status(401).json({ msg: "not all added" });
-    
+    else res.status(401).json({ msg: 'not all added' });
   } catch (err) {
-    console.log({err})
+    console.log({ err });
   }
 });
 

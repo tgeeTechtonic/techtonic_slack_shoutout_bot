@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import RadarChart from "./Charts/RadarChart";
-import DataTable from "@/components/common/DataTable";
+import RadarChart from './Charts/RadarChart';
+import DataTable from '@/components/common/DataTable';
 
 export default {
-  name: "MonthlyReports",
+  name: 'MonthlyReports',
   components: { DataTable, RadarChart },
   data() {
     return {
@@ -40,28 +40,28 @@ export default {
   methods: {
     createDateObj() {
       return {
-        selectedMonth: this.picker.split("-")[1],
-        selectedYear: this.picker.split("-")[0],
+        selectedMonth: this.picker.split('-')[1],
+        selectedYear: this.picker.split('-')[0],
       };
     },
     getRankedList() {
       const { selectedMonth, selectedYear } = this.createDateObj();
-      this.$store.dispatch("getRankedUsersByMonth", {
-        type: this.tableView ? "shouter" : "shoutee",
+      this.$store.dispatch('getRankedUsersByMonth', {
+        type: this.tableView ? 'shouter' : 'shoutee',
         month: selectedMonth,
         year: selectedYear,
       });
     },
     selectedDate() {
       const selectedDate = new Date(
-        this.picker.split("-")[0],
-        this.picker.split("-")[1] - 1,
+        this.picker.split('-')[0],
+        this.picker.split('-')[1] - 1,
         1
       );
 
       return {
-        month: selectedDate.toLocaleString("default", { month: "long" }),
-        year: selectedDate.toLocaleString("default", { year: "numeric" }),
+        month: selectedDate.toLocaleString('default', { month: 'long' }),
+        year: selectedDate.toLocaleString('default', { year: 'numeric' }),
       };
     },
     toggleView() {
@@ -111,8 +111,7 @@ export default {
   .v-data-table__wrapper {
     height: 288px;
     overflow-y: scroll !important;
-    scrollbar-width: thin;
-    scrollbar-color: green;
+
     &::-webkit-scrollbar {
       width: 11px;
     }

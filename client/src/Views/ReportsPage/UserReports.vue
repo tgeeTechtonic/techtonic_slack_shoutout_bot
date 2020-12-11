@@ -39,21 +39,21 @@
 </template>
 
 <script>
-import MonthRangePicker from "@/components/common/MonthRangePicker";
-import DataTable from "@/components/common/DataTable";
-import UserProfileCard from "./UserProfileCard";
+import MonthRangePicker from '@/components/common/MonthRangePicker';
+import DataTable from '@/components/common/DataTable';
+import UserProfileCard from './UserProfileCard';
 
 export default {
-  name: "UserReports",
+  name: 'UserReports',
   components: { DataTable, UserProfileCard, MonthRangePicker },
   created() {
-    this.$store.dispatch("getUsers");
+    this.$store.dispatch('getUsers');
   },
   data() {
     return {
       dateRange: {
         invalidDate: false,
-        startDate: new Date().toISOString().substr(0, 4) + "-01",
+        startDate: new Date().toISOString().substr(0, 4) + '-01',
         endDate: new Date().toISOString().substr(0, 7),
       },
     };
@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     handleSelectedUser(userId) {
-      this.$store.dispatch("getUser", { userId, ...this.dateRange });
+      this.$store.dispatch('getUser', { userId, ...this.dateRange });
     },
     handleDateRange(date) {
       this.dateRange = date;
@@ -86,7 +86,7 @@ export default {
   },
   watch: {
     dateRange() {
-      this.$store.dispatch("getUser", {
+      this.$store.dispatch('getUser', {
         userId: this.user.id,
         ...this.dateRange,
       });

@@ -19,30 +19,34 @@
 </template>
 
 <script>
-import {accentGreen, accentBlue, accentYellow} from '../../assets/styles/variables.scss';
+import {
+  accentGreen,
+  accentBlue,
+  accentYellow,
+} from '../../assets/styles/variables.scss';
 
 export default {
-  name: "Reports",
+  name: 'Reports',
   data() {
     return {
       activeTab: '/reports/monthly',
       tabs: [
         {
-          name: "Monthly Reports",
-          route: "/reports/monthly",
-          activeClass: "v-tab-1--active",
+          name: 'Monthly Reports',
+          route: '/reports/monthly',
+          activeClass: 'v-tab-1--active',
           color: accentBlue,
         },
         {
-          name: "Users",
-          route: "/reports/users",
-          activeClass: "v-tab-2--active",
+          name: 'Users',
+          route: '/reports/users',
+          activeClass: 'v-tab-2--active',
           color: accentGreen,
         },
         {
-          name: "All Shouts",
-          route: "/reports/all-shoutouts",
-          activeClass: "v-tab-3--active",
+          name: 'All Shouts',
+          route: '/reports/all-shoutouts',
+          activeClass: 'v-tab-3--active',
           color: accentYellow,
         },
       ],

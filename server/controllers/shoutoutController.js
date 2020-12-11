@@ -5,7 +5,7 @@ const shoutoutController = {
   getRecentShoutouts: async () => {
     return await db('shoutouts')
       .select()
-      .orderBy('date', 'desc')
+      .orderBy('id', 'desc')
       .limit(5)
       .then((shouts) =>
         Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
@@ -20,7 +20,7 @@ const shoutoutController = {
     return await db('shoutouts')
       .select()
       .whereBetween('date', [firstDay, lastDay])
-      .orderBy('date', 'desc')
+      .orderBy('id', 'desc')
       .then((shoutouts) =>
         Promise.all(shoutouts.map((shout) => createShoutoutRes(db, shout)))
       )
@@ -35,7 +35,7 @@ const shoutoutController = {
         new Date(start_date),
         new Date(year, parseInt(month) - 1, numDaysInMonth),
       ])
-      .orderBy('date', 'desc')
+      .orderBy('id', 'desc')
       .then((shouts) =>
         Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
       )
@@ -51,7 +51,7 @@ const shoutoutController = {
         new Date(year, parseInt(month) - 1, numDaysInMonth),
       ])
       .where(type, userId)
-      .orderBy('date', 'desc')
+      .orderBy('id', 'desc')
       .then((shouts) =>
         Promise.all(shouts.map((shout) => createShoutoutRes(db, shout)))
       );

@@ -22,7 +22,7 @@ const updateRecentShoutouts = (state, recentShoutouts) => {
 };
 
 const updateShoutouts = (state, shoutouts) => {
-  state.shoutouts = shoutoutFormatter(shoutouts) || [];
+  state.shoutouts = shoutouts.length ? shoutoutFormatter(shoutouts) : [];
 };
 
 const updateUser = (state, user) => {

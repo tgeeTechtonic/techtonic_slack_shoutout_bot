@@ -4,7 +4,11 @@
       <v-col />
       <v-col cols="10" xl="6">
         <div class="all-reports">
-          <FillChart :data="shoutouts" class="all-reports__chart" />
+          <FillChart
+            class="all-reports__chart"
+            :data="shoutouts"
+            :dateRange="dateRange"
+          />
           <MonthRangePicker @dateRange="handleDateRange" />
           <v-dialog v-model="dateRange.invalidDate" width="500">
             <v-card class="error-card">
@@ -142,6 +146,11 @@ export default {
   &__chart {
     margin: 1rem 1rem 0 1rem;
     width: 100%;
+
+    .apexcharts-menu.apexcharts-menu-open {
+      background-color: v.$main-bkgrnd;
+      color: v.$table-grey;
+    }
   }
 
   .v-data-table__wrapper {

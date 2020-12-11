@@ -14,13 +14,13 @@ export const shoutoutFormatter = (response) => {
 };
 
 export const rankedShoutersFormatter = (shouts) => {
-  return shouts.map((shout) => {
-    return {
-      rank: shout.rank,
-      name: shout.name,
-      quantity: shout.num_shoutouts,
-    };
-  });
+  return shouts.length
+    ? shouts.map((shout) => ({
+        rank: shout.rank,
+        name: shout.name,
+        quantity: shout.num_shoutouts,
+      }))
+    : [];
 };
 
 export const userFormatter = (user) => {
