@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item class="user-container">
+  <div class="user-container">
     <MonthRangePicker @dateRange="handleDateRange" />
     <v-dialog v-model="dateRange.invalidDate" width="500">
       <v-card class="error-card">
@@ -35,7 +35,7 @@
       </div>
       <div v-else class="user-container__profile-card--placeholder"></div>
     </div>
-  </v-tab-item>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item class="all-container">
+  <div class="all-container">
     <v-row>
       <v-col />
       <v-col cols="10" xl="6">
@@ -43,7 +43,7 @@
       </v-col>
       <v-col />
     </v-row>
-  </v-tab-item>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <v-tab-item class="monthly-reports">
+  <div class="monthly-reports">
     <div class="item-container">
       <v-date-picker
         class="item-container__picker"
@@ -17,7 +17,7 @@
       />
     </div>
     <RadarChart :data="rankedUsers.slice(0, 7)" class="item-container__chart" />
-  </v-tab-item>
+  </div>
 </template>
 
 <script>
