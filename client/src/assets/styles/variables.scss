@@ -25,6 +25,9 @@ $main-font: 'Fjalla One', 'Open Sans', sans-serif;
 $navbar-font: $main-font;
 
 :export {
+  accentBlue: $accent-blue;
+  accentGreen: $accent-green;
+  accentYellow: $accent-yellow;
   tableColor1: $accent-blue;
   tableColor2: $accent-green;
   tableColor3: $accent-grey;
