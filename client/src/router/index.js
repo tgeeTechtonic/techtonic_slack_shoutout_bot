@@ -7,6 +7,7 @@ import ReportsPage from '@/Views/ReportsPage/ReportsPage';
 import AllShouts from '@/Views/ReportsPage/AllShouts';
 import MonthlyReports from '@/Views/ReportsPage/MonthlyReports';
 import UserReports from '@/Views/ReportsPage/UserReports';
+import LoginPage from '@/Views/LoginPage/LoginPage';
 import NotFoundPage from '@/Views/NotFoundPage/NotFoundPage';
 
 Vue.use(VueRouter);
@@ -48,6 +49,11 @@ const routes = [
     path: '/company-values',
     name: 'CompanyValuesPage',
     component: CompanyValuesPage,
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
   },
   {
     path: '*',
