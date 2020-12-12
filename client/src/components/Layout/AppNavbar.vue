@@ -75,7 +75,53 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <router-link class="navbar__link" to="login" @click.native="toggleLogin"
+        <v-menu
+          v-if="admin.name"
+          bottom
+          offset-y
+          open-on-hover
+          rounded="0"
+          close-delay="200"
+          content-class="navbar__menu rounded-b"
+          close-on-content-click
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on" :ripple="false">
+              <span
+                class="navbar__link navbar__link--menu-heading"
+                to="/about"
+                >{{ admin.name }}</span
+              >
+              <v-icon dark>mdi-chevron-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list dark>
+            <v-list-item>
+              <router-link class="navbar__link" to="/admin-profile"
+                >Profile</router-link
+              >
+            </v-list-item>
+            <v-list-item>
+              <router-link class="navbar__link" to="/company-values">
+                Company Values
+              </router-link>
+            </v-list-item>
+            <v-list-item>
+              <router-link
+                class="navbar__link"
+                to="/logout"
+                @click.native="toggleLogin"
+              >
+                Logout
+              </router-link>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <router-link
+          v-else
+          class="navbar__link"
+          to="login"
+          @click.native="toggleLogin"
           >Login</router-link
         >
       </span>
@@ -89,6 +135,12 @@ export default {
   methods: {
     toggleLogin() {
       this.$store.dispatch('toggleLogin');
+      if (this.admin.name) this.$store.dispatch('logoutAdmin');
+    },
+  },
+  computed: {
+    admin() {
+      return this.$store.state.admin;
     },
   },
 };
