@@ -5,12 +5,20 @@ import {
   userFormatter,
 } from '../shared/formatters';
 
+const updateAdmin = (state, admin) => {
+  state.admin = admin;
+};
+
 const updateCompanyValues = (state, values) => {
   state.companyValues = companyValuesFormatter(values) || [];
 };
 
 const updateLoading = (state, { data, isLoading }) => {
   state.loading[data] = isLoading;
+};
+
+const updateLoginView = (state) => {
+  state.showLogin = !state.showLogin;
 };
 
 const updateRankedUsers = (state, ranked) => {
@@ -35,8 +43,10 @@ const updateUsers = (state, users) => {
 
 // direct store changes
 export default {
+  updateAdmin,
   updateCompanyValues,
   updateLoading,
+  updateLoginView,
   updateRankedUsers,
   updateRecentShoutouts,
   updateShoutouts,
