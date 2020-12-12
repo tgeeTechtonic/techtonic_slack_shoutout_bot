@@ -37,7 +37,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <p>{{ email }}{{ password }}</p>
   </v-row>
 </template>
 
