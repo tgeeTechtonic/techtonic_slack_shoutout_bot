@@ -75,6 +75,9 @@
             </v-list-item>
           </v-list>
         </v-menu>
+        <router-link class="navbar__link" to="login" @click.native="toggleLogin"
+          >Login</router-link
+        >
       </span>
     </v-app-bar>
   </nav>
@@ -83,7 +86,11 @@
 <script>
 export default {
   name: 'AppNavbar',
-  methods: {},
+  methods: {
+    toggleLogin() {
+      this.$store.dispatch('toggleLogin');
+    },
+  },
 };
 </script>
 
@@ -128,14 +135,13 @@ nav {
     align-items: center;
     display: inline-flex;
     flex-wrap: nowrap;
-    margin-right: 60px;
   }
   &__link {
     color: v.$main-white !important;
     font-family: v.$navbar-font;
     font-size: 1.3rem;
     text-decoration: none;
-    padding: 0 18px;
+    padding: 0 8px;
     margin-right: 5px;
   }
   &__menu {
@@ -157,7 +163,7 @@ nav {
         text-align: left;
         width: 100%;
       }
-      :active: {
+      :active {
         background-color: v.$main-black-overlay;
         color: v.$main-white;
       }
