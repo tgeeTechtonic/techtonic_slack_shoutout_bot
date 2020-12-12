@@ -29,7 +29,7 @@
         />
         <NavDropdown
           v-if="admin.name"
-          :title="admin.name"
+          :avatar="admin.avatar"
           :links="[
             { name: 'Profile', path: '/admin-profile' },
             { name: 'Company Values', path: '/company-values' },

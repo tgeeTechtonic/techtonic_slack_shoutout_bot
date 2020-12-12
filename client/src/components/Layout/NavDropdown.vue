@@ -8,7 +8,12 @@
   >
     <template v-slot:activator="{ on }">
       <v-btn text v-on="on" :ripple="false">
-        <span class="navbar__link navbar__link--menu-heading">{{ title }}</span>
+        <span v-if="title" class="navbar__link navbar__link--menu-heading">{{
+          title
+        }}</span>
+        <v-avatar v-else size="42" class="navbar__avatar">
+          <v-img :src="avatar"></v-img>
+        </v-avatar>
         <v-icon dark>mdi-chevron-down</v-icon>
       </v-btn>
     </template>
@@ -28,7 +33,7 @@
 <script>
 export default {
   name: 'NavDropdown',
-  props: ['title', 'links'],
+  props: ['avatar', 'title', 'links'],
   methods: {
     handleLogout(path) {
       if (path === '/logout') this.$emit('logout');
