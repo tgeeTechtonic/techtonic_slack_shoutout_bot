@@ -88,10 +88,15 @@ const getUsers = async ({ commit }) => {
   commit('updateLoading', { data: 'users', isLoading: false });
 };
 
-const loginAdmin = async ({ commit }, admin) => {
+const loginAdmin = async ({ commit }, adminInfo) => {
   try {
-    const adminData = await getAdmin(admin);
-    commit('updateAdmin', adminData);
+    const admin = await getAdmin(adminInfo);
+    if (admin.data) commit('updateAdmin', admin.data);
+    else
+      commit(
+        'updateLoginError',
+        'Email or Password is incorrect, please try again'
+      );
   } catch (e) {
     console.error;
   }
@@ -99,6 +104,10 @@ const loginAdmin = async ({ commit }, admin) => {
 
 const logoutAdmin = async ({ commit }) => {
   commit('updateAdmin', {});
+};
+
+const resetError = ({ commit }) => {
+  commit('updateLoginError', '');
 };
 
 const toggleLogin = ({ commit }) => {
@@ -115,5 +124,6 @@ export default {
   getUsers,
   loginAdmin,
   logoutAdmin,
+  resetError,
   toggleLogin,
 };
