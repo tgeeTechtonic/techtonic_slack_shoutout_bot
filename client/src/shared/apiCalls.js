@@ -68,3 +68,13 @@ export const getAllCompanyValues = async () => {
     console.log(error);
   }
 };
+
+export const getAdmin = async (admin) => {
+  try {
+    const response = await axios.post(baseUrl + '/api/login', admin);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error
+  }
+};
