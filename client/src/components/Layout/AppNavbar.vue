@@ -28,7 +28,7 @@
           ]"
         />
         <NavDropdown
-          v-if="admin.name"
+          v-if="admin.firstName"
           :avatar="admin.avatar"
           :links="[
             { name: 'Profile', path: '/admin-profile' },
@@ -58,12 +58,17 @@ export default {
   methods: {
     toggleLogin() {
       this.$store.dispatch('toggleLogin');
-      if (this.admin.name) this.$store.dispatch('logoutAdmin');
+      if (this.admin.firstName) this.$store.dispatch('logoutAdmin');
     },
   },
   computed: {
     admin() {
       return this.$store.state.admin;
+    },
+  },
+  watch: {
+    admin(newValue) {
+      if (newValue.firstName) this.$router.go(-1);
     },
   },
 };

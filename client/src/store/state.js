@@ -1,6 +1,7 @@
 export const state = {
   admin: {}, // DATA FOR ADMIN USER CURRENTLY LOGGED IN
   companyValues: [], // ARRAY OF COMPANY VALUES IN DATABASE
+  loginError: '',
   rankedUsers: [], // ARRAY OF USERS RANKED BY SHOUTOUTS GIVEN / RECEIVED
   recentShoutouts: [], // ARRAY OF THE MOST RECENT SHOUTOUTS FROM DATABASE
   shoutouts: [], // ARRAY OF QUERIED SHOUTOUTS RETRIEVED FROM DATABASE

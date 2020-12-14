@@ -1,15 +1,16 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="400px">
-      <v-card>
+      <v-card class="login">
         <v-card-title>
           <span class="headline">Admin Login</span>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="login__form">
           <v-container>
             <v-row>
               <v-col cols="12">
                 <v-text-field
+                  @focus="handleFocus"
                   label="Email"
                   required
                   v-model="email"
@@ -17,6 +18,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  @focus="handleFocus"
                   label="Password"
                   type="password"
                   required
@@ -25,8 +27,17 @@
               </v-col>
             </v-row>
           </v-container>
+          <v-alert
+            class="login__alert"
+            dense
+            outlined
+            type="error"
+            v-if="error !== ''"
+            >{{ error }}</v-alert
+          >
+          <div v-else class="login__error--placeholder"></div>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="login__actions">
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = 'cancel'">
             Cancel
@@ -50,21 +61,54 @@ export default {
     };
   },
   computed: {
+    error() {
+      return this.$store.state.loginError;
+    },
     dialog: {
       get() {
         return this.$store.state.showLogin;
       },
       set(input) {
-        this.$router.go(-1);
-        if (input === 'cancel') this.$store.dispatch('toggleLogin');
-        else {
+        if (input === 'cancel') {
+          this.$router.go(-1);
+          this.$store.dispatch('toggleLogin');
+          this.$store.dispatch('resetError');
+        } else {
           const { email, password } = this;
           this.$store.dispatch('loginAdmin', { email, password });
         }
       },
     },
   },
+  methods: {
+    handleFocus() {
+      if (this.error !== '') this.$store.dispatch('resetError');
+    },
+    submitLogin() {
+      const { email, password } = this;
+      this.$store.dispatch('loginAdmin', { email, password });
+    },
+  },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.login {
+  &__form {
+    padding-bottom: 0 !important;
+
+    .v-alert {
+      margin: -30px 10px 0 10px;
+    }
+  }
+  &__actions {
+    margin-top: 8px;
+  }
+  &__alert {
+    margin-bottom: 0 !important;
+  }
+  &__error--placeholder {
+    height: 32px;
+  }
+}
+</style>

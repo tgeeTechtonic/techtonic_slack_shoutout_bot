@@ -53,7 +53,7 @@ const routes = [
     component: CompanyValuesPage,
   },
   {
-    path: '/login',
+    path: '*/login',
     name: 'LoginPage',
     component: LoginPage,
   },
