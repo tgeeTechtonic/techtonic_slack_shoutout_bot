@@ -76,3 +76,21 @@ export const companyValuesFormatter = (values) => {
     }
   );
 };
+
+export const adminFormatter = ({
+  avatar,
+  email,
+  first_name,
+  last_name,
+  role,
+}) => {
+  return !first_name
+    ? {}
+    : {
+        avatar,
+        email,
+        firstName: first_name,
+        lastName: last_name,
+        role,
+      };
+};
