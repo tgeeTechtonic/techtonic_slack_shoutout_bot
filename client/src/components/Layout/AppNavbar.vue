@@ -9,9 +9,6 @@
         />
       </router-link>
       <span class="navbar__links">
-        <router-link class="navbar__link navbar__link--heading" to="/"
-          >Home</router-link
-        >
         <NavDropdown
           title="Reports"
           :links="[
