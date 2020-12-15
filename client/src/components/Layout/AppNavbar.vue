@@ -44,6 +44,7 @@
           @click.native="toggleLogin"
           >Login</router-link
         >
+        <button class="navbar__btn">Contact Us</button>
       </span>
     </v-app-bar>
   </nav>
@@ -97,6 +98,17 @@ nav {
     align-items: center;
     display: inline-flex;
     flex-wrap: nowrap;
+  }
+  &__btn {
+    background-color: v.$accent-green;
+    font-family: v.$navbar-font;
+    color: v.$main-grey-underlay;
+    padding: 8px 7px;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: unset;
+    }
   }
 }
 </style>
