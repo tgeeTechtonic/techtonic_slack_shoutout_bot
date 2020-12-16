@@ -1,3 +1,4 @@
+require('./dbConfig');
 const express = require('express');
 const cors = require('cors');
 const path = require('path').join(__dirname, '../client/dist/');
