@@ -1,4 +1,4 @@
-name: Deploy to Heroku (Frontend)
+name: Development workflow (push to Netlify)
 
 on:
   push:
@@ -11,9 +11,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Add frontend remote origin
-        run: git remote add heroku-frontend https://heroku:${{ secrets.HEROKU_API_TOKEN_FE }}@git.heroku.com/${{ secrets.HEROKU_FRONTEND_SHOUTOUT_APP }}.git
-      - name: Deploy frontend to Heroku
-        run: git push heroku-frontend `git subtree split --prefix client develop`:refs/heads/master --force
+      - name: Checkout code
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: cd client
+      - run: npm install
+      - run: npm run build --if-present
+
+      - name: Deploy to netlify
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
+        with:
+          args: deploy --dir=dist --prod
+          secrets: '["NETLIFY_AUTH_TOKEN", "DEV_ NETLIFY_SITE_ID"]'
