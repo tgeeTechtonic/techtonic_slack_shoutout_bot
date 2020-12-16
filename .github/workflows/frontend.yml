@@ -11,6 +11,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VUE_APP_URL: ${{ secrets.VUE_APP_URL }}
     defaults:
       run:
         working-directory: client
@@ -30,6 +32,5 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
-          VUE_APP_URL: ${{ secrets.VUE_APP_URL }}
         with:
           args: deploy --dir=client/dist --prod
