@@ -12,6 +12,24 @@ const userController = {
       .where('id', userId)
       .then((user) => createUserRes(user[0], start_date, end_date));
   },
+  verifyAdmin: async (email, password) => {
+    return await db('users')
+      .where({
+        email: email,
+        password: password,
+      })
+      .then((user) => user);
+  },
+  getAdmin: async (email) => {
+    return await db('users')
+      .where({ email: email })
+      .then((user) => user);
+  },
+  updateAdmin: async (user) => {
+    return await db('users')
+      .where({ id: user.id })
+      .update({ ...user }, ['id']);
+  },
 };
 
 const createUserRes = async (

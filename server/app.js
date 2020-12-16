@@ -14,6 +14,7 @@ app.use('/api', require('./routes/shoutoutRoutes'));
 app.use('/api', require('./routes/slackRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/valuesRoutes'));
+app.use('/api', require('./routes/adminRoutes'));
 app.all('/api*', (req, res) => {
   res
     .status(400)
