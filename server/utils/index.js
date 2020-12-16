@@ -63,7 +63,9 @@ exports.parseReqData = ({ channel_name, text }) => {
    *SPLIT AGAIN ON EACH TO GRAB WHAT IS NEEDED AND TRIM EXTRA WHITESPACE OFF
    */
   const shoutout_message = text.split('&gt;')[1].split('\n')[0].trim();
-  const company_value = text.split('&gt;')[2]?.split('\n')[0].trim() || 'N/A';
+  const company_value = text.split('&gt;')[2]
+    ? text.split('&gt;')[2].split('\n')[0].trim()
+    : 'N/A';
 
   return {
     channel_name,
