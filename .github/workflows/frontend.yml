@@ -5,8 +5,8 @@ on:
     branches:
       - develop
     paths:
-      - "client/**"
-      - ".github/workflows/frontend.yml"
+      - 'client/**'
+      - '.github/workflows/frontend.yml'
 
 jobs:
   deploy:
@@ -31,5 +31,4 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir=dist --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+          args: deploy --dir=client/dist --prod
