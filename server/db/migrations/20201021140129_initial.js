@@ -16,14 +16,14 @@ exports.up = (knex) => {
     .createTable('company_values', (table) => {
       table.increments('id').primary();
       table.string('value');
-      table.string('description').defaultTo('Please add a description');
+      table.text('description').defaultTo('Please add a description');
       table.boolean('active_status').defaultTo(true);
       table.timestamps(true, true);
     })
     .createTable('shoutouts', (table) => {
       table.increments('id').primary();
       table.date('date');
-      table.string('message');
+      table.text('message');
       table.string('channel_name');
       table.integer('shoutee').unsigned();
       table.foreign('shoutee').references('users.id');
