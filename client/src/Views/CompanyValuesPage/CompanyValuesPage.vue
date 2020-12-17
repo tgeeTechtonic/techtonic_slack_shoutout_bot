@@ -39,7 +39,6 @@ export default {
           num_times_used: value.num_times_used,
           top_user_shoutouts_given: value.top_user_shoutouts_given,
           top_user_shoutouts_received: value.top_user_shoutouts_received,
-          active: value.active,
         };
       });
     },

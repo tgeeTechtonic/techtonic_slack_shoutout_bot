@@ -57,7 +57,6 @@ export const companyValuesFormatter = (values) => {
   return values.map(
     ({
       id,
-      active,
       description,
       num_times_used,
       top_user_shoutouts_given,
@@ -70,7 +69,6 @@ export const companyValuesFormatter = (values) => {
         num_times_used,
         top_user_shoutouts_given,
         top_user_shoutouts_received,
-        active,
         description,
       };
     }
