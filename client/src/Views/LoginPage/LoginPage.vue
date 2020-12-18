@@ -2,9 +2,6 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="400px">
       <v-card class="login">
-        <v-card-title>
-          <span class="headline">Admin Login</span>
-        </v-card-title>
         <v-card-text class="login__form">
           <v-container>
             <v-row>
@@ -39,9 +36,9 @@
         </v-card-text>
         <v-card-actions class="login__actions">
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = 'cancel'">
-            Cancel
-          </v-btn>
+          <span class="login__disclaimer"
+            >*Techtonic email account required</span
+          >
           <v-btn color="blue darken-1" text @click="dialog = 'login'">
             Login
           </v-btn>
@@ -68,15 +65,9 @@ export default {
       get() {
         return this.$store.state.showLogin;
       },
-      set(input) {
-        if (input === 'cancel') {
-          this.$router.go(-1);
-          this.$store.dispatch('toggleLogin');
-          this.$store.dispatch('resetError');
-        } else {
-          const { email, password } = this;
-          this.$store.dispatch('loginAdmin', { email, password });
-        }
+      set() {
+        const { email, password } = this;
+        this.$store.dispatch('loginAdmin', { email, password });
       },
     },
   },
@@ -103,6 +94,9 @@ export default {
   }
   &__actions {
     margin-top: 8px;
+  }
+  &__disclaimer {
+    margin-right: 45px;
   }
   &__alert {
     margin-bottom: 0 !important;
