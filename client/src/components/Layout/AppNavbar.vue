@@ -8,7 +8,7 @@
           src="@/assets/images/logo-techtonic.png"
         />
       </router-link>
-      <span class="navbar__links">
+      <span v-if="admin.firstName" class="navbar__links">
         <NavDropdown
           title="Reports"
           :links="[
@@ -25,23 +25,10 @@
           ]"
         />
         <NavDropdown
-          v-if="admin.firstName"
           :avatar="admin.avatar"
-          :links="[
-            { name: 'Profile', path: '/admin-profile' },
-            { name: 'Company Values', path: '/company-values' },
-            { name: 'Logout', path: '/logout' },
-          ]"
-          @logout="toggleLogin"
+          :links="[{ name: 'Logout', path: '/logout' }]"
+          @logout="logout"
         />
-        <router-link
-          v-else
-          class="navbar__link"
-          to="login"
-          @click.native="toggleLogin"
-          >Login</router-link
-        >
-        <button class="navbar__btn">Contact Us</button>
       </span>
     </v-app-bar>
   </nav>
@@ -54,8 +41,7 @@ export default {
   name: 'AppNavbar',
   components: { NavDropdown },
   methods: {
-    toggleLogin() {
-      this.$store.dispatch('toggleLogin');
+    logout() {
       if (this.admin.firstName) this.$store.dispatch('logoutAdmin');
     },
   },
@@ -66,7 +52,7 @@ export default {
   },
   watch: {
     admin(newValue) {
-      if (newValue.firstName) this.$router.go(-1);
+      if (newValue.firstName) this.$router.push('/home');
     },
   },
 };
