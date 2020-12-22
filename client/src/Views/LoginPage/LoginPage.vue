@@ -63,7 +63,7 @@ export default {
     },
     dialog: {
       get() {
-        return this.$store.state.showLogin;
+        return true;
       },
       set() {
         const { email, password } = this;

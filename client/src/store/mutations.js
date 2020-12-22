@@ -22,10 +22,6 @@ const updateLoginError = (state, error) => {
   state.loginError = error.length ? error : '';
 };
 
-const updateLoginView = (state) => {
-  state.showLogin = !state.showLogin;
-};
-
 const updateRankedUsers = (state, ranked) => {
   state.rankedUsers = rankedShoutersFormatter(ranked) || [];
 };
@@ -52,7 +48,6 @@ export default {
   updateEmployee,
   updateLoading,
   updateLoginError,
-  updateLoginView,
   updateRankedUsers,
   updateRecentShoutouts,
   updateShoutouts,
