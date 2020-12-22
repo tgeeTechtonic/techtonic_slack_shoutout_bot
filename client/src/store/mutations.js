@@ -1,17 +1,17 @@
 import {
-  adminFormatter,
   companyValuesFormatter,
+  employeeFormatter,
   rankedShoutersFormatter,
   shoutoutFormatter,
   userFormatter,
 } from '../shared/formatters';
 
-const updateAdmin = (state, admin) => {
-  state.admin = adminFormatter(admin);
-};
-
 const updateCompanyValues = (state, values) => {
   state.companyValues = companyValuesFormatter(values) || [];
+};
+
+const updateEmployee = (state, employee) => {
+  state.employee = employeeFormatter(employee);
 };
 
 const updateLoading = (state, { data, isLoading }) => {
@@ -48,8 +48,8 @@ const updateUsers = (state, users) => {
 
 // direct store changes
 export default {
-  updateAdmin,
   updateCompanyValues,
+  updateEmployee,
   updateLoading,
   updateLoginError,
   updateLoginView,

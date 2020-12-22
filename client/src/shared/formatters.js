@@ -75,7 +75,7 @@ export const companyValuesFormatter = (values) => {
   );
 };
 
-export const adminFormatter = ({
+export const employeeFormatter = ({
   avatar,
   email,
   first_name,

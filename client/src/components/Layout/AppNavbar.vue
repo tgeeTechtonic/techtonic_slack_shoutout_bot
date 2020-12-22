@@ -8,7 +8,7 @@
           src="@/assets/images/logo-techtonic.png"
         />
       </router-link>
-      <span v-if="admin.firstName" class="navbar__links">
+      <span v-if="employee.firstName" class="navbar__links">
         <NavDropdown
           title="Reports"
           :links="[
@@ -25,9 +25,8 @@
           ]"
         />
         <NavDropdown
-          :avatar="admin.avatar"
+          :avatar="employee.avatar"
           :links="[{ name: 'Logout', path: '/logout' }]"
-          @logout="logout"
         />
       </span>
     </v-app-bar>
@@ -40,18 +39,13 @@ import NavDropdown from './NavDropdown';
 export default {
   name: 'AppNavbar',
   components: { NavDropdown },
-  methods: {
-    logout() {
-      if (this.admin.firstName) this.$store.dispatch('logoutAdmin');
-    },
-  },
   computed: {
-    admin() {
-      return this.$store.state.admin;
+    employee() {
+      return this.$store.state.employee;
     },
   },
   watch: {
-    admin(newValue) {
+    employee(newValue) {
       if (newValue.firstName) this.$router.push('/home');
     },
   },

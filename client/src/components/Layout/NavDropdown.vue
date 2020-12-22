@@ -36,7 +36,7 @@ export default {
   props: ['avatar', 'title', 'links'],
   methods: {
     handleLogout(path) {
-      if (path === '/logout') this.$emit('logout');
+      if (path === '/logout') this.$store.dispatch('logoutEmployee');
     },
   },
 };

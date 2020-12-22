@@ -77,7 +77,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const notLoggedIn = to.name !== 'LoginPage' && !store.state.admin.firstName;
+  const notLoggedIn = to.name !== 'LoginPage' && !store.state.employee.firstName;
 
   if (notLoggedIn) next({ name: 'LoginPage' });
   else next();

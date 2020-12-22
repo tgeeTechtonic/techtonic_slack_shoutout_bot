@@ -67,7 +67,7 @@ export default {
       },
       set() {
         const { email, password } = this;
-        this.$store.dispatch('loginAdmin', { email, password });
+        this.$store.dispatch('loginEmployee', { email, password });
       },
     },
   },
@@ -77,7 +77,7 @@ export default {
     },
     submitLogin() {
       const { email, password } = this;
-      this.$store.dispatch('loginAdmin', { email, password });
+      this.$store.dispatch('loginEmployee', { email, password });
     },
   },
 };
