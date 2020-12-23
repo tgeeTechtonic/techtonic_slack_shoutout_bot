@@ -6,7 +6,7 @@ import {
   getSingleUser,
   getShoutoutsByType,
   getAllCompanyValues,
-  getAdmin,
+  getEmployee,
 } from '@/shared/apiCalls';
 
 const getCompanyValues = async ({ commit }) => {
@@ -88,10 +88,10 @@ const getUsers = async ({ commit }) => {
   commit('updateLoading', { data: 'users', isLoading: false });
 };
 
-const loginAdmin = async ({ commit }, adminInfo) => {
+const loginEmployee = async ({ commit }, employeeInfo) => {
   try {
-    const admin = await getAdmin(adminInfo);
-    if (admin.data) commit('updateAdmin', admin.data);
+    const employee = await getEmployee(employeeInfo);
+    if (employee.data) commit('updateEmployee', employee.data);
     else
       commit(
         'updateLoginError',
@@ -102,16 +102,12 @@ const loginAdmin = async ({ commit }, adminInfo) => {
   }
 };
 
-const logoutAdmin = async ({ commit }) => {
-  commit('updateAdmin', {});
+const logoutEmployee = async ({ commit }) => {
+  commit('updateEmployee', {});
 };
 
 const resetError = ({ commit }) => {
   commit('updateLoginError', '');
-};
-
-const toggleLogin = ({ commit }) => {
-  commit('updateLoginView');
 };
 
 // async changes (api calls)
@@ -122,8 +118,7 @@ export default {
   getShouts,
   getUser,
   getUsers,
-  loginAdmin,
-  logoutAdmin,
+  loginEmployee,
+  logoutEmployee,
   resetError,
-  toggleLogin,
 };

@@ -9,14 +9,19 @@ import MonthlyReports from '@/Views/ReportsPage/MonthlyReports';
 import UserReports from '@/Views/ReportsPage/UserReports';
 import LoginPage from '@/Views/LoginPage/LoginPage';
 import LogoutPage from '@/Views/LogoutPage/LogoutPage';
-import AdminPage from '@/Views/AdminPage/AdminPage';
 import NotFoundPage from '@/Views/NotFoundPage/NotFoundPage';
+import store from '../store/store';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
+    name: 'LoginPage',
+    component: LoginPage,
+  },
+  {
+    path: '/home',
     name: 'HomePage',
     component: HomePage,
   },
@@ -52,20 +57,11 @@ const routes = [
     name: 'CompanyValuesPage',
     component: CompanyValuesPage,
   },
-  {
-    path: '*/login',
-    name: 'LoginPage',
-    component: LoginPage,
-  },
+
   {
     path: '/logout',
     name: 'LogoutPage',
     component: LogoutPage,
-  },
-  {
-    path: '/admin-profile',
-    name: 'AdminPage',
-    component: AdminPage,
   },
   {
     path: '*',
@@ -78,6 +74,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const notLoggedIn = to.name !== 'LoginPage' && !store.state.employee.firstName;
+
+  if (notLoggedIn) next({ name: 'LoginPage' });
+  else next();
 });
 
 export default router;

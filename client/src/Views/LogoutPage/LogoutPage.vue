@@ -23,7 +23,7 @@ export default {
   created() {
     setTimeout(() => {
       this.$router.push('/');
-    }, 2500);
+    }, 2000);
   },
 };
 </script>

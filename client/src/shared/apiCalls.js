@@ -69,12 +69,12 @@ export const getAllCompanyValues = async () => {
   }
 };
 
-export const getAdmin = async (admin) => {
+export const getEmployee = async (employee) => {
   try {
-    const response = await axios.post(baseUrl + '/api/login', admin);
+    const response = await axios.post(baseUrl + '/api/login', employee);
     return response;
   } catch (error) {
     console.log(error);
-    return error
+    return error;
   }
 };
