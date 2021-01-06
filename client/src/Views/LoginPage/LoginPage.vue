@@ -5,6 +5,15 @@
         <v-card-text class="login__form">
           <v-container>
             <v-row>
+              <Button
+                htmlType="submit"
+                loading="{authenticating}"
+                @click="signInWithGoogle"
+              >
+                <img src="@/assets/images/google_signin.png" alt="Submit" />
+              </Button>
+            </v-row>
+            <v-row>
               <v-col cols="12">
                 <v-text-field
                   @focus="handleFocus"
@@ -49,6 +58,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'LoginPage',
   data() {
@@ -78,6 +89,12 @@ export default {
     submitLogin() {
       const { email, password } = this;
       this.$store.dispatch('loginEmployee', { email, password });
+    },
+    signInWithGoogle() {
+      console.log('something happened');
+      
+
+
     },
   },
 };
