@@ -3,11 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "config": {
+    "s3BucketName": "tg-xpress-edge1",
+    "region": "us-west-2",
+    "cloudFormationStackName": "ServerlessExpressStack",
+    "functionName": "xpress",
+    "domain": ""
+  },
   "scripts": {
     "start": "node server.js",
     "devstart": "nodemon server.js",
     "reseed": "knex migrate:rollback && knex migrate:latest && knex seed:run",
-    "rake": "knex migrate:rollback && knex migrate:latest"
+    "rake": "knex migrate:rollback && knex migrate:latest",
+    "local": "node scripts/local",
+    "invoke-lambda": "cross-var aws lambda invoke --function-name $npm_package_config_functionName --region $npm_package_config_region --payload file://api-gateway-event.json lambda-invoke-response.json && cat lambda-invoke-response.json",
+    "create-bucket": "cross-var aws s3 mb s3://$npm_package_config_s3BucketName --region $npm_package_config_region",
+    "delete-bucket": "cross-var aws s3 rb s3://$npm_package_config_s3BucketName --region $npm_package_config_region",
+    "package": "cross-var aws cloudformation package --template ./sam-template.yaml --s3-bucket $npm_package_config_s3BucketName --output-template sam-template.packaged.yaml --region $npm_package_config_region",
+    "deploy": "cross-var aws cloudformation deploy --template-file sam-template.packaged.yaml --stack-name $npm_package_config_cloudFormationStackName --capabilities CAPABILITY_IAM --region $npm_package_config_region --parameter-overrides DomainName=$npm_package_config_domain",
+    "package-deploy": "npm run package && npm run deploy",
+    "delete-stack": "cross-var aws cloudformation delete-stack --stack-name $npm_package_config_cloudFormationStackName --region $npm_package_config_region",
+    "setup": "npm install && npm install --prefix ./src ./ && (cross-var aws s3api get-bucket-location --bucket $npm_package_config_s3BucketName --region $npm_package_config_region || npm run create-bucket) && npm run package-deploy"
   },
   "repository": {
     "type": "git",
@@ -20,10 +36,12 @@
   },
   "homepage": "https://github.com/broxburyTechtonic/techtonic_slack_shoutout_bot#readme",
   "dependencies": {
+    "@vendia/serverless-express": "^4.0.0-rc.7",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
+    "cross-var": "^1.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.6",
