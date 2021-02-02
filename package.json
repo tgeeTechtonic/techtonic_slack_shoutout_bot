@@ -1,0 +1,27 @@
+{
+  "name": "shoutout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "start:client": "cd client && npm run serve",
+    "start:server": "cd server && npm start",
+    "start": "concurrently \"npm:start:server\" \"npm:start:client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgeeTechtonic/techtonic_slack_shoutout_bot.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tgeeTechtonic/techtonic_slack_shoutout_bot/issues"
+  },
+  "homepage": "https://github.com/tgeeTechtonic/techtonic_slack_shoutout_bot#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
