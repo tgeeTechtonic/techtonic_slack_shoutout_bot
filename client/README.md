@@ -32,7 +32,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 There are a few different tools being used for testing this application. All of the infrastructure and an example is in place, but these docs may be helpful:
 
-[Jest](https://jestjs.io/docs/en/getting-started) - The man testing framework
+[Jest](https://jestjs.io/docs/en/getting-started) - The main testing framework
 
 [JestDOM](https://github.com/testing-library/jest-dom) - extends jest assertions with more DOM-friendly phrases.
 
