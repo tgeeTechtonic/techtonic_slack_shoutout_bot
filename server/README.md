@@ -33,7 +33,6 @@ If you do not have Homebrew and/or PostgreSQL installed on your machine
 [Elliot Mackinnon](https://github.com/emackinnonTechtonic)
 
 [Travis Gee](https://github.com/tgeeTechtonic)
-
 ---
 
 ## Base URL
@@ -175,4 +174,9 @@ If you do not have Homebrew and/or PostgreSQL installed on your machine
         "id": 1
       }
     ```
+---
 
+## Deployment
+```
+npm run package-deploy
+```
