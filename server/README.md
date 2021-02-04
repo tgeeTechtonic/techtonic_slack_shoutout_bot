@@ -178,5 +178,5 @@ If you do not have Homebrew and/or PostgreSQL installed on your machine
 
 ## Deployment
 ```
-npm run package-deploy
+npm run deploy
 ```
