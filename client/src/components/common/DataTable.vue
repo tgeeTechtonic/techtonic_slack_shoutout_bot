@@ -41,15 +41,14 @@
           ></v-switch>
           <v-btn
             @click="handleExport"
-            class="ml-4 mr-2 mt-1"
+            class="ml-3 mr-1 primary--text"
             depressed
             icon
-            tile
             plain
             large
             v-if="exportable"
           >
-            <v-icon>mdi-file-download</v-icon>
+            <v-icon>mdi-download</v-icon>
           </v-btn>
         </v-toolbar>
       </template>

@@ -10,6 +10,7 @@
       <DataTable
         class="item-container__table"
         :data="rankedUsers"
+        :exportable="true"
         :loading="loading"
         :title="tableTitle"
         :toggleable="true"
