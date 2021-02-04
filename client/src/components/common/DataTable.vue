@@ -12,6 +12,7 @@
       item-key="id"
       :items-per-page="5"
       :loading="loading"
+      ref="dataTableRef"
       :search="search"
       :show-expand="showExpand"
       :single-expand="true"
@@ -38,6 +39,18 @@
             :label="showingGiven ? 'Toggle To Received' : 'Toggle To Given'"
             v-model="handleToggle"
           ></v-switch>
+          <v-btn
+            @click="handleExport"
+            class="ml-4 mr-2 mt-1"
+            depressed
+            icon
+            tile
+            plain
+            large
+            v-if="exportable"
+          >
+            <v-icon>mdi-file-download</v-icon>
+          </v-btn>
         </v-toolbar>
       </template>
       <template v-slot:[`item.avatar`]="{ item }">
@@ -60,6 +73,7 @@ export default {
   props: [
     'data', // DATA COMING IN TO BE DISPLAYED
     'expandable', // BEING ABLE TO HAVE EXPANDABLE ROWS ON THE TABLE
+    'exportable', // ADDS AN EXPORT BUTTON TO TABLE TOOLBAR
     'loading', // STATE OF DATA RETRIEVAL
     'restricted', // LIMITING THE FUNCTIONALITY OF THE TABLE IN SOME WAY
     'searchable', // HAVING A SEARCH BAR INCLUDED IN THE TABLE
@@ -154,6 +168,9 @@ export default {
         row.select(true);
         this.$emit('selectedUser', item.id);
       }
+    },
+    handleExport() {
+      console.log('table data', this.$refs.dataTableRef.selectableItems);
     },
   },
   watch: {
