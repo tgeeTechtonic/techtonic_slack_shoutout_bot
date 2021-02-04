@@ -41,14 +41,15 @@
           ></v-switch>
           <v-btn
             @click="handleExport"
-            class="ml-3 mr-1 primary--text"
+            class="ml-3 mr-1"
+            color="success"
             depressed
             icon
             plain
             large
             v-if="exportable"
           >
-            <v-icon>mdi-download</v-icon>
+            <v-icon>mdi-table-arrow-down</v-icon>
           </v-btn>
         </v-toolbar>
       </template>
@@ -65,7 +66,11 @@
 </template>
 
 <script>
-import { capitalizeWordFormatter } from '@/shared/formatters';
+import {
+  capitalizeWordFormatter,
+  fileDateTimeFormatter,
+  CSVFormatter,
+} from '@/shared/formatters';
 
 export default {
   name: 'DataTable',
@@ -156,6 +161,25 @@ export default {
       headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
+    download(data) {
+      // credit: https://www.raymondcamden.com/2020/12/15/vue-quick-shot-downloading-data-as-a-file
+      const dt = fileDateTimeFormatter();
+      const filename = `shoutouts-${dt}.csv`;
+      const text = CSVFormatter(data);
+
+      let element = document.createElement('a');
+      element.setAttribute(
+        'href',
+        'data:text/csv;charset=utf-8,' + encodeURIComponent(text)
+      );
+      element.setAttribute('download', filename);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+      document.body.removeChild(element);
+    },
     expandableRowContent(item) {
       const { content, row } = this.expandable;
       return row.find((el) => el.id === item.id)[content];
@@ -169,7 +193,10 @@ export default {
       }
     },
     handleExport() {
-      console.log('table data', this.$refs.dataTableRef.selectableItems);
+      const items = this.$refs.dataTableRef.selectableItems;
+      if (!items.length) return;
+      const data = items.map((item) => ({ ...item }));
+      this.download(data);
     },
   },
   watch: {
