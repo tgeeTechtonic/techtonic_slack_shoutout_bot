@@ -16,7 +16,7 @@
               {{ user.last_name }}
             </h3>
             <div class="blue--text mb-2">
-              {{ user.email }}
+              <a class=profile-card__email-link :href="emailLink" target="_blank">{{ user.email }}</a>
             </div>
             <div class="blue--text subheading font-weight-bold">
               @{{ user.slack_handle }}
@@ -81,6 +81,9 @@ export default {
     loading() {
       return this.$store.state.loading.user;
     },
+    emailLink() {
+      return "https://mail.google.com/mail/?view=cm&to=" + this.user.email;
+    },
     userSummary() {
       const {
         most_company_value_given,
@@ -142,6 +145,10 @@ export default {
         border: 3px solid v.$main-white;
       }
     }
+  }
+
+  &__email-link {
+    text-decoration: none;
   }
 }
 </style>
