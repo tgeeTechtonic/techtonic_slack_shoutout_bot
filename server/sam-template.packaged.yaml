@@ -22,7 +22,7 @@ Resources:
   ExpressLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://tg-xpress-edge1/2febd916ea5cb3d0edc41d6dae7962ef
+      CodeUri: s3://tg-shoutouts-xpress-edge1/dce5eb6535e95d2ca75b97754f88b291
       Handler: lambda.handler
       MemorySize: 128
       Runtime: nodejs12.x

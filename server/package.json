@@ -4,10 +4,10 @@
   "description": "",
   "main": "server.js",
   "config": {
-    "s3BucketName": "tg-xpress-edge1",
+    "s3BucketName": "tg-shoutouts-xpress-edge1",
     "region": "us-west-2",
-    "cloudFormationStackName": "ServerlessExpressStack",
-    "functionName": "xpress",
+    "cloudFormationStackName": "TGShoutoutsServerlessExpressStack",
+    "functionName": "tg-shoutouts-express",
     "domain": ""
   },
   "scripts": {
