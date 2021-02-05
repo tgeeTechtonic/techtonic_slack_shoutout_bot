@@ -14,7 +14,12 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: {
+      database: 'shoutoutapp',
+      host: process.env.DATABASE_URL,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+    },
     useNullAsDefault: true,
     migrations: {
       directory: './db/migrations',
