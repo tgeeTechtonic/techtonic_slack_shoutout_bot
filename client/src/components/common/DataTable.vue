@@ -41,6 +41,7 @@
           ></v-switch>
           <v-btn
             @click="handleExport"
+            :disabled="isExportDisabled"
             class="ml-3 mr-1"
             color="success"
             depressed
@@ -88,6 +89,7 @@ export default {
   data() {
     return {
       expanded: [],
+      isExportDisabled: true,
       search: '',
       showingGiven: true,
       tableData: [],
@@ -198,6 +200,13 @@ export default {
       const data = items.map((item) => ({ ...item }));
       this.download(data);
     },
+  },
+  updated() {
+    this.$nextTick(function() {
+      // Code that will run only after the
+      // entire view has been re-rendered
+      this.isExportDisabled = !this.$refs?.dataTableRef?.selectableItems.length;
+    });
   },
   watch: {
     data: {
