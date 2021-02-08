@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-shoutoutapp-dev-102048-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825921662876:role/amplify-shoutoutapp-dev-102048-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825921662876:role/amplify-shoutoutapp-dev-102048-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-shoutoutapp-dev-102048-deployment",
+      "UnauthRoleName": "amplify-shoutoutapp-dev-102048-unauthRole",
+      "StackName": "amplify-shoutoutapp-dev-102048",
+      "StackId": "arn:aws:cloudformation:us-west-2:825921662876:stack/amplify-shoutoutapp-dev-102048/87368460-5043-11eb-98ea-0212ca96b023",
+      "AmplifyAppId": "d37ian06gxmtuw"
+    },
+    "categories": {
+      "auth": {
+        "shoutoutapp2631ab89": {}
+      }
+    }
+  }
+}

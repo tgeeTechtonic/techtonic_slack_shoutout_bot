@@ -13,7 +13,7 @@
                 <img src="@/assets/images/google_signin.png" alt="Submit" />
               </Button>
             </v-row>
-            <v-row>
+            <!-- <v-row>
               <v-col cols="12">
                 <v-text-field
                   @focus="handleFocus"
@@ -31,7 +31,7 @@
                   v-model="password"
                 ></v-text-field>
               </v-col>
-            </v-row>
+            </v-row> -->
           </v-container>
           <v-alert
             class="login__alert"
@@ -52,13 +52,14 @@
             Login
           </v-btn>
         </v-card-actions>
+        <p>{{ store }}</p>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
 
 <script>
-
+import { Auth } from 'aws-amplify';
 
 export default {
   name: 'LoginPage',
@@ -67,6 +68,15 @@ export default {
       email: '',
       password: '',
     };
+  },
+  async mounted() {
+    const { attributes } = await Auth.currentAuthenticatedUser();
+    console.log(attributes);
+    if (attributes.email) {
+      await this.$store.dispatch('doLogin', 'bob');
+      this.$router.push('/home');
+    }
+    console.log('mounted');
   },
   computed: {
     error() {
@@ -81,6 +91,9 @@ export default {
         this.$store.dispatch('loginEmployee', { email, password });
       },
     },
+    store() {
+      return this.$store.state.employee;
+    },
   },
   methods: {
     handleFocus() {
@@ -92,9 +105,10 @@ export default {
     },
     signInWithGoogle() {
       console.log('something happened');
-      
-
-
+      Auth.federatedSignIn({ provider: 'Google' });
+      // const { attributes } = await Auth.currentAuthenticatedUser();
+      // console.log(attributes);
+      // if (attributes.email) this.$store.dispatch('doLogin');
     },
   },
 };

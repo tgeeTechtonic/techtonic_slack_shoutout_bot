@@ -42,6 +42,10 @@ const updateUsers = (state, users) => {
   state.users = users || [];
 };
 
+const hackEmp = (state, name) => {
+  state.employee.firstName = name;
+};
+
 // direct store changes
 export default {
   updateCompanyValues,
@@ -53,4 +57,5 @@ export default {
   updateShoutouts,
   updateUser,
   updateUsers,
+  hackEmp,
 };

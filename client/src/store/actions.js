@@ -110,6 +110,11 @@ const resetError = ({ commit }) => {
   commit('updateLoginError', '');
 };
 
+const doLogin = ({ commit }, name) => {
+  commit('hackEmp', name);
+};
+
+
 // async changes (api calls)
 export default {
   getCompanyValues,
@@ -121,4 +126,5 @@ export default {
   loginEmployee,
   logoutEmployee,
   resetError,
+  doLogin
 };

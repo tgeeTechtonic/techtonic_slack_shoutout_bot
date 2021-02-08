@@ -18,11 +18,14 @@
 </template>
 
 <script>
+import { Auth } from 'aws-amplify';
+
 export default {
   name: 'LogoutPage',
   created() {
     setTimeout(() => {
-      this.$router.push('/');
+      // this.$router.push('/');
+      Auth.signOut();
     }, 2000);
   },
 };
