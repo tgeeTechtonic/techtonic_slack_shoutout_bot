@@ -28,11 +28,15 @@ If you do not have Homebrew and/or PostgreSQL installed on your machine
 ---
 
 ## Developers
-[Brian Roxbury](https://github.com/broxburyTechtonic)
+Brian Roxbury
 
-[Elliot Mackinnon](https://github.com/emackinnonTechtonic)
+Desmond Rogers
 
-[Travis Gee](https://github.com/tgeeTechtonic)
+Elliot Mackinnon
+
+Garrett Roberts
+
+Travis Gee
 
 ---
 
