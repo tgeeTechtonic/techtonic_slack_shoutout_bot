@@ -1,3 +1,6 @@
+import moment from 'moment';
+import Papa from 'papaparse';
+
 export const shoutoutFormatter = (response) => {
   const formattedShoutouts = response.map((shoutout) => {
     return {
@@ -92,3 +95,10 @@ export const employeeFormatter = ({
         role,
       };
 };
+
+export const fileDateTimeFormatter = () => {
+  const TIMESTAMP_FORMAT = 'YYYYMMDDhhmmss';
+  return moment().format(TIMESTAMP_FORMAT);
+};
+
+export const CSVFormatter = (data) => Papa.unparse(data);

@@ -37,6 +37,7 @@
             :data="shoutouts"
             :loading="loading"
             :searchable="true"
+            :exportable="true"
             title="All Shoutouts"
           />
         </div>

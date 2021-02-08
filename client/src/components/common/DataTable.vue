@@ -12,6 +12,7 @@
       item-key="id"
       :items-per-page="5"
       :loading="loading"
+      ref="dataTableRef"
       :search="search"
       :show-expand="showExpand"
       :single-expand="true"
@@ -38,6 +39,19 @@
             :label="showingGiven ? 'Toggle To Received' : 'Toggle To Given'"
             v-model="handleToggle"
           ></v-switch>
+          <v-btn
+            @click="handleExport"
+            :disabled="isExportDisabled"
+            class="ml-3 mr-1"
+            color="success"
+            depressed
+            icon
+            plain
+            large
+            v-if="exportable"
+          >
+            <v-icon>mdi-table-arrow-down</v-icon>
+          </v-btn>
         </v-toolbar>
       </template>
       <template v-slot:[`item.avatar`]="{ item }">
@@ -53,13 +67,18 @@
 </template>
 
 <script>
-import { capitalizeWordFormatter } from '@/shared/formatters';
+import {
+  capitalizeWordFormatter,
+  fileDateTimeFormatter,
+  CSVFormatter,
+} from '@/shared/formatters';
 
 export default {
   name: 'DataTable',
   props: [
     'data', // DATA COMING IN TO BE DISPLAYED
     'expandable', // BEING ABLE TO HAVE EXPANDABLE ROWS ON THE TABLE
+    'exportable', // ADDS AN EXPORT BUTTON TO TABLE TOOLBAR
     'loading', // STATE OF DATA RETRIEVAL
     'restricted', // LIMITING THE FUNCTIONALITY OF THE TABLE IN SOME WAY
     'searchable', // HAVING A SEARCH BAR INCLUDED IN THE TABLE
@@ -70,6 +89,7 @@ export default {
   data() {
     return {
       expanded: [],
+      isExportDisabled: true,
       search: '',
       showingGiven: true,
       tableData: [],
@@ -143,6 +163,25 @@ export default {
       headers[0] = { ...headers[0], align: 'start' };
       return headers;
     },
+    download(data) {
+      // credit: https://www.raymondcamden.com/2020/12/15/vue-quick-shot-downloading-data-as-a-file
+      const dt = fileDateTimeFormatter();
+      const filename = `shoutouts-${dt}.csv`;
+      const text = CSVFormatter(data);
+
+      let element = document.createElement('a');
+      element.setAttribute(
+        'href',
+        'data:text/csv;charset=utf-8,' + encodeURIComponent(text)
+      );
+      element.setAttribute('download', filename);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+      document.body.removeChild(element);
+    },
     expandableRowContent(item) {
       const { content, row } = this.expandable;
       return row.find((el) => el.id === item.id)[content];
@@ -155,6 +194,19 @@ export default {
         this.$emit('selectedUser', item.id);
       }
     },
+    handleExport() {
+      const items = this.$refs.dataTableRef.selectableItems;
+      if (!items.length) return;
+      const data = items.map((item) => ({ ...item }));
+      this.download(data);
+    },
+  },
+  updated() {
+    this.$nextTick(function() {
+      // Code that will run only after the
+      // entire view has been re-rendered
+      this.isExportDisabled = !this.$refs?.dataTableRef?.selectableItems.length;
+    });
   },
   watch: {
     data: {
