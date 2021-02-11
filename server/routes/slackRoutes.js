@@ -17,6 +17,18 @@ router.post('/add-shoutout', async (req, res) => {
   }
 });
 
+router.get('/get-slack-profile/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const profile = await slackController.getSlackProfile(email);
+
+    if (profile) res.status(201).json(profile);
+    else res.status(401).json({ msg: 'Profile was not found' });
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
 router.get('/existing-shoutouts', async (req, res) => {
   try {
     const shoutouts = await slackController.getExisting();

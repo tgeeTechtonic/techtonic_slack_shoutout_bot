@@ -75,6 +75,28 @@ const slackController = {
           }));
       });
   },
+  getSlackProfile: async (email) => {
+    return await axios
+      .get(`${process.env.SLACK_PROFILE_URL}email=${email}`)
+      .then((res) => {
+        if (res.data.error) return null;
+        else {
+          const {
+            image_192,
+            email,
+            first_name,
+            last_name,
+          } = res.data.user.profile;
+
+          return {
+            avatar: image_192,
+            email,
+            first_name,
+            last_name,
+          };
+        }
+      });
+  },
 };
 
 const getCompanyValueInfo = (value) => {
