@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" data-testid="footer">
     <p class="footer__copyright">
       Copyright © {{ getYear() }} Techtonic. All Rights Reserved. Privacy
       Policy.
